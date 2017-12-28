@@ -18,7 +18,12 @@ class StartVC: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if Global.shared.fetchComplete {
+            checkApp()
+        }
         
+        Global.shared.loadingDoneCallback = checkApp
+
     }
     
     
@@ -30,7 +35,9 @@ class StartVC: BaseVC {
         super.viewDidAppear(animated)
         
         // check app
-        self.checkApp()
+        //self.checkApp()
+        
+
     }
     
     override func viewWillDisappear(_ animated: Bool) {

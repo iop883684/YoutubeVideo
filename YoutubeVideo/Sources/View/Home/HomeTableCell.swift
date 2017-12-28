@@ -72,6 +72,10 @@ extension HomeTableCell: UICollectionViewDelegateFlowLayout {
         
         return CGSize(width: 320, height: 180)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    
+    }
 }
 
 

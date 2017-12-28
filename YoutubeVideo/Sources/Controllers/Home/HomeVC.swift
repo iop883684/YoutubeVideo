@@ -51,8 +51,11 @@ class HomeVC: BaseVC {
         
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
         navigationController?.navigationBar.barTintColor = UIColor(red: 36/255, green: 38/255, blue: 41/255, alpha: 1)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
 
-        
     }
     
     func configureTableView(){
@@ -71,8 +74,6 @@ class HomeVC: BaseVC {
     //MARK: - Call API
     
     func requestApi(_ url: String, completion: (() -> ())?){
-        
-        HUD.show(.labeledProgress(title: "Loading", subtitle: ""))
         
         Alamofire
             .request(url, method: .get)
@@ -97,8 +98,6 @@ class HomeVC: BaseVC {
                 if url == url2 {
                     strongSelf.otherPlayList = playList
                 }
-                
-                HUD.hide(animated: true)
                 
                 strongSelf.data = playList
                 
@@ -157,4 +156,5 @@ extension HomeVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 220
     }
+
 }

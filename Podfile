@@ -10,5 +10,6 @@ target 'YoutubeVideo' do
 pod 'AlamofireObjectMapper', '~> 5.0'
 pod 'PKHUD', '~> 5.0'
 pod 'Kingfisher', '~> 4.0'
+pod 'Firebase/RemoteConfig'
 
 end
