@@ -23,6 +23,7 @@ class MainTabBarController: UITabBarController {
         super.awakeFromNib()
         
         // setup
+        
         self.setupStartApp()
     }
     
@@ -31,6 +32,7 @@ class MainTabBarController: UITabBarController {
         
         // self.view.alpha = 0.0
         // setup view
+        
         self.setupView()
     }
     
@@ -59,6 +61,7 @@ class MainTabBarController: UITabBarController {
     // MARK: - Setup View
     private func setupView() {
         
+        self.tabBar.barTintColor = UIColor(red: 36/255, green: 38/255, blue: 41/255, alpha: 1)
     }
     
     func hideTabbar(hide: Bool?, animated: Bool = false) {
