@@ -9,8 +9,6 @@
 import UIKit
 import Kingfisher
 
-let homeCollectionCellId = "homeCollectionCell"
-
 class HomeCollectionCell: UICollectionViewCell {
 
     @IBOutlet weak var title: UILabel!

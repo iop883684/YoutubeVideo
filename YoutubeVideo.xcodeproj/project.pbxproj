@@ -29,6 +29,7 @@
 		8898A8DB1FF10A450046F034 /* HomeTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8898A8D91FF10A450046F034 /* HomeTableCell.xib */; };
 		8898A8DD1FF10ADB0046F034 /* TableView + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8898A8DC1FF10ADB0046F034 /* TableView + Ext.swift */; };
 		8898A8DF1FF10C8B0046F034 /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8898A8DE1FF10C8B0046F034 /* Search.storyboard */; };
+		DC7A81CA1FFAC19100350E32 /* Youtube.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7A81C91FFAC19100350E32 /* Youtube.swift */; };
 		E48980DA425372DE0EEC997E /* Pods_YoutubeVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA448A49D62E051178BF882E /* Pods_YoutubeVideo.framework */; };
 /* End PBXBuildFile section */
 
@@ -59,6 +60,7 @@
 		8898A8D91FF10A450046F034 /* HomeTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeTableCell.xib; sourceTree = "<group>"; };
 		8898A8DC1FF10ADB0046F034 /* TableView + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TableView + Ext.swift"; sourceTree = "<group>"; };
 		8898A8DE1FF10C8B0046F034 /* Search.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Search.storyboard; sourceTree = "<group>"; };
+		DC7A81C91FFAC19100350E32 /* Youtube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Youtube.swift; sourceTree = "<group>"; };
 		FA448A49D62E051178BF882E /* Pods_YoutubeVideo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YoutubeVideo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -85,6 +87,7 @@
 		88675AD31FF3B1C2004E0468 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				DC7A81C91FFAC19100350E32 /* Youtube.swift */,
 				88675AD41FF3B1D5004E0468 /* PlayList.swift */,
 			);
 			path = Model;
@@ -379,6 +382,7 @@
 				8898A8CF1FF0FFB50046F034 /* StartVC.swift in Sources */,
 				8898A8DA1FF10A450046F034 /* HomeTableCell.swift in Sources */,
 				8898A8AE1FF0F6390046F034 /* AppDelegate.swift in Sources */,
+				DC7A81CA1FFAC19100350E32 /* Youtube.swift in Sources */,
 				8898A8C61FF0FE8B0046F034 /* BaseVC.swift in Sources */,
 				88675AD71FF3B289004E0468 /* Constants.swift in Sources */,
 			);

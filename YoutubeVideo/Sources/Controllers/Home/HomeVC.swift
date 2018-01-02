@@ -11,52 +11,37 @@ import AlamofireObjectMapper
 import Alamofire
 import PKHUD
 
-private let url1 = "https://www.googleapis.com/youtube/v3/playlists?maxResults=10&channelId=UC0jDoh3tVXCaqJ6oTve8ebA&part=snippet%2CcontentDetails%20&key=\(API_KEY)"
-
-private let url2 = "https://www.googleapis.com/youtube/v3/playlists?maxResults=10&channelId=UCuP2vJ6kRutQBfRmdcI92mA&part=snippet%2CcontentDetails%20&key=\(API_KEY)"
-
-private let url3 = "https://www.googleapis.com/youtube/v3/playlists?maxResults=10&channelId=UC_R1lYegdBvvo8zLzqzz9sQ&part=snippet%2CcontentDetails%20&key=\(API_KEY)"
-
+private let homeTableCellId = "homeTableCell"
 
 class HomeVC: BaseVC {
     
-    //MARK: - IBOutlet
-    
     @IBOutlet weak var tableView: UITableView!
-    
-    //MARK: - Variables
-    
-    var data: [Any] = []
-    
-    var playList: [PlayList] = []
-    
-    var otherPlayList: [PlayList] = []
-    
-    var listTitle: [String] = []
+
+    private var data = [(title:String, obj:[PlayList])]()
+    private var listPlaylist = [(title:String, channelId:String)]()
     
     //MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        listTitle = ["FAP TV", "Lets Build That App", "10IFsOfficialSubTeam"]
-        
-        requestApi(url1) {
-            self.requestApi(url2, completion: {
-                self.requestApi(url3, completion: {
-                    self.configureTableView()
-                })
-            })
-        }
-        
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
         navigationController?.navigationBar.barTintColor = UIColor(red: 36/255, green: 38/255, blue: 41/255, alpha: 1)
+
+        self.configureTableView()
+        
+        listPlaylist = [
+            ("FAP TV","UC0jDoh3tVXCaqJ6oTve8ebA"),
+            ("Lets Build That App","UCuP2vJ6kRutQBfRmdcI92mA"),
+            ("10IFsOfficialSubTeam","UC_R1lYegdBvvo8zLzqzz9sQ")
+        ]
+        
+        for obj in listPlaylist{
+            getListVideo(obj.channelId, obj.title)
+        }
+        
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-
-    }
     
     func configureTableView(){
         
@@ -73,35 +58,38 @@ class HomeVC: BaseVC {
     
     //MARK: - Call API
     
-    func requestApi(_ url: String, completion: (() -> ())?){
+    func getListVideo(_ channelId: String, _ title:String){
         
+        let url = "https://www.googleapis.com/youtube/v3/playlists"
+        print(url)
+        let params:Parameters = [
+            "part":"snippet,contentDetails",
+            "type":"video",
+            "key":API_KEY,
+            "maxResults":10,
+            "channelId":channelId]
+        print(params)
+        
+
         Alamofire
-            .request(url, method: .get)
+            .request(url, method: .get, parameters: params)
             .responseArray(keyPath: "items") { [weak self] (response: DataResponse<[PlayList]>) in
                 
-                guard let strongSelf = self else {
+                guard let strongSelf = self else {return}
+                
+                if let error = response.result.error {
+                    print(error.localizedDescription)
                     return
                 }
                 
-                if response.result.error != nil {
-                    print("Error")
+                guard let videos = response.result.value else {
+                    print("Empty")
+                    return
                 }
                 
-                guard let playList = response.result.value else {
-                    return print("Empty")
-                }
+                strongSelf.data.append((title,videos))
+                strongSelf.tableView.reloadData()
                 
-                if url == url1 {
-                    strongSelf.playList = playList
-                }
-                
-                if url == url2 {
-                    strongSelf.otherPlayList = playList
-                }
-                
-                strongSelf.data = playList
-                
-                completion?()
         }
     }
 }
@@ -111,41 +99,18 @@ class HomeVC: BaseVC {
 extension HomeVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return data.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        switch indexPath.row {
-        case 0:
-            let cell = tableView.dequeueReusableCell(withIdentifier: homeTableCellId, for: indexPath) as! HomeTableCell
-            
-            cell.contentView.backgroundColor =  UIColor(red: 18/255, green: 21/255, blue: 24/255, alpha: 1)
-            
-            cell.configure(playList, listTitle[indexPath.row])
-            
-            return cell
-            
-        case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: homeTableCellId, for: indexPath) as! HomeTableCell
-            
-            cell.contentView.backgroundColor =  UIColor(red: 18/255, green: 21/255, blue: 24/255, alpha: 1)
-            
-            cell.configure(otherPlayList, listTitle[indexPath.row])
-            
-            return cell
-            
-        case 2:
-            let cell = tableView.dequeueReusableCell(withIdentifier: homeTableCellId, for: indexPath) as! HomeTableCell
-            
-            cell.contentView.backgroundColor =  UIColor(red: 18/255, green: 21/255, blue: 24/255, alpha: 1)
-            
-            cell.configure(data, listTitle[indexPath.row])
-            
-            return cell
-        default:
-            return UITableViewCell()
-        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: homeTableCellId, for: indexPath) as! HomeTableCell
+        
+        let obj = data[indexPath.row]
+        cell.configure(obj.obj, obj.title)
+        
+        return cell
+
     }
 }
 
@@ -154,7 +119,7 @@ extension HomeVC: UITableViewDataSource {
 extension HomeVC: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 220
+        return 230
     }
 
 }

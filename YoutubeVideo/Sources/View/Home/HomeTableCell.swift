@@ -8,40 +8,38 @@
 
 import UIKit
 
-let homeTableCellId = "homeTableCell"
+private let homeCollectionCellId = "homeCollectionCell"
 
 class HomeTableCell: UITableViewCell {
     
     //MARK: - IBOutlets
     
     @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var title: UILabel!
+    @IBOutlet weak var lbTitle: UILabel!
     
     //MARK: - Variables
     
     var data: [PlayList] = []
     
-    func configure(_ item: Any, _ title: String){
-        
-        if let item = item as? [PlayList] {
-            self.data = item
-        }
-        
-        self.title.text = title
-        
-        configCollectionView()
-    }
-    
-    func configCollectionView(){
+    override func awakeFromNib() {
         
         collectionView.delegate = self
         collectionView.dataSource = self
         
         collectionView.registerNib(HomeCollectionCell.self, homeCollectionCellId)
         collectionView.backgroundColor = UIColor(red: 21/255, green: 21/255, blue: 21/255, alpha: 1)
+        contentView.backgroundColor =  UIColor(red: 18/255, green: 21/255, blue: 24/255, alpha: 1)
+    }
+    
+    func configure(_ item: [PlayList], _ title: String){
+        
+        self.data = item
+        lbTitle.text = title
         
         collectionView.reloadData()
+        
     }
+
     
 }
 
