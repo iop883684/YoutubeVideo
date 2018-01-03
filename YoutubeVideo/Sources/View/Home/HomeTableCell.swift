@@ -10,6 +10,11 @@ import UIKit
 
 private let homeCollectionCellId = "homeCollectionCell"
 
+protocol HomeTableCellDelegate: NSObjectProtocol{
+    
+    func toDetailPlayList(_ playlistId: String, _ channelId: String)
+}
+
 class HomeTableCell: UITableViewCell {
     
     //MARK: - IBOutlets
@@ -18,6 +23,8 @@ class HomeTableCell: UITableViewCell {
     @IBOutlet weak var lbTitle: UILabel!
     
     //MARK: - Variables
+    
+    weak var delegate: HomeTableCellDelegate?
     
     var data: [PlayList] = []
     
@@ -39,7 +46,6 @@ class HomeTableCell: UITableViewCell {
         collectionView.reloadData()
         
     }
-
     
 }
 
@@ -73,6 +79,8 @@ extension HomeTableCell: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     
+        let item = data[indexPath.row]
+        delegate?.toDetailPlayList(item.id, item.channelId)
     }
 }
 

@@ -19,6 +19,9 @@ class HomeVC: BaseVC {
 
     private var data = [(title:String, obj:[PlayList])]()
     private var listPlaylist = [(title:String, channelId:String)]()
+    private var playlistId: String!
+    
+    var channelId: String!
     
     //MARK: - Lifecycle
     
@@ -39,9 +42,7 @@ class HomeVC: BaseVC {
         for obj in listPlaylist{
             getListVideo(obj.channelId, obj.title)
         }
-        
     }
-    
     
     func configureTableView(){
         
@@ -61,20 +62,21 @@ class HomeVC: BaseVC {
     func getListVideo(_ channelId: String, _ title:String){
         
         let url = "https://www.googleapis.com/youtube/v3/playlists"
-        print(url)
+
+        
         let params:Parameters = [
             "part":"snippet,contentDetails",
             "type":"video",
             "key":API_KEY,
             "maxResults":10,
             "channelId":channelId]
-        print(params)
-        
 
+        
         Alamofire
             .request(url, method: .get, parameters: params)
             .responseArray(keyPath: "items") { [weak self] (response: DataResponse<[PlayList]>) in
                 
+                print(url)
                 guard let strongSelf = self else {return}
                 
                 if let error = response.result.error {
@@ -86,10 +88,18 @@ class HomeVC: BaseVC {
                     print("Empty")
                     return
                 }
-                
                 strongSelf.data.append((title,videos))
                 strongSelf.tableView.reloadData()
                 
+        }
+    }
+    
+    //
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = segue.destination as? DetailPlayListVC{
+            vc.playlistId = self.playlistId
+            vc.channelId = self.channelId
         }
     }
 }
@@ -107,6 +117,7 @@ extension HomeVC: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: homeTableCellId, for: indexPath) as! HomeTableCell
         
         let obj = data[indexPath.row]
+        cell.delegate = self
         cell.configure(obj.obj, obj.title)
         
         return cell
@@ -122,4 +133,17 @@ extension HomeVC: UITableViewDelegate {
         return 230
     }
 
+}
+
+//MARK: - HomeTableCell Delegate
+
+extension HomeVC: HomeTableCellDelegate{
+    
+    func toDetailPlayList(_ playlistId: String,_ channelId: String){
+        
+        self.channelId = channelId
+        self.playlistId = playlistId
+        performSegue(withIdentifier: "sgPlayList", sender: nil)
+    }
+    
 }

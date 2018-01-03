@@ -1,20 +1,19 @@
 //
-//  PlayList.swift
+//  Video.swift
 //  YoutubeVideo
 //
-//  Created by Lac Tuan on 12/27/17.
-//  Copyright © 2017 Lac Tuan. All rights reserved.
+//  Created by Lac Tuan on 1/3/18.
+//  Copyright © 2018 Lac Tuan. All rights reserved.
 //
 
 import Foundation
 import ObjectMapper
 
-class PlayList: Mappable {
+class Video: Mappable{
     
     var id = ""
     var title = ""
     var thumbnails = ""
-    var channelId = ""
     
     required init?(map: Map) {
         
@@ -25,8 +24,8 @@ class PlayList: Mappable {
         
         title <- map["snippet.title"]
         id <- map["id"]
-        channelId <- map["snippet.channelId"]
         thumbnails <- map["snippet.thumbnails.medium.url"]
-
+        
     }
+    
 }
