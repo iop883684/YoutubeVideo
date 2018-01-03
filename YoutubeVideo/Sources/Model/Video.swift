@@ -29,3 +29,22 @@ class Video: Mappable{
     }
     
 }
+
+class ResponseVideo: Mappable {
+    
+    var nextPageToken: String?
+    var items:[Video]?
+    var totalResults: Int?
+    
+    required init?(map: Map) {
+        
+    }
+    
+    func mapping(map: Map) {
+        
+        nextPageToken <- map["nextPageToken"]
+        items <- map["items"]
+        totalResults <- map["pageInfo.totalResults"]
+    }
+    
+}
