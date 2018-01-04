@@ -31,6 +31,7 @@ class DetailPlayListVC: UIViewController {
     
     var isFull = false
     var isChannel: Bool!
+    var isLoading = false
     
     //MARK: - Lifecycle
 
@@ -51,6 +52,12 @@ class DetailPlayListVC: UIViewController {
     //MARK: - Call API
     
     func requestApi(){
+        
+        if isLoading{
+            return
+        }
+        
+        isLoading = true
         
         var url = ""
         
@@ -75,8 +82,10 @@ class DetailPlayListVC: UIViewController {
         Alamofire
             .request(url, method: .get, parameters: params)
             .responseObject {[weak self] (response: DataResponse<ResponseVideo>) in
-                
+
                 guard let strongSelf = self else { return }
+                
+                strongSelf.isLoading = false
                 
                 if let error = response.error {
                     print(error)
