@@ -75,6 +75,7 @@ class DetailPlayListVC: UIViewController {
 //                strongSelf.collectionView.reloadData()
 //
 //        }
+        self.isFull = false
         
         Alamofire
             .request(url, method: .get, parameters: params)
@@ -91,8 +92,9 @@ class DetailPlayListVC: UIViewController {
                     return
                 }
                 
-                if maxResults < res.totalResults! {
+                if strongSelf.data.count < res.totalResults! {
                     strongSelf.maxResults += 1
+                    print(strongSelf.data.count)
                 }else{
                     strongSelf.isFull = true
                 }

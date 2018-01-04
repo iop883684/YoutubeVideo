@@ -76,12 +76,18 @@ class ChannelVideoVC: UIViewController {
                     return print("1312321321312")
                 }
                 
-                if maxResults < res.totalResults! {
+                guard let totalPages = res.totalResults else {
+                    return
+                }
+                
+                if strongSelf.data.count < totalPages {
                     strongSelf.maxResults += 1
+                    print(strongSelf.data.count)
                 }else{
                     strongSelf.isFull = true
                 }
-                
+            
+                print(strongSelf.isFull)
                 strongSelf.data = res.items!
                 strongSelf.collectionView.reloadData()
                 
