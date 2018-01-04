@@ -15,6 +15,7 @@ class PlayList: Mappable {
     var title = ""
     var thumbnails = ""
     var channelId = ""
+    var channelTitle = ""
     
     required init?(map: Map) {
         
@@ -27,6 +28,6 @@ class PlayList: Mappable {
         id <- map["id"]
         channelId <- map["snippet.channelId"]
         thumbnails <- map["snippet.thumbnails.medium.url"]
-
+        channelTitle <- map["snippet.channelTitle"]
     }
 }

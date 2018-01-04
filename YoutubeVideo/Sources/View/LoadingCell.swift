@@ -8,6 +8,8 @@
 
 import UIKit
 
+let loadingCellId = "loadingCell"
+
 class LoadingCell: UICollectionViewCell {
 
     @IBOutlet var indicator:UIActivityIndicatorView!

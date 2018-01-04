@@ -21,8 +21,10 @@ class HomeVC: BaseVC {
     private var listPlaylist = [(title:String, channelId:String)]()
     private var playlistId: String!
     
-    var channelId: String!
+    var playlistTitle: String!
     
+    var channelTitle:String!
+    var channelId: String!
     //MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -88,6 +90,7 @@ class HomeVC: BaseVC {
                     print("Empty")
                     return
                 }
+                
                 strongSelf.data.append((title,videos))
                 strongSelf.tableView.reloadData()
                 
@@ -97,10 +100,25 @@ class HomeVC: BaseVC {
     //
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let vc = segue.destination as? DetailPlayListVC{
+        if let vc = segue.destination as? DetailPlayListVC {
+            
             vc.playlistId = self.playlistId
-            vc.channelId = self.channelId
+
+            vc.playlistTitle = self.playlistTitle
+            
         }
+        
+        if let vc = segue.destination as? ChannelVideoVC {
+            
+            vc.channelId = self.channelId
+            
+            vc.channelTitle = self.channelTitle
+        }
+        
+        let backItem = UIBarButtonItem()
+        backItem.title = ""
+        backItem.tintColor = UIColor.white
+        navigationItem.backBarButtonItem = backItem
     }
 }
 
@@ -118,7 +136,7 @@ extension HomeVC: UITableViewDataSource {
         
         let obj = data[indexPath.row]
         cell.delegate = self
-        cell.configure(obj.obj, obj.title)
+        cell.configure(obj.obj, obj.title, obj.obj[indexPath.row].channelId, obj.obj[indexPath.row].channelTitle)
         
         return cell
 
@@ -139,11 +157,28 @@ extension HomeVC: UITableViewDelegate {
 
 extension HomeVC: HomeTableCellDelegate{
     
-    func toDetailPlayList(_ playlistId: String,_ channelId: String){
+    func toDetailPlayList(_ playlistId: String, _ playlistTitle: String){
         
-        self.channelId = channelId
+        self.playlistTitle = playlistTitle
         self.playlistId = playlistId
         performSegue(withIdentifier: "sgPlayList", sender: nil)
     }
     
+    func toDetailChannel(_ channelId : String, _ channelTitle:String){
+        
+        self.channelId = channelId
+        self.channelTitle = channelTitle
+        performSegue(withIdentifier: "sgChannelVideo", sender: nil)
+    }
+    
 }
+
+
+
+
+
+
+
+
+
+

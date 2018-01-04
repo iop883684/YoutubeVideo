@@ -12,7 +12,9 @@ private let homeCollectionCellId = "homeCollectionCell"
 
 protocol HomeTableCellDelegate: NSObjectProtocol{
     
-    func toDetailPlayList(_ playlistId: String, _ channelId: String)
+    func toDetailPlayList(_ playlistId: String, _ playlistTitle: String)
+    
+    func toDetailChannel(_ channelId: String, _ channelTitle:String)
 }
 
 class HomeTableCell: UITableViewCell {
@@ -20,13 +22,16 @@ class HomeTableCell: UITableViewCell {
     //MARK: - IBOutlets
     
     @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var lbTitle: UILabel!
+    @IBOutlet weak var title: UIButton!
     
     //MARK: - Variables
     
     weak var delegate: HomeTableCellDelegate?
     
     var data: [PlayList] = []
+    
+    var channelId: String!
+    var channelTitle: String!
     
     override func awakeFromNib() {
         
@@ -38,11 +43,18 @@ class HomeTableCell: UITableViewCell {
         contentView.backgroundColor =  UIColor(red: 18/255, green: 21/255, blue: 24/255, alpha: 1)
     }
     
-    func configure(_ item: [PlayList], _ title: String){
+    @IBAction func titlePressed(_ sender: UIButton){
+        
+        delegate?.toDetailChannel(channelId, channelTitle)
+    }
+    
+    func configure(_ item: [PlayList], _ title: String, _ channelId: String, _ channelTitle: String){
         
         self.data = item
-        lbTitle.text = title
-        
+        //lbTitle.text = title
+        self.title.setTitle(title, for: .normal)
+        self.channelId = channelId
+        self.channelTitle = channelTitle
         collectionView.reloadData()
         
     }
@@ -80,7 +92,7 @@ extension HomeTableCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     
         let item = data[indexPath.row]
-        delegate?.toDetailPlayList(item.id, item.channelId)
+        delegate?.toDetailPlayList(item.id , item.title)
     }
 }
 

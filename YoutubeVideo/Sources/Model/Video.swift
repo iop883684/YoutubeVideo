@@ -14,6 +14,7 @@ class Video: Mappable{
     var id = ""
     var title = ""
     var thumbnails = ""
+    var channelTitle = ""
     
     required init?(map: Map) {
         
@@ -25,7 +26,7 @@ class Video: Mappable{
         title <- map["snippet.title"]
         id <- map["id"]
         thumbnails <- map["snippet.thumbnails.medium.url"]
-        
+        channelTitle <- map["snippet.channelTitle"]
     }
     
 }
