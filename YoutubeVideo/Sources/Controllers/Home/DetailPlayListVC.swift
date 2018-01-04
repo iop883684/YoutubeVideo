@@ -10,6 +10,7 @@ import UIKit
 import Alamofire
 import AlamofireObjectMapper
 
+private let videoChannelCellId = "videoChannelCell"
 private let playListCellId = "playListCell"
 
 
@@ -21,62 +22,56 @@ class DetailPlayListVC: UIViewController {
     
     //MARK: - Variables
     
-    var playlistTitle: String!
-    var playlistId: String!
+    var vcTitle: String!
+    var id: String!
     
     var data: [Video] = []
     
-    var maxResults = 5
+    var nextPageToken = ""
+    
     var isFull = false
+    var isChannel: Bool!
     
     //MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
    
-        requestApi(maxResults)
+        requestApi()
+        
         
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
         navigationController?.navigationBar.barTintColor = UIColor(red: 36/255, green: 38/255, blue: 41/255, alpha: 1)
-        self.title = playlistTitle
+
+        self.title = vcTitle
         
         configureCollection()
     }
     
     //MARK: - Call API
     
-    func requestApi(_ maxResults: Int){
+    func requestApi(){
         
-        let url = "https://www.googleapis.com/youtube/v3/playlistItems"
+        var url = ""
         
-        let params: Parameters = ["part": "snippet,contentDetails",
-                                  "maxResults": maxResults,
+        if isChannel{
+             url = "https://www.googleapis.com/youtube/v3/activities"
+        } else {
+             url = "https://www.googleapis.com/youtube/v3/playlistItems"
+        }
+        
+        print(url)
+        var params: Parameters = ["part": "snippet,contentDetails",
+                                  "maxResults": 20,
                                   "key": API_KEY,
-                                  "playlistId": playlistId]
-
-//        Alamofire
-//            .request(url, method: .get, parameters: params)
-//            .responseArray(keyPath: "items") {[weak self] (response: DataResponse<[Video]>) in
-//
-//                guard let strongSelf = self else { return }
-//
-//                if let error = response.error {
-//                    print(error)
-//                }
-//
-//                guard let video = response.result.value else {
-//                    print("112312312")
-//                    return
-//                }
-//
-//                strongSelf.currentOffset += 5
-//
-//                strongSelf.data = video
-//                strongSelf.collectionView.reloadData()
-//
-//        }
-        self.isFull = false
+                                  "nextPageToken":nextPageToken]
         
+        if isChannel {
+            params["channelId"] = id
+        }else {
+            params["playlistId"] = id
+        }
+
         Alamofire
             .request(url, method: .get, parameters: params)
             .responseObject {[weak self] (response: DataResponse<ResponseVideo>) in
@@ -92,15 +87,16 @@ class DetailPlayListVC: UIViewController {
                     return
                 }
                 
-                if strongSelf.data.count < res.totalResults! {
-                    strongSelf.maxResults += 1
-                    print(strongSelf.data.count)
-                }else{
-                    strongSelf.isFull = true
+                if let video = res.items {
+                    
+                    if video.count < 20 {
+                        strongSelf.isFull = true
+                    }
+                    
+                    strongSelf.nextPageToken = res.nextPageToken ?? ""
+                    strongSelf.data.append(contentsOf: video)
+                    strongSelf.collectionView.reloadData()
                 }
-                
-                strongSelf.data = res.items!
-                strongSelf.collectionView.reloadData()
         }
         
     }
@@ -149,10 +145,12 @@ extension DetailPlayListVC: UICollectionViewDataSource {
             
         }
         
+        let item = data[indexPath.row]
+        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: playListCellId , for: indexPath) as! PlayListCollectionViewCell
-        
-        cell.configure(data[indexPath.row])
-        
+            
+        cell.configure(item)
+            
         return cell
     }
 }
@@ -173,9 +171,9 @@ extension DetailPlayListVC: UICollectionViewDelegateFlowLayout {
         
         if offsetY > contentHeight - scrollView.frame.size.height {
             
-            if !isFull && !isFull && maxResults != 0{
+            if !isFull {
                 
-                requestApi(maxResults)
+                requestApi()
                 
             }
             

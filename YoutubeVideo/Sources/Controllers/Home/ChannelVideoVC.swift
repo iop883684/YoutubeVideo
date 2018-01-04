@@ -23,17 +23,17 @@ class ChannelVideoVC: UIViewController {
     var channelId: String!
     var channelTitle: String!
     
-    var data: [Video] = []
-    
-    var maxResults = 5
+    var data = [Video]()
+
     var isFull = false
+    var pageToken = ""
     
     //MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        requestApi(maxResults)
+        requestApi()
         
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
         navigationController?.navigationBar.barTintColor = UIColor(red: 36/255, green: 38/255, blue: 41/255, alpha: 1)
@@ -51,14 +51,15 @@ class ChannelVideoVC: UIViewController {
     
     //MARK: - Call API
     
-    func requestApi(_ maxResults: Int){
+    func requestApi(){
         
         let url = "https://www.googleapis.com/youtube/v3/activities"
         
         let params: Parameters = ["part": "snippet,contentDetails",
                                   "key": API_KEY,
-                                  "maxResults": maxResults,
-                                  "channelId": channelId]
+                                  "maxResults": 20,
+                                  "channelId": channelId,
+                                  "pageToken": pageToken]
         
         Alamofire
             .request(url, method: .get, parameters: params)
@@ -76,20 +77,16 @@ class ChannelVideoVC: UIViewController {
                     return print("1312321321312")
                 }
                 
-                guard let totalPages = res.totalResults else {
-                    return
-                }
-                
-                if strongSelf.data.count < totalPages {
-                    strongSelf.maxResults += 1
-                    print(strongSelf.data.count)
-                }else{
-                    strongSelf.isFull = true
-                }
-            
-                print(strongSelf.isFull)
-                strongSelf.data = res.items!
-                strongSelf.collectionView.reloadData()
+                if let video = res.items {
+                    
+                    if video.count < 20 {
+                        strongSelf.isFull = true
+                    }
+                    
+                    strongSelf.pageToken = res.nextPageToken ?? ""
+                    strongSelf.data.append(contentsOf: video)
+                    strongSelf.collectionView.reloadData()
+                }      
                 
         }
         
@@ -155,9 +152,9 @@ extension ChannelVideoVC: UICollectionViewDelegateFlowLayout {
         
         if offsetY > contentHeight - scrollView.frame.size.height {
             
-            if !isFull && !isFull && maxResults != 0{
+            if !isFull{
                 
-                requestApi(maxResults)
+                requestApi()
                 
             }
             

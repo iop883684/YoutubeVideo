@@ -62,7 +62,7 @@
                 <outlet property="thumb" destination="cAR-fa-dn3" id="OAB-iK-4jR"/>
                 <outlet property="title" destination="iMz-Be-Flz" id="DeQ-yx-Bl3"/>
             </connections>
-            <point key="canvasLocation" x="-188" y="-5"/>
+            <point key="canvasLocation" x="-430" y="7"/>
         </collectionViewCell>
     </objects>
 </document>

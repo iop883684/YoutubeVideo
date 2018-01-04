@@ -25,6 +25,9 @@ class HomeVC: BaseVC {
     
     var channelTitle:String!
     var channelId: String!
+    
+    var isChannel: Bool!
+    
     //MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -102,17 +105,18 @@ class HomeVC: BaseVC {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = segue.destination as? DetailPlayListVC {
             
-            vc.playlistId = self.playlistId
-
-            vc.playlistTitle = self.playlistTitle
+            if !isChannel {
+                vc.id = self.playlistId
+                
+                vc.vcTitle = self.playlistTitle
+                
+            }else {
+                vc.id = self.channelId
+                vc.vcTitle = self.channelTitle
+            }
             
-        }
-        
-        if let vc = segue.destination as? ChannelVideoVC {
+             vc.isChannel = self.isChannel
             
-            vc.channelId = self.channelId
-            
-            vc.channelTitle = self.channelTitle
         }
         
         let backItem = UIBarButtonItem()
@@ -161,6 +165,7 @@ extension HomeVC: HomeTableCellDelegate{
         
         self.playlistTitle = playlistTitle
         self.playlistId = playlistId
+        self.isChannel = false
         performSegue(withIdentifier: "sgPlayList", sender: nil)
     }
     
@@ -168,7 +173,8 @@ extension HomeVC: HomeTableCellDelegate{
         
         self.channelId = channelId
         self.channelTitle = channelTitle
-        performSegue(withIdentifier: "sgChannelVideo", sender: nil)
+        self.isChannel = true
+        performSegue(withIdentifier: "sgPlayList", sender: nil)
     }
     
 }
