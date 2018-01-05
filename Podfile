@@ -11,5 +11,7 @@ pod 'AlamofireObjectMapper', '~> 5.0'
 pod 'PKHUD', '~> 5.0'
 pod 'Kingfisher', '~> 4.0'
 pod 'Firebase/RemoteConfig'
+pod "XCDYouTubeKit", "~> 2.5"
+pod "MobilePlayer"
 
 end

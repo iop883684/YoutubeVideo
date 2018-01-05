@@ -17,6 +17,7 @@ class Video: Mappable{
     var channelTitle = ""
     var nextPageToken = ""
     var channelId = ""
+    var videoId = ""
     
     required init?(map: Map) {
         
@@ -31,6 +32,7 @@ class Video: Mappable{
         channelTitle <- map["snippet.channelTitle"]
         nextPageToken <- map["nextPageToken"]
         channelId <- map["channelId"]
+        videoId <- map["contentDetails.videoId"]
     }
     
 }

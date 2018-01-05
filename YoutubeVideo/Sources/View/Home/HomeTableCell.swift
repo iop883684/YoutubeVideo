@@ -15,6 +15,7 @@ protocol HomeTableCellDelegate: NSObjectProtocol{
     func toDetailPlayList(_ playlistId: String, _ playlistTitle: String)
     
     func toDetailChannel(_ channelId: String, _ channelTitle:String)
+    
 }
 
 class HomeTableCell: UITableViewCell {

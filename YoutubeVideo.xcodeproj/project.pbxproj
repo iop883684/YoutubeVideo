@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		880D12491FFF7A5E00325746 /* VideoQuality.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880D12481FFF7A5E00325746 /* VideoQuality.swift */; };
 		884A087B1FF4CE0000FCB7C7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 884A087A1FF4CE0000FCB7C7 /* GoogleService-Info.plist */; };
 		884A087D1FF4CEDA00FCB7C7 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A087C1FF4CEDA00FCB7C7 /* Global.swift */; };
 		88675AD11FF3B18E004E0468 /* HomeCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88675ACF1FF3B18E004E0468 /* HomeCollectionCell.swift */; };
@@ -42,6 +43,7 @@
 /* Begin PBXFileReference section */
 		3AED6C4FD596D641706A41BE /* Pods-YoutubeVideo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoutubeVideo.release.xcconfig"; path = "Pods/Target Support Files/Pods-YoutubeVideo/Pods-YoutubeVideo.release.xcconfig"; sourceTree = "<group>"; };
 		52BE67A7F3EF5AB641E999E8 /* Pods-YoutubeVideo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoutubeVideo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YoutubeVideo/Pods-YoutubeVideo.debug.xcconfig"; sourceTree = "<group>"; };
+		880D12481FFF7A5E00325746 /* VideoQuality.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoQuality.swift; sourceTree = "<group>"; };
 		884A087A1FF4CE0000FCB7C7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		884A087C1FF4CEDA00FCB7C7 /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		88675ACF1FF3B18E004E0468 /* HomeCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionCell.swift; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 				DC7A81C91FFAC19100350E32 /* Youtube.swift */,
 				88675AD41FF3B1D5004E0468 /* PlayList.swift */,
 				88C691F91FFCD758007E1E45 /* Video.swift */,
+				880D12481FFF7A5E00325746 /* VideoQuality.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -371,9 +374,11 @@
 				"${BUILT_PRODUCTS_DIR}/AlamofireObjectMapper/AlamofireObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
+				"${BUILT_PRODUCTS_DIR}/MobilePlayer/MobilePlayer.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/PKHUD/PKHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/XCDYouTubeKit/XCDYouTubeKit.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -382,9 +387,11 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireObjectMapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MobilePlayer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PKHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XCDYouTubeKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -403,6 +410,7 @@
 				88675AD11FF3B18E004E0468 /* HomeCollectionCell.swift in Sources */,
 				8898A8C81FF0FE9D0046F034 /* MainTabBarController.swift in Sources */,
 				88675AD51FF3B1D5004E0468 /* PlayList.swift in Sources */,
+				880D12491FFF7A5E00325746 /* VideoQuality.swift in Sources */,
 				8898A8DD1FF10ADB0046F034 /* TableView + Ext.swift in Sources */,
 				88C692061FFCE23F007E1E45 /* PlayListCollectionViewCell.swift in Sources */,
 				88C6920A1FFCEFBA007E1E45 /* LoadingCell.swift in Sources */,

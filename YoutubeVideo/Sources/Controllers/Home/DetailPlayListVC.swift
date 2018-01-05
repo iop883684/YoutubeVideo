@@ -9,9 +9,12 @@
 import UIKit
 import Alamofire
 import AlamofireObjectMapper
+import XCDYouTubeKit
+import MobilePlayer
 
 private let videoChannelCellId = "videoChannelCell"
 private let playListCellId = "playListCell"
+
 
 
 class DetailPlayListVC: UIViewController {
@@ -21,6 +24,10 @@ class DetailPlayListVC: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     
     //MARK: - Variables
+    
+    var abc: String?
+    
+    let elements: [ElementConfig] = []
     
     var vcTitle: String!
     var id: String!
@@ -38,8 +45,8 @@ class DetailPlayListVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
    
+        abc = "action"
         requestApi()
-        
         
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
         navigationController?.navigationBar.barTintColor = UIColor(red: 36/255, green: 38/255, blue: 41/255, alpha: 1)
@@ -47,6 +54,12 @@ class DetailPlayListVC: UIViewController {
         self.title = vcTitle
         
         configureCollection()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        UIApplication.shared.isStatusBarHidden = false
     }
     
     //MARK: - Call API
@@ -105,6 +118,7 @@ class DetailPlayListVC: UIViewController {
                     strongSelf.nextPageToken = res.nextPageToken ?? ""
                     strongSelf.data.append(contentsOf: video)
                     strongSelf.collectionView.reloadData()
+                    
                 }
         }
         
@@ -121,6 +135,14 @@ class DetailPlayListVC: UIViewController {
         collectionView.reloadData()
     }
 
+    
+    func playVideo(_ url: URL,_ title: String){
+        
+        let playerVC = MobilePlayerViewController(contentURL: url)
+        playerVC.title = title
+        playerVC.activityItems = [url] // Check the documentation for more information.
+        self.present(playerVC, animated: true, completion: nil)
+    }
 
 }
 
@@ -179,15 +201,30 @@ extension DetailPlayListVC: UICollectionViewDelegateFlowLayout {
         let contentHeight = scrollView.contentSize.height
         
         if offsetY > contentHeight - scrollView.frame.size.height {
-            
             if !isFull {
-                
                 requestApi()
+            }
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let item = data[indexPath.row]
+        
+        print(item.videoId)
+        
+        XCDYouTubeClient.default().getVideoWithIdentifier(item.videoId) {  [weak self] (video: XCDYouTubeVideo?, error: Error?) in
+            
+            guard let strongSelf = self else { return }
+            
+            if let streamURLs = video?.streamURLs, let url = (streamURLs[VideoQuality.hd720] ??
+                                                                streamURLs[VideoQuality.medium360] ??
+                                                                streamURLs[VideoQuality.small240]) {
+                strongSelf.playVideo(url, item.title)
+            } else {
                 
             }
-            
         }
-        
     }
 }
 
