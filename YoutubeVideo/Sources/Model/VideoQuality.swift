@@ -18,4 +18,5 @@ struct VideoQuality {
 struct UrlVideo {
     static var hd: URL!
     static var medium: URL!
+    static var small: URL!
 }

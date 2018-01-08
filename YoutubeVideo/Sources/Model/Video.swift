@@ -32,7 +32,10 @@ class Video: Mappable{
         channelTitle <- map["snippet.channelTitle"]
         nextPageToken <- map["nextPageToken"]
         channelId <- map["channelId"]
-        videoId <- map["contentDetails.videoId"]    
+        videoId <- map["contentDetails.videoId"]
+        if videoId.isEmpty {
+            videoId <- map["contentDetails.upload.videoId"]
+        }
     }
     
 }
