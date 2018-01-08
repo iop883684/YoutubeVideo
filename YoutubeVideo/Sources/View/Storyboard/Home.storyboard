@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -42,6 +43,39 @@
             </objects>
             <point key="canvasLocation" x="70" y="-143"/>
         </scene>
+        <!--Video PlayerVC-->
+        <scene sceneID="kEf-86-xby">
+            <objects>
+                <viewController storyboardIdentifier="VideoPlayerVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="V7S-wL-pqh" customClass="VideoPlayerVC" customModule="YoutubeVideo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8kl-Vx-dVe">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="URP-fd-ZJp" customClass="BMCustomPlayer" customModule="YoutubeVideo" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="227.5" width="375" height="211"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="URP-fd-ZJp" secondAttribute="height" multiplier="16:9" id="08c-RV-Dm7"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.082352941176470587" green="0.082352941176470587" blue="0.082352941176470587" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="URP-fd-ZJp" firstAttribute="centerY" secondItem="8kl-Vx-dVe" secondAttribute="centerY" id="1Dh-Yi-qpe"/>
+                            <constraint firstItem="URP-fd-ZJp" firstAttribute="trailing" secondItem="x64-nG-DXe" secondAttribute="trailing" id="6cR-gS-J3s"/>
+                            <constraint firstItem="URP-fd-ZJp" firstAttribute="leading" secondItem="x64-nG-DXe" secondAttribute="leading" id="ugq-iF-IIR"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="x64-nG-DXe"/>
+                    </view>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <connections>
+                        <outlet property="player" destination="URP-fd-ZJp" id="yEQ-Ft-S7L"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hTy-RC-21c" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1669.5999999999999" y="-143.47826086956522"/>
+        </scene>
         <!--Detail Play ListVC-->
         <scene sceneID="vcM-8a-BZd">
             <objects>
@@ -76,6 +110,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="FyF-VB-5BD" id="mgq-zZ-pBQ"/>
+                        <segue destination="V7S-wL-pqh" kind="show" identifier="sgPlayer" id="myq-fK-Pko"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qJV-7r-hQK" userLabel="First Responder" sceneMemberID="firstResponder"/>

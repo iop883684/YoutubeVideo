@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		880D12491FFF7A5E00325746 /* VideoQuality.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880D12481FFF7A5E00325746 /* VideoQuality.swift */; };
+		8847DC0B20034C06008E3F01 /* VideoPlayerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8847DC0A20034C06008E3F01 /* VideoPlayerVC.swift */; };
+		8847DC0D20034C5A008E3F01 /* BMCustomPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8847DC0C20034C5A008E3F01 /* BMCustomPlayer.swift */; };
+		8847DC0F20034C92008E3F01 /* BMPlayerCustomControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8847DC0E20034C92008E3F01 /* BMPlayerCustomControlView.swift */; };
 		884A087B1FF4CE0000FCB7C7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 884A087A1FF4CE0000FCB7C7 /* GoogleService-Info.plist */; };
 		884A087D1FF4CEDA00FCB7C7 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A087C1FF4CEDA00FCB7C7 /* Global.swift */; };
 		88675AD11FF3B18E004E0468 /* HomeCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88675ACF1FF3B18E004E0468 /* HomeCollectionCell.swift */; };
@@ -44,6 +47,9 @@
 		3AED6C4FD596D641706A41BE /* Pods-YoutubeVideo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoutubeVideo.release.xcconfig"; path = "Pods/Target Support Files/Pods-YoutubeVideo/Pods-YoutubeVideo.release.xcconfig"; sourceTree = "<group>"; };
 		52BE67A7F3EF5AB641E999E8 /* Pods-YoutubeVideo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoutubeVideo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YoutubeVideo/Pods-YoutubeVideo.debug.xcconfig"; sourceTree = "<group>"; };
 		880D12481FFF7A5E00325746 /* VideoQuality.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoQuality.swift; sourceTree = "<group>"; };
+		8847DC0A20034C06008E3F01 /* VideoPlayerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerVC.swift; sourceTree = "<group>"; };
+		8847DC0C20034C5A008E3F01 /* BMCustomPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMCustomPlayer.swift; sourceTree = "<group>"; };
+		8847DC0E20034C92008E3F01 /* BMPlayerCustomControlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BMPlayerCustomControlView.swift; sourceTree = "<group>"; };
 		884A087A1FF4CE0000FCB7C7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		884A087C1FF4CEDA00FCB7C7 /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		88675ACF1FF3B18E004E0468 /* HomeCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionCell.swift; sourceTree = "<group>"; };
@@ -96,6 +102,15 @@
 				FA448A49D62E051178BF882E /* Pods_YoutubeVideo.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8847DC1020034CAF008E3F01 /* BMPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				8847DC0C20034C5A008E3F01 /* BMCustomPlayer.swift */,
+				8847DC0E20034C92008E3F01 /* BMPlayerCustomControlView.swift */,
+			);
+			path = BMPlayer;
 			sourceTree = "<group>";
 		};
 		88675AD31FF3B1C2004E0468 /* Model */ = {
@@ -193,6 +208,7 @@
 		8898A8CC1FF0FF590046F034 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				8847DC1020034CAF008E3F01 /* BMPlayer */,
 				88C692081FFCEFBA007E1E45 /* LoadingCell.swift */,
 				88C692091FFCEFBA007E1E45 /* LoadingCell.xib */,
 				8898A8D71FF10A050046F034 /* Home */,
@@ -218,6 +234,7 @@
 			children = (
 				8898A8D31FF1066D0046F034 /* HomeVC.swift */,
 				88C691F71FFCCD65007E1E45 /* DetailPlayListVC.swift */,
+				8847DC0A20034C06008E3F01 /* VideoPlayerVC.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -372,12 +389,15 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-YoutubeVideo/Pods-YoutubeVideo-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireObjectMapper/AlamofireObjectMapper.framework",
+				"${BUILT_PRODUCTS_DIR}/BMPlayer/BMPlayer.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/MobilePlayer/MobilePlayer.framework",
+				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/PKHUD/PKHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/XCDYouTubeKit/XCDYouTubeKit.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
@@ -385,12 +405,15 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireObjectMapper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BMPlayer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MobilePlayer.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PKHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XCDYouTubeKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -417,14 +440,17 @@
 				8898A8D41FF1066D0046F034 /* HomeVC.swift in Sources */,
 				884A087D1FF4CEDA00FCB7C7 /* Global.swift in Sources */,
 				8898A8C31FF0FAE90046F034 /* ViewDefine.swift in Sources */,
+				8847DC0B20034C06008E3F01 /* VideoPlayerVC.swift in Sources */,
 				8898A8CB1FF0FF210046F034 /* ViewController + Ext.swift in Sources */,
 				8898A8CF1FF0FFB50046F034 /* StartVC.swift in Sources */,
 				8898A8DA1FF10A450046F034 /* HomeTableCell.swift in Sources */,
+				8847DC0D20034C5A008E3F01 /* BMCustomPlayer.swift in Sources */,
 				8898A8AE1FF0F6390046F034 /* AppDelegate.swift in Sources */,
 				DC7A81CA1FFAC19100350E32 /* Youtube.swift in Sources */,
 				88C691FA1FFCD758007E1E45 /* Video.swift in Sources */,
 				8898A8C61FF0FE8B0046F034 /* BaseVC.swift in Sources */,
 				88675AD71FF3B289004E0468 /* Constants.swift in Sources */,
+				8847DC0F20034C92008E3F01 /* BMPlayerCustomControlView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

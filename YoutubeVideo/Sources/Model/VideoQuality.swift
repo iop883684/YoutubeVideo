@@ -14,3 +14,8 @@ struct VideoQuality {
     static let medium360 = NSNumber(value: XCDYouTubeVideoQuality.medium360.rawValue)
     static let small240 = NSNumber(value: XCDYouTubeVideoQuality.small240.rawValue)
 }
+
+struct UrlVideo {
+    static var hd: URL!
+    static var medium: URL!
+}

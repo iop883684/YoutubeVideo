@@ -13,5 +13,6 @@ pod 'Kingfisher', '~> 4.0'
 pod 'Firebase/RemoteConfig'
 pod "XCDYouTubeKit", "~> 2.5"
 pod "MobilePlayer"
+pod 'BMPlayer', '~> 1.0.0'
 
 end

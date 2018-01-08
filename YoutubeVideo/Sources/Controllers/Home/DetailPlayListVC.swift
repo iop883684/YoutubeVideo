@@ -15,8 +15,6 @@ import MobilePlayer
 private let videoChannelCellId = "videoChannelCell"
 private let playListCellId = "playListCell"
 
-
-
 class DetailPlayListVC: UIViewController {
 
     //MARK: - IBOutlets
@@ -25,13 +23,9 @@ class DetailPlayListVC: UIViewController {
     
     //MARK: - Variables
     
-    var abc: String?
-    
-    let elements: [ElementConfig] = []
-    
     var vcTitle: String!
     var id: String!
-    
+
     var data: [Video] = []
     
     var nextPageToken = ""
@@ -44,8 +38,7 @@ class DetailPlayListVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-   
-        abc = "action"
+
         requestApi()
         
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
@@ -143,6 +136,15 @@ class DetailPlayListVC: UIViewController {
         playerVC.activityItems = [url] // Check the documentation for more information.
         self.present(playerVC, animated: true, completion: nil)
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = segue.destination as? VideoPlayerVC{
+            
+            let indexPath = sender as! IndexPath
+
+            vc.videoTitle = self.data[indexPath.row].title
+        }
+    }
 
 }
 
@@ -210,20 +212,22 @@ extension DetailPlayListVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         let item = data[indexPath.row]
-        
+
         print(item.videoId)
-        
+
         XCDYouTubeClient.default().getVideoWithIdentifier(item.videoId) {  [weak self] (video: XCDYouTubeVideo?, error: Error?) in
-            
+
             guard let strongSelf = self else { return }
-            
-            if let streamURLs = video?.streamURLs, let url = (streamURLs[VideoQuality.hd720] ??
-                                                                streamURLs[VideoQuality.medium360] ??
-                                                                streamURLs[VideoQuality.small240]) {
-                strongSelf.playVideo(url, item.title)
-            } else {
+
+            if let streamURLs = video?.streamURLs,  let hdURL = streamURLs[VideoQuality.hd720],
+                                                    let mediumURL = streamURLs[VideoQuality.medium360]{
                 
-            }
+                UrlVideo.hd = hdURL
+                UrlVideo.medium = mediumURL
+
+            } else {
+           }
+            strongSelf.performSegue(withIdentifier: "sgPlayer", sender: indexPath)
         }
     }
 }
