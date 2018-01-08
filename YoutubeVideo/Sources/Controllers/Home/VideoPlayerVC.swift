@@ -29,15 +29,24 @@ class VideoPlayerVC: UIViewController {
             }
             let _ = self.navigationController?.popViewController(animated: true)
         }
+        
+        print(UrlVideo.hd)
 
         let medium = BMPlayerResourceDefinition(url: UrlVideo.medium,
-                                              definition: "480")
-        let hd = BMPlayerResourceDefinition(url: UrlVideo.hd,
-                                              definition: "720")
+                                              definition: "360")
         
         let asset = BMPlayerResource(name: "",
-                                     definitions: [medium, hd],
+                                     definitions: [medium],
                                      cover: UrlVideo.medium)
+        
+        if UrlVideo.hd != nil {
+            let hd = BMPlayerResourceDefinition(url: UrlVideo.hd,
+                                                definition: "720")
+            
+            asset.definitions = [medium,hd]
+        }
+        
+        
 
         player.setVideo(resource: asset)
     }

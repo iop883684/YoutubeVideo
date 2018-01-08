@@ -212,8 +212,9 @@ extension DetailPlayListVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         let item = data[indexPath.row]
-
-        print(item.videoId)
+        
+        UrlVideo.hd = nil
+        UrlVideo.medium = nil
 
         XCDYouTubeClient.default().getVideoWithIdentifier(item.videoId) {  [weak self] (video: XCDYouTubeVideo?, error: Error?) in
 
@@ -226,7 +227,8 @@ extension DetailPlayListVC: UICollectionViewDelegateFlowLayout {
                 UrlVideo.medium = mediumURL
 
             } else {
-           }
+                
+            }
             strongSelf.performSegue(withIdentifier: "sgPlayer", sender: indexPath)
         }
     }
