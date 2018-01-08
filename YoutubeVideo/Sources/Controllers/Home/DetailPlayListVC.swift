@@ -76,6 +76,7 @@ class DetailPlayListVC: UIViewController {
         print(url)
         var params: Parameters = ["part": "snippet,contentDetails",
                                   "maxResults": 20,
+                                  "type":"video",
                                   "key": API_KEY,
                                   "nextPageToken":nextPageToken]
         
@@ -87,6 +88,9 @@ class DetailPlayListVC: UIViewController {
 
         Alamofire
             .request(url, method: .get, parameters: params)
+            .responseJSON(completionHandler: { (response) in
+                print(response)
+            })
             .responseObject {[weak self] (response: DataResponse<ResponseVideo>) in
 
                 guard let strongSelf = self else { return }
@@ -98,7 +102,7 @@ class DetailPlayListVC: UIViewController {
                 }
                 
                 guard let res = response.result.value else {
-                    print("112312312")
+                    print("no value")
                     return
                 }
                 
@@ -213,23 +217,48 @@ extension DetailPlayListVC: UICollectionViewDelegateFlowLayout {
         
         let item = data[indexPath.row]
         
+        UrlVideo.small = nil
         UrlVideo.hd = nil
         UrlVideo.medium = nil
+        
+        print("get stream for video: ", item.videoId)
 
         XCDYouTubeClient.default().getVideoWithIdentifier(item.videoId) {  [weak self] (video: XCDYouTubeVideo?, error: Error?) in
 
             guard let strongSelf = self else { return }
-
-            if let streamURLs = video?.streamURLs,  let hdURL = streamURLs[VideoQuality.hd720],
-                                                    let mediumURL = streamURLs[VideoQuality.medium360]{
-                
-                UrlVideo.hd = hdURL
-                UrlVideo.medium = mediumURL
-
-            } else {
-                
+            
+            if let err = error {
+                print("error:", err.localizedDescription)
+                return
             }
-            strongSelf.performSegue(withIdentifier: "sgPlayer", sender: indexPath)
+            
+            guard let streamURLs = video?.streamURLs else {
+                print("no url found")
+                return
+            }
+            
+            var isHaveUrl = false
+            
+            if let hdURL = streamURLs[VideoQuality.hd720]  {
+                UrlVideo.hd = hdURL
+                isHaveUrl = true
+            }
+            
+            if let mediumURL = streamURLs[VideoQuality.medium360]  {
+                UrlVideo.medium = mediumURL
+                isHaveUrl = true
+            }
+            
+            if let mediumURL = streamURLs[VideoQuality.small240]  {
+                UrlVideo.small = mediumURL
+                isHaveUrl = true
+            }
+            
+            if isHaveUrl {
+                strongSelf.performSegue(withIdentifier: "sgPlayer", sender: indexPath)
+            } else{
+                print("no url suitable")
+            }
         }
     }
 }

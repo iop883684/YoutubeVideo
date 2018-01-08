@@ -31,22 +31,33 @@ class VideoPlayerVC: UIViewController {
         }
         
         print(UrlVideo.hd)
+        
+        var listDefinition = [BMPlayerResourceDefinition]()
 
-        let medium = BMPlayerResourceDefinition(url: UrlVideo.medium,
-                                              definition: "360")
-        
-        let asset = BMPlayerResource(name: "",
-                                     definitions: [medium],
-                                     cover: UrlVideo.medium)
-        
-        if UrlVideo.hd != nil {
-            let hd = BMPlayerResourceDefinition(url: UrlVideo.hd,
-                                                definition: "720")
-            
-            asset.definitions = [medium,hd]
+        if UrlVideo.small != nil{
+            let small = BMPlayerResourceDefinition(url: UrlVideo.small,
+                                                    definition: "240p")
+            listDefinition.append(small)
         }
         
         
+        if UrlVideo.medium != nil{
+            let medium = BMPlayerResourceDefinition(url: UrlVideo.medium,
+                                                    definition: "360p")
+            listDefinition.append(medium)
+        }
+        
+        
+        if UrlVideo.hd != nil {
+            let hd = BMPlayerResourceDefinition(url: UrlVideo.hd,
+                                                definition: "720p")
+            listDefinition.append(hd)
+            
+        }
+        
+        let asset = BMPlayerResource(name: "",
+                                     definitions: listDefinition,
+                                     cover: UrlVideo.medium)
 
         player.setVideo(resource: asset)
     }
