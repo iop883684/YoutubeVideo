@@ -10,8 +10,8 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="HelveticaNeue.ttc">
-            <string>HelveticaNeue</string>
+        <array key="AvenirNext.ttc">
+            <string>AvenirNext-Medium</string>
         </array>
     </customFonts>
     <objects>
@@ -25,12 +25,12 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ia6-fP-VHX">
-                        <rect key="frame" x="0.0" y="0.0" width="132" height="139.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="132" height="134"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dmX-zv-6YS">
-                        <rect key="frame" x="13" y="140.5" width="119" height="15.5"/>
-                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
-                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <rect key="frame" x="13" y="138" width="119" height="18"/>
+                        <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="13"/>
+                        <color key="textColor" red="0.05489068478345871" green="0.054908446967601776" blue="0.054889537394046783" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
@@ -39,11 +39,10 @@
                 <constraint firstAttribute="bottom" secondItem="dmX-zv-6YS" secondAttribute="bottom" id="G5I-wn-YRm"/>
                 <constraint firstItem="Ia6-fP-VHX" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="IJD-K7-mzu"/>
                 <constraint firstAttribute="trailing" secondItem="Ia6-fP-VHX" secondAttribute="trailing" id="JYW-Fx-xPT"/>
-                <constraint firstItem="dmX-zv-6YS" firstAttribute="top" secondItem="Ia6-fP-VHX" secondAttribute="bottom" constant="1" id="LqY-yu-tU9"/>
                 <constraint firstItem="Ia6-fP-VHX" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="ZnW-f8-kbu"/>
+                <constraint firstItem="dmX-zv-6YS" firstAttribute="top" secondItem="Ia6-fP-VHX" secondAttribute="bottom" constant="4" id="heP-qe-1Ja"/>
                 <constraint firstAttribute="trailing" secondItem="dmX-zv-6YS" secondAttribute="trailing" id="sih-kD-4wD"/>
                 <constraint firstItem="dmX-zv-6YS" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="13" id="zhD-xt-6tf"/>
-                <constraint firstItem="dmX-zv-6YS" firstAttribute="top" secondItem="Ia6-fP-VHX" secondAttribute="bottom" constant="1" id="zvd-Lk-bFW"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="132" height="156"/>

@@ -33,6 +33,7 @@
 		8898A8DB1FF10A450046F034 /* HomeTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8898A8D91FF10A450046F034 /* HomeTableCell.xib */; };
 		8898A8DD1FF10ADB0046F034 /* TableView + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8898A8DC1FF10ADB0046F034 /* TableView + Ext.swift */; };
 		8898A8DF1FF10C8B0046F034 /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8898A8DE1FF10C8B0046F034 /* Search.storyboard */; };
+		88A37561200376320082D452 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A37560200376320082D452 /* Video.swift */; };
 		88C691F81FFCCD65007E1E45 /* DetailPlayListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C691F71FFCCD65007E1E45 /* DetailPlayListVC.swift */; };
 		88C692061FFCE23F007E1E45 /* PlayListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C692041FFCE23F007E1E45 /* PlayListCollectionViewCell.swift */; };
 		88C692071FFCE23F007E1E45 /* PlayListCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88C692051FFCE23F007E1E45 /* PlayListCollectionViewCell.xib */; };
@@ -73,6 +74,7 @@
 		8898A8D91FF10A450046F034 /* HomeTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeTableCell.xib; sourceTree = "<group>"; };
 		8898A8DC1FF10ADB0046F034 /* TableView + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TableView + Ext.swift"; sourceTree = "<group>"; };
 		8898A8DE1FF10C8B0046F034 /* Search.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Search.storyboard; sourceTree = "<group>"; };
+		88A37560200376320082D452 /* Video.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
 		88C691F71FFCCD65007E1E45 /* DetailPlayListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPlayListVC.swift; sourceTree = "<group>"; };
 		88C692041FFCE23F007E1E45 /* PlayListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayListCollectionViewCell.swift; sourceTree = "<group>"; };
 		88C692051FFCE23F007E1E45 /* PlayListCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayListCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 			children = (
 				DC7A81C91FFAC19100350E32 /* Youtube.swift */,
 				88675AD41FF3B1D5004E0468 /* PlayList.swift */,
+				88A37560200376320082D452 /* Video.swift */,
 				880D12481FFF7A5E00325746 /* VideoQuality.swift */,
 			);
 			path = Model;
@@ -433,6 +436,7 @@
 				880D12491FFF7A5E00325746 /* VideoQuality.swift in Sources */,
 				8898A8DD1FF10ADB0046F034 /* TableView + Ext.swift in Sources */,
 				88C692061FFCE23F007E1E45 /* PlayListCollectionViewCell.swift in Sources */,
+				88A37561200376320082D452 /* Video.swift in Sources */,
 				88C6920A1FFCEFBA007E1E45 /* LoadingCell.swift in Sources */,
 				8898A8D41FF1066D0046F034 /* HomeVC.swift in Sources */,
 				884A087D1FF4CEDA00FCB7C7 /* Global.swift in Sources */,

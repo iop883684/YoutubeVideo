@@ -30,8 +30,6 @@ class VideoPlayerVC: UIViewController {
             let _ = self.navigationController?.popViewController(animated: true)
         }
         
-        print(UrlVideo.hd)
-        
         var listDefinition = [BMPlayerResourceDefinition]()
 
         if UrlVideo.small != nil{

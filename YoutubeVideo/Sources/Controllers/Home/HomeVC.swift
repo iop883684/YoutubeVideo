@@ -33,9 +33,6 @@ class HomeVC: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
-        navigationController?.navigationBar.barTintColor = UIColor(red: 36/255, green: 38/255, blue: 41/255, alpha: 1)
-
         self.configureTableView()
         
         listPlaylist = [
@@ -56,7 +53,6 @@ class HomeVC: BaseVC {
         
         tableView.separatorStyle = UITableViewCellSeparatorStyle.none
         tableView.allowsSelection = false
-        tableView.backgroundColor = UIColor(red: 21/255, green: 21/255, blue: 21/255, alpha: 1)
         
         tableView.registerNib(HomeTableCell.self, homeTableCellId)
         tableView.reloadData()
@@ -121,7 +117,7 @@ class HomeVC: BaseVC {
         
         let backItem = UIBarButtonItem()
         backItem.title = ""
-        backItem.tintColor = UIColor.white
+        backItem.tintColor = UIColor.black
         navigationItem.backBarButtonItem = backItem
     }
 }

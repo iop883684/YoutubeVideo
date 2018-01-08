@@ -40,8 +40,6 @@ class HomeTableCell: UITableViewCell {
         collectionView.dataSource = self
         
         collectionView.registerNib(HomeCollectionCell.self, homeCollectionCellId)
-        collectionView.backgroundColor = UIColor(red: 21/255, green: 21/255, blue: 21/255, alpha: 1)
-        contentView.backgroundColor =  UIColor(red: 18/255, green: 21/255, blue: 24/255, alpha: 1)
     }
     
     @IBAction func titlePressed(_ sender: UIButton){

@@ -40,9 +40,6 @@ class DetailPlayListVC: UIViewController {
         super.viewDidLoad()
 
         requestApi()
-        
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
-        navigationController?.navigationBar.barTintColor = UIColor(red: 36/255, green: 38/255, blue: 41/255, alpha: 1)
 
         self.title = vcTitle
         
@@ -73,7 +70,6 @@ class DetailPlayListVC: UIViewController {
              url = "https://www.googleapis.com/youtube/v3/playlistItems"
         }
         
-        print(url)
         var params: Parameters = ["part": "snippet,contentDetails",
                                   "maxResults": 20,
                                   "type":"video",
@@ -88,9 +84,6 @@ class DetailPlayListVC: UIViewController {
 
         Alamofire
             .request(url, method: .get, parameters: params)
-            .responseJSON(completionHandler: { (response) in
-                print(response)
-            })
             .responseObject {[weak self] (response: DataResponse<ResponseVideo>) in
 
                 guard let strongSelf = self else { return }
@@ -220,8 +213,6 @@ extension DetailPlayListVC: UICollectionViewDelegateFlowLayout {
         UrlVideo.small = nil
         UrlVideo.hd = nil
         UrlVideo.medium = nil
-        
-        print("get stream for video: ", item.videoId)
 
         XCDYouTubeClient.default().getVideoWithIdentifier(item.videoId) {  [weak self] (video: XCDYouTubeVideo?, error: Error?) in
 

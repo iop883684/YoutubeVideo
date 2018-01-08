@@ -61,7 +61,7 @@ class MainTabBarController: UITabBarController {
     // MARK: - Setup View
     private func setupView() {
         
-        self.tabBar.barTintColor = UIColor(red: 36/255, green: 38/255, blue: 41/255, alpha: 1)
+        self.tabBar.barTintColor = UIColor(red: 238/255, green: 242/255, blue: 241/255, alpha: 1)
     }
     
     func hideTabbar(hide: Bool?, animated: Bool = false) {

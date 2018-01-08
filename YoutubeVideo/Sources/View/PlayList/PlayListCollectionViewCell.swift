@@ -13,8 +13,7 @@ class PlayListCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var thumb: UIImageView!
     @IBOutlet weak var title: UILabel!
-    
-    
+
     func configure(_ item: Any){
         
         if let item = item as? Video{
@@ -24,6 +23,13 @@ class PlayListCollectionViewCell: UICollectionViewCell {
             thumb.kf.setImage(with: url)
             
             title.text = item.title
+            
+            thumb.layer.cornerRadius = 12
+            self.layer.cornerRadius = 12
+            self.layer.shadowRadius = 6
+            self.layer.shadowOpacity = 0.5
+            self.layer.shadowOffset = CGSize(width: 2,height: 2)
+            self.layer.masksToBounds = false
         }
     }
 }

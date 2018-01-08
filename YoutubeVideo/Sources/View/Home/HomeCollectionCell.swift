@@ -23,6 +23,8 @@ class HomeCollectionCell: UICollectionViewCell {
             let url = URL(string: item.thumbnails)
             
             thumb.kf.setImage(with: url)
+            
+            thumb.layer.cornerRadius = 12
         }
     }
 

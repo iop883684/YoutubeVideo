@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -24,7 +23,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" red="0.070196755230426788" green="0.082173384726047516" blue="0.094673506915569305" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="OMU-Zl-ong" firstAttribute="leading" secondItem="bE7-Oa-MDL" secondAttribute="leading" id="9Cg-Tl-yLF"/>
                             <constraint firstItem="bE7-Oa-MDL" firstAttribute="trailing" secondItem="OMU-Zl-ong" secondAttribute="trailing" id="siH-zS-zo8"/>
@@ -52,17 +51,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="URP-fd-ZJp" customClass="BMCustomPlayer" customModule="YoutubeVideo" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="227.5" width="375" height="211"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="URP-fd-ZJp" secondAttribute="height" multiplier="16:9" id="08c-RV-Dm7"/>
-                                </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.082352941176470587" green="0.082352941176470587" blue="0.082352941176470587" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.93282169103622437" green="0.94921404123306274" blue="0.94500714540481567" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="URP-fd-ZJp" firstAttribute="centerY" secondItem="8kl-Vx-dVe" secondAttribute="centerY" id="1Dh-Yi-qpe"/>
                             <constraint firstItem="URP-fd-ZJp" firstAttribute="trailing" secondItem="x64-nG-DXe" secondAttribute="trailing" id="6cR-gS-J3s"/>
+                            <constraint firstItem="URP-fd-ZJp" firstAttribute="top" secondItem="8kl-Vx-dVe" secondAttribute="top" id="bQA-rl-gDP"/>
+                            <constraint firstItem="URP-fd-ZJp" firstAttribute="bottom" secondItem="x64-nG-DXe" secondAttribute="bottom" id="mxM-C0-BPx"/>
                             <constraint firstItem="URP-fd-ZJp" firstAttribute="leading" secondItem="x64-nG-DXe" secondAttribute="leading" id="ugq-iF-IIR"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="x64-nG-DXe"/>
@@ -86,7 +83,7 @@
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="FyF-VB-5BD">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
-                                <color key="backgroundColor" red="0.082352941176470587" green="0.082352941176470587" blue="0.082352941176470587" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="15" minimumInteritemSpacing="10" id="ICC-dC-2g3">
                                     <size key="itemSize" width="50" height="50"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
