@@ -25,10 +25,10 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GhA-KM-XCO">
-                        <rect key="frame" x="0.0" y="0.0" width="309" height="136"/>
+                        <rect key="frame" x="0.0" y="0.0" width="309" height="138"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uVN-Nn-pOy">
-                        <rect key="frame" x="10" y="143" width="288" height="18"/>
+                        <rect key="frame" x="20" y="141" width="288" height="18"/>
                         <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="13"/>
                         <color key="textColor" red="0.33721464870000001" green="0.33727809790000002" blue="0.33721065519999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
@@ -37,14 +37,13 @@
             </view>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="uVN-Nn-pOy" firstAttribute="top" secondItem="GhA-KM-XCO" secondAttribute="bottom" constant="7" id="43z-F8-5PY"/>
-                <constraint firstItem="uVN-Nn-pOy" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="71x-zG-MEh"/>
-                <constraint firstItem="uVN-Nn-pOy" firstAttribute="top" secondItem="GhA-KM-XCO" secondAttribute="bottom" constant="7" id="7GS-0V-kpi"/>
-                <constraint firstAttribute="bottom" secondItem="uVN-Nn-pOy" secondAttribute="bottom" constant="1" id="HcP-co-rIL"/>
-                <constraint firstAttribute="trailing" secondItem="uVN-Nn-pOy" secondAttribute="trailing" constant="11" id="Z3j-Kc-nMw"/>
-                <constraint firstItem="GhA-KM-XCO" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="jVD-07-MfH"/>
-                <constraint firstAttribute="trailing" secondItem="GhA-KM-XCO" secondAttribute="trailing" id="l54-MD-qJo"/>
-                <constraint firstItem="GhA-KM-XCO" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="uCt-ls-bU5"/>
+                <constraint firstAttribute="trailing" secondItem="uVN-Nn-pOy" secondAttribute="trailing" constant="1" id="5Lt-Ce-6Ix"/>
+                <constraint firstItem="uVN-Nn-pOy" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="20" id="8Oy-jS-HxK"/>
+                <constraint firstItem="GhA-KM-XCO" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Uqx-Bk-diI"/>
+                <constraint firstItem="uVN-Nn-pOy" firstAttribute="top" secondItem="GhA-KM-XCO" secondAttribute="bottom" constant="3" id="Wee-ce-2jd"/>
+                <constraint firstAttribute="trailing" secondItem="GhA-KM-XCO" secondAttribute="trailing" id="dUN-mo-27v"/>
+                <constraint firstItem="GhA-KM-XCO" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="gfZ-gM-cwT"/>
+                <constraint firstAttribute="bottom" secondItem="uVN-Nn-pOy" secondAttribute="bottom" constant="3" id="zoG-nF-YJu"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="309" height="162"/>

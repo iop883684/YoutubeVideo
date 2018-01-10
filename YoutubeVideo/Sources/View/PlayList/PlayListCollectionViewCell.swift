@@ -13,6 +13,12 @@ class PlayListCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var thumb: UIImageView!
     @IBOutlet weak var title: UILabel!
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        
+    }
 
     func configure(_ item: Any){
         
@@ -28,7 +34,7 @@ class PlayListCollectionViewCell: UICollectionViewCell {
             self.layer.cornerRadius = 12
             self.layer.shadowRadius = 6
             self.layer.shadowOpacity = 0.5
-            self.layer.shadowOffset = CGSize(width: 2,height: 2)
+            self.layer.shadowOffset = CGSize(width: 2,height: 5)
             self.layer.masksToBounds = false
         }
     }
