@@ -31,10 +31,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="309" height="162"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OdO-F2-s09">
-                                <rect key="frame" x="0.0" y="141" width="309" height="21"/>
+                                <rect key="frame" x="0.0" y="142.5" width="309" height="19.5"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uVN-Nn-pOy">
-                                        <rect key="frame" x="5" y="0.0" width="304" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uVN-Nn-pOy">
+                                        <rect key="frame" x="5" y="0.0" width="304" height="19.5"/>
                                         <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -44,7 +44,6 @@
                                 <constraints>
                                     <constraint firstItem="uVN-Nn-pOy" firstAttribute="top" secondItem="OdO-F2-s09" secondAttribute="top" id="9O8-YL-SOd"/>
                                     <constraint firstAttribute="trailing" secondItem="uVN-Nn-pOy" secondAttribute="trailing" id="EJr-ax-W46"/>
-                                    <constraint firstAttribute="height" constant="21" id="nHa-tx-uJw"/>
                                     <constraint firstItem="uVN-Nn-pOy" firstAttribute="leading" secondItem="OdO-F2-s09" secondAttribute="leading" constant="5" id="rxM-Ma-Twx"/>
                                     <constraint firstAttribute="bottom" secondItem="uVN-Nn-pOy" secondAttribute="bottom" id="t5D-ui-N1U"/>
                                 </constraints>

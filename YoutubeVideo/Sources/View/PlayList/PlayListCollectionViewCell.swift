@@ -14,6 +14,7 @@ class PlayListCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var thumb: UIImageView!
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var roundedView: UIView!
+    @IBOutlet weak var titleView: UIView!
     
     var isSetShadow = false
     

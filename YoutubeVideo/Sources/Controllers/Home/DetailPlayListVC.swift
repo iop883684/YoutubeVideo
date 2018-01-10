@@ -191,7 +191,11 @@ extension DetailPlayListVC: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        return CGSize(width: 340, height: 210)
+        if indexPath.section == 1 {
+            return CGSize(width: UIScreen.main.bounds.width, height: 50)
+        }else {
+            return CGSize(width: 340, height: 210)
+        }
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

@@ -19,8 +19,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="251" height="50"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="tYn-cx-cCm">
-                        <rect key="frame" x="107" y="7" width="37" height="37"/>
+                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="tYn-cx-cCm">
+                        <rect key="frame" x="116" y="15" width="20" height="20"/>
                     </activityIndicatorView>
                 </subviews>
             </view>
