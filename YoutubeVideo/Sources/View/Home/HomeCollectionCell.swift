@@ -24,7 +24,8 @@ class HomeCollectionCell: UICollectionViewCell {
             
             thumb.kf.setImage(with: url)
             
-            thumb.layer.cornerRadius = 12
+            //thumb.layer.cornerRadius = 12
+            self.layer.cornerRadius = 12
         }
     }
 

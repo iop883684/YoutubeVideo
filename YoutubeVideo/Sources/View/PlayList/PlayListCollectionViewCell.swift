@@ -13,10 +13,23 @@ class PlayListCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var thumb: UIImageView!
     @IBOutlet weak var title: UILabel!
+    @IBOutlet weak var roundedView: UIView!
+    
+    var isSetShadow = false
     
     override func layoutSubviews() {
         super.layoutSubviews()
         
+        if isSetShadow{
+            return
+        }
+        
+        isSetShadow = true
+        
+        self.layer.shadowRadius = 2.5
+        self.layer.shadowOpacity = 0.7
+        self.layer.shadowOffset = CGSize.zero
+        self.layer.masksToBounds = false
         
     }
 
@@ -29,13 +42,9 @@ class PlayListCollectionViewCell: UICollectionViewCell {
             thumb.kf.setImage(with: url)
             
             title.text = item.title
-            
-            thumb.layer.cornerRadius = 12
+            roundedView.layer.cornerRadius = 12
             self.layer.cornerRadius = 12
-            self.layer.shadowRadius = 6
-            self.layer.shadowOpacity = 0.5
-            self.layer.shadowOffset = CGSize(width: 2,height: 5)
-            self.layer.masksToBounds = false
+            
         }
     }
 }
