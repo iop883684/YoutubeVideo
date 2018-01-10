@@ -71,7 +71,7 @@ class DetailPlayListVC: UIViewController {
         }
         
         var params: Parameters = ["part": "snippet,contentDetails",
-                                  "maxResults": 20,
+                                  "maxResults": 7,
                                   "type":"video",
                                   "key": API_KEY,
                                   "nextPageToken":nextPageToken]

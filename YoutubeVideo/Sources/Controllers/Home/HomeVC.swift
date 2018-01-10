@@ -10,12 +10,15 @@ import UIKit
 import AlamofireObjectMapper
 import Alamofire
 import PKHUD
+import Firebase
+import FirebaseFirestore
 
 private let homeTableCellId = "homeTableCell"
 
 class HomeVC: BaseVC {
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var indicator: UIActivityIndicatorView!
 
     private var data = [(title:String, obj:[PlayList])]()
     private var listPlaylist = [(title:String, channelId:String)]()
@@ -33,17 +36,44 @@ class HomeVC: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.configureTableView()
+        configureTableView()
         
-        listPlaylist = [
-            ("FAP TV","UC0jDoh3tVXCaqJ6oTve8ebA"),
-            ("Lets Build That App","UCuP2vJ6kRutQBfRmdcI92mA"),
-            ("10IFsOfficialSubTeam","UC_R1lYegdBvvo8zLzqzz9sQ")
-        ]
+        indicator.color = UIColor.gray
+        indicator.startAnimating()
         
-        for obj in listPlaylist{
-            getListVideo(obj.channelId, obj.title)
+        let db = Firestore.firestore()
+        
+        db.collection("playlist").getDocuments() {[weak self] (snapshot, error) in
+            
+            guard let strongSelf = self else { return }
+            
+            if error != nil {
+                print("error")
+                return
+            }
+            
+            
+            for document in snapshot!.documents{
+                
+                let title = document.data()["name"] as! String
+                let id = document.data()["id"] as! String
+                
+                strongSelf.listPlaylist.append((title: title, channelId: id))
+            }
+            
+            for obj in strongSelf.listPlaylist{
+                strongSelf.getListVideo(obj.channelId, obj.title)
+
+            }
+            strongSelf.indicator.stopAnimating()
         }
+        
+//        listPlaylist = [
+//            ("FAP TV","UC0jDoh3tVXCaqJ6oTve8ebA"),
+//            ("Lets Build That App","UCuP2vJ6kRutQBfRmdcI92mA"),
+//            ("10IFsOfficialSubTeam","UC_R1lYegdBvvo8zLzqzz9sQ")
+//        ]
+        
     }
     
     func configureTableView(){
