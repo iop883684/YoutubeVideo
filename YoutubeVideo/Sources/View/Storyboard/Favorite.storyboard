@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dVM-0c-1Jj">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="AvenirNext.ttc">
+            <string>AvenirNext-Bold</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Yêu Thích-->
+        <scene sceneID="ucH-FP-Hvu">
+            <objects>
+                <viewController id="KcQ-Sw-2kO" customClass="FavoriteVC" customModule="YoutubeVideo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="tTA-vh-ad0">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="O4f-IV-r9R">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bạn chưa theo dõi channel nào !" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AlL-aX-XQt">
+                                <rect key="frame" x="0.0" y="271" width="375" height="127"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="127" id="2AU-gu-PW5"/>
+                                    <constraint firstAttribute="width" constant="375" id="HgO-jM-yYp"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="27"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="O4f-IV-r9R" firstAttribute="top" secondItem="O8z-rM-TtU" secondAttribute="top" id="6NI-ZA-Ytr"/>
+                            <constraint firstItem="AlL-aX-XQt" firstAttribute="centerY" secondItem="tTA-vh-ad0" secondAttribute="centerY" constant="1" id="H4B-KS-VpY"/>
+                            <constraint firstItem="AlL-aX-XQt" firstAttribute="centerX" secondItem="tTA-vh-ad0" secondAttribute="centerX" id="PAT-dr-Pro"/>
+                            <constraint firstItem="O4f-IV-r9R" firstAttribute="leading" secondItem="O8z-rM-TtU" secondAttribute="leading" id="Z7j-US-5uJ"/>
+                            <constraint firstItem="O8z-rM-TtU" firstAttribute="trailing" secondItem="O4f-IV-r9R" secondAttribute="trailing" id="cHO-5e-ChV"/>
+                            <constraint firstItem="O8z-rM-TtU" firstAttribute="bottom" secondItem="O4f-IV-r9R" secondAttribute="bottom" id="f95-Xv-vxD"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="O8z-rM-TtU"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Yêu Thích" id="XF5-Sj-DxX"/>
+                    <connections>
+                        <outlet property="label" destination="AlL-aX-XQt" id="cQT-v1-0Xd"/>
+                        <outlet property="tableView" destination="O4f-IV-r9R" id="K08-xy-oE5"/>
+                        <segue destination="pET-lW-SAk" kind="show" identifier="sgToDetail" id="JHi-Zo-Gla"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LiI-Z6-eug" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="464.80000000000001" y="-182.15892053973016"/>
+        </scene>
+        <!--DetailPlayListVC-->
+        <scene sceneID="GDk-8D-p6v">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Home" referencedIdentifier="DetailPlayListVC" id="pET-lW-SAk" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UD7-Gn-L3J" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1165" y="-259"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Om0-4y-ALf">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="dVM-0c-1Jj" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="FBE-0c-sV1">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="KcQ-Sw-2kO" kind="relationship" relationship="rootViewController" id="X5q-rc-amc"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZaP-dT-F4b" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-201" y="-182"/>
+        </scene>
+    </scenes>
+</document>

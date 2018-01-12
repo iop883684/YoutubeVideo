@@ -9,19 +9,23 @@
 import UIKit
 import BMPlayer
 
-class VideoPlayerVC: UIViewController {
+class VideoPlayerVC: UIViewController{
     
     @IBOutlet weak var player: BMCustomPlayer!
+    @IBOutlet weak var moreBtn: UIButton!
 
     var videoTitle: String!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let _ = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
+
         navigationController?.navigationBar.isHidden = true
         tabBarController?.tabBar.isHidden = true
         
         BMPlayerConf.enableChooseDefinition = true
+        BMPlayerConf.enableBrightnessGestures = false
         
         player.backBlock = { [unowned self] (isFullScreen) in
             if isFullScreen == true {
@@ -58,6 +62,8 @@ class VideoPlayerVC: UIViewController {
                                      cover: UrlVideo.medium)
 
         player.setVideo(resource: asset)
+
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -66,5 +72,47 @@ class VideoPlayerVC: UIViewController {
         navigationController?.navigationBar.isHidden = false
         tabBarController?.tabBar.isHidden = false
     }
+
+    @IBAction func btnPressed(_ sender: UIButton){
+        
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        let action = UIAlertAction(title: "Follow This Channel", style: .default) { (_) in
+            
+            Global.shared.addFavoriteChannel(dict: ["title": Global.shared.titleChannel,
+                                                    "id": Global.shared.idChannel])
+        }
+        
+        let cancel = UIAlertAction(title: "Huỷ", style: .cancel, handler: nil)
+        
+        alertController.addAction(action)
+        alertController.addAction(cancel)
+        present(alertController, animated: true, completion: nil)
+    }
     
+    @objc func update(){
+        
+        if UIApplication.shared.isStatusBarHidden == true {
+            UIView.animate(withDuration: 0.1, delay: 0.1, options: .curveEaseIn, animations: {
+                
+                self.moreBtn.alpha = 0
+            }, completion: nil)
+        }else {
+            moreBtn.alpha = 1
+        }
+    }
+    
+    
+
 }
+
+
+
+
+
+
+
+
+
+
+

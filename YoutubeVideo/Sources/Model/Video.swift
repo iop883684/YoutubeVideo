@@ -31,7 +31,7 @@ class Video: Mappable{
         thumbnails <- map["snippet.thumbnails.medium.url"]
         channelTitle <- map["snippet.channelTitle"]
         nextPageToken <- map["nextPageToken"]
-        channelId <- map["channelId"]
+        channelId <- map["snippet.channelId"]
         videoId <- map["contentDetails.videoId"]
         if videoId.isEmpty {
             videoId <- map["contentDetails.upload.videoId"]

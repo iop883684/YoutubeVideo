@@ -17,6 +17,12 @@
 		88675AD21FF3B18E004E0468 /* HomeCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88675AD01FF3B18E004E0468 /* HomeCollectionCell.xib */; };
 		88675AD51FF3B1D5004E0468 /* PlayList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88675AD41FF3B1D5004E0468 /* PlayList.swift */; };
 		88675AD71FF3B289004E0468 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88675AD61FF3B289004E0468 /* Constants.swift */; };
+		88902EF520076F6B005DE008 /* Favorite.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88902EF420076F6B005DE008 /* Favorite.storyboard */; };
+		88902EF92007709F005DE008 /* FavoriteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88902EF82007709F005DE008 /* FavoriteVC.swift */; };
+		88902EFD20077159005DE008 /* FavTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88902EFB20077159005DE008 /* FavTableViewCell.swift */; };
+		88902EFE20077159005DE008 /* FavTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88902EFC20077159005DE008 /* FavTableViewCell.xib */; };
+		88902F01200772E8005DE008 /* FavCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88902EFF200772E8005DE008 /* FavCollectionViewCell.swift */; };
+		88902F02200772E8005DE008 /* FavCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88902F00200772E8005DE008 /* FavCollectionViewCell.xib */; };
 		8898A8AE1FF0F6390046F034 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8898A8AD1FF0F6390046F034 /* AppDelegate.swift */; };
 		8898A8B31FF0F6390046F034 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8898A8B11FF0F6390046F034 /* Main.storyboard */; };
 		8898A8B51FF0F6390046F034 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8898A8B41FF0F6390046F034 /* Assets.xcassets */; };
@@ -56,6 +62,12 @@
 		88675AD01FF3B18E004E0468 /* HomeCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeCollectionCell.xib; sourceTree = "<group>"; };
 		88675AD41FF3B1D5004E0468 /* PlayList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayList.swift; sourceTree = "<group>"; };
 		88675AD61FF3B289004E0468 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		88902EF420076F6B005DE008 /* Favorite.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Favorite.storyboard; sourceTree = "<group>"; };
+		88902EF82007709F005DE008 /* FavoriteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteVC.swift; sourceTree = "<group>"; };
+		88902EFB20077159005DE008 /* FavTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavTableViewCell.swift; sourceTree = "<group>"; };
+		88902EFC20077159005DE008 /* FavTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FavTableViewCell.xib; sourceTree = "<group>"; };
+		88902EFF200772E8005DE008 /* FavCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavCollectionViewCell.swift; sourceTree = "<group>"; };
+		88902F00200772E8005DE008 /* FavCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FavCollectionViewCell.xib; sourceTree = "<group>"; };
 		8898A8AA1FF0F6390046F034 /* YoutubeVideo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YoutubeVideo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8898A8AD1FF0F6390046F034 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8898A8B21FF0F6390046F034 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -122,6 +134,25 @@
 				880D12481FFF7A5E00325746 /* VideoQuality.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		88902EF720077094005DE008 /* Favorite */ = {
+			isa = PBXGroup;
+			children = (
+				88902EF82007709F005DE008 /* FavoriteVC.swift */,
+			);
+			path = Favorite;
+			sourceTree = "<group>";
+		};
+		88902EFA20077141005DE008 /* Favorite */ = {
+			isa = PBXGroup;
+			children = (
+				88902EFB20077159005DE008 /* FavTableViewCell.swift */,
+				88902EFC20077159005DE008 /* FavTableViewCell.xib */,
+				88902EFF200772E8005DE008 /* FavCollectionViewCell.swift */,
+				88902F00200772E8005DE008 /* FavCollectionViewCell.xib */,
+			);
+			path = Favorite;
 			sourceTree = "<group>";
 		};
 		8898A8A11FF0F6390046F034 = {
@@ -192,6 +223,7 @@
 				8898A8C71FF0FE9D0046F034 /* MainTabBarController.swift */,
 				8898A8CE1FF0FFB50046F034 /* StartVC.swift */,
 				8898A8D21FF106500046F034 /* Home */,
+				88902EF720077094005DE008 /* Favorite */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -208,11 +240,12 @@
 		8898A8CC1FF0FF590046F034 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				8847DC1020034CAF008E3F01 /* BMPlayer */,
 				88C692081FFCEFBA007E1E45 /* LoadingCell.swift */,
 				88C692091FFCEFBA007E1E45 /* LoadingCell.xib */,
+				8847DC1020034CAF008E3F01 /* BMPlayer */,
 				8898A8D71FF10A050046F034 /* Home */,
 				88C691FB1FFCDD3B007E1E45 /* PlayList */,
+				88902EFA20077141005DE008 /* Favorite */,
 				8898A8CD1FF0FF600046F034 /* Storyboard */,
 			);
 			path = View;
@@ -225,6 +258,7 @@
 				8898A8D01FF106220046F034 /* Home.storyboard */,
 				8898A8D51FF107280046F034 /* User.storyboard */,
 				8898A8DE1FF10C8B0046F034 /* Search.storyboard */,
+				88902EF420076F6B005DE008 /* Favorite.storyboard */,
 			);
 			path = Storyboard;
 			sourceTree = "<group>";
@@ -332,8 +366,11 @@
 			files = (
 				8898A8B81FF0F6390046F034 /* LaunchScreen.storyboard in Resources */,
 				8898A8D61FF107280046F034 /* User.storyboard in Resources */,
+				88902EF520076F6B005DE008 /* Favorite.storyboard in Resources */,
 				88C692071FFCE23F007E1E45 /* PlayListCollectionViewCell.xib in Resources */,
+				88902F02200772E8005DE008 /* FavCollectionViewCell.xib in Resources */,
 				884A087B1FF4CE0000FCB7C7 /* GoogleService-Info.plist in Resources */,
+				88902EFE20077159005DE008 /* FavTableViewCell.xib in Resources */,
 				8898A8B51FF0F6390046F034 /* Assets.xcassets in Resources */,
 				88C6920B1FFCEFBA007E1E45 /* LoadingCell.xib in Resources */,
 				8898A8B31FF0F6390046F034 /* Main.storyboard in Resources */,
@@ -447,6 +484,7 @@
 				88675AD51FF3B1D5004E0468 /* PlayList.swift in Sources */,
 				880D12491FFF7A5E00325746 /* VideoQuality.swift in Sources */,
 				8898A8DD1FF10ADB0046F034 /* TableView + Ext.swift in Sources */,
+				88902F01200772E8005DE008 /* FavCollectionViewCell.swift in Sources */,
 				88C692061FFCE23F007E1E45 /* PlayListCollectionViewCell.swift in Sources */,
 				88A37561200376320082D452 /* Video.swift in Sources */,
 				88C6920A1FFCEFBA007E1E45 /* LoadingCell.swift in Sources */,
@@ -458,7 +496,9 @@
 				8898A8CF1FF0FFB50046F034 /* StartVC.swift in Sources */,
 				8898A8DA1FF10A450046F034 /* HomeTableCell.swift in Sources */,
 				8847DC0D20034C5A008E3F01 /* BMCustomPlayer.swift in Sources */,
+				88902EFD20077159005DE008 /* FavTableViewCell.swift in Sources */,
 				8898A8AE1FF0F6390046F034 /* AppDelegate.swift in Sources */,
+				88902EF92007709F005DE008 /* FavoriteVC.swift in Sources */,
 				DC7A81CA1FFAC19100350E32 /* Youtube.swift in Sources */,
 				8898A8C61FF0FE8B0046F034 /* BaseVC.swift in Sources */,
 				88675AD71FF3B289004E0468 /* Constants.swift in Sources */,

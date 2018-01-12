@@ -89,6 +89,11 @@ class MainTabBarController: UITabBarController {
         let tabBarItemHome =  UITabBarItem(tabBarSystemItem: .topRated, tag: 10)
         navigationHome.tabBarItem = tabBarItemHome
         
+        // Favorite
+        let navigationFav = UIStoryboard(name: Storyboard.Favorite.name, bundle: nil).instantiateInitialViewController()!
+        let tabBarItemFav  =  UITabBarItem(tabBarSystemItem: .favorites , tag: 40)
+        navigationFav.tabBarItem = tabBarItemFav
+        
         // Search
         let navigationSearch = UIStoryboard(name: Storyboard.Search.name, bundle: nil).instantiateInitialViewController()!
         let tabBarItemSearch  =  UITabBarItem(tabBarSystemItem: .search, tag: 20)
@@ -101,7 +106,7 @@ class MainTabBarController: UITabBarController {
         navigationUser.tabBarItem = tabBarItemUser
         
         // set list childs controller to tabbar
-        let controllers = [navigationHome,navigationSearch, navigationUser]
+        let controllers = [navigationHome, navigationFav ,navigationSearch, navigationUser]
         self.viewControllers = controllers
         self.hideTabbar(hide: false)
     }

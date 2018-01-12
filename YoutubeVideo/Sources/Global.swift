@@ -11,6 +11,8 @@ import Firebase
 
 class Global {
     
+    var pref: UserDefaults!
+    
     static let shared : Global = {
         let instanceGl = Global()
         return instanceGl
@@ -19,9 +21,14 @@ class Global {
     var loadingDoneCallback: (() -> ())?
     var fetchComplete: Bool = false
     
+    var idChannel = ""
+    var titleChannel = ""
+    
     private init() {
         loadDefaultValues()
         fetchCloudValues()
+        
+        pref = UserDefaults.standard
     }
     
     func loadDefaultValues() {
@@ -55,4 +62,39 @@ class Global {
             strongSelf.loadingDoneCallback?()
         }
     }
+    
+    func clearFavorite(){
+        
+        pref.set(nil, forKey: "favorites")
+        
+    }
+    
+    func addFavoriteChannel(dict: [String: String]) {
+        var favorites = [[String: String]]()
+        if let _favorites = pref.object(forKey: "favorites") as? [[String: String]] {
+            favorites = _favorites
+        }
+        favorites.append(dict)
+        
+        pref.set(favorites, forKey: "favorites")
+    }
+    
+    func getFavoriteChannel() -> [[String: String]]! {
+        guard let favorites = pref.object(forKey: "favorites") as? [[String: String]] else { return nil }
+        return favorites
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

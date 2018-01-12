@@ -17,6 +17,8 @@ class BMPlayerCustomControlView: BMPlayerControlView {
     var rotateButton = UIButton(type: .custom)
     var rotateCount: CGFloat = 0
     
+    var button = UIButton(type: .custom)
+    
     /**
      Override if need to customize UI components
      */
@@ -42,7 +44,7 @@ class BMPlayerCustomControlView: BMPlayerControlView {
             $0.centerY.equalTo(chooseDefitionView)
         }
         
-        topMaskView.addSubview(rotateButton)
+        bottomMaskView.addSubview(rotateButton)
         rotateButton.layer.cornerRadius = 2
         rotateButton.layer.borderWidth  = 1
         rotateButton.layer.borderColor  = UIColor ( red: 1.0, green: 1.0, blue: 1.0, alpha: 0.8 ).cgColor
@@ -53,6 +55,20 @@ class BMPlayerCustomControlView: BMPlayerControlView {
         rotateButton.isHidden = true
         rotateButton.snp.makeConstraints {
             $0.right.equalTo(playbackRateButton.snp.left).offset(-5)
+            $0.centerY.equalTo(chooseDefitionView)
+        }
+        topMaskView.addSubview(button)
+        
+        button.layer.cornerRadius = 2
+        button.layer.borderWidth  = 1
+        button.layer.borderColor  = UIColor ( red: 1.0, green: 1.0, blue: 1.0, alpha: 0.8 ).cgColor
+        button.setTitleColor(UIColor ( red: 1.0, green: 1.0, blue: 1.0, alpha: 0.9 ), for: .normal)
+        button.setTitle("  button \(playRate)  ", for: .normal)
+        button.addTarget(self, action: #selector(onPlaybackRateButtonPressed), for: .touchUpInside)
+        button.titleLabel?.font   = UIFont.systemFont(ofSize: 12)
+        button.isHidden = false
+        button.snp.makeConstraints {
+            $0.right.equalTo(chooseDefitionView.snp.left).offset(-25)
             $0.centerY.equalTo(chooseDefitionView)
         }
     }
@@ -103,6 +119,7 @@ class BMPlayerCustomControlView: BMPlayerControlView {
         }
         playbackRateButton.setTitle("  rate \(playRate)  ", for: .normal)
         delegate?.controlView?(controlView: self, didChangeVideoPlaybackRate: playRate)
+        
     }
     
     
@@ -116,4 +133,5 @@ class BMPlayerCustomControlView: BMPlayerControlView {
         layer.transform = CGAffineTransform(rotationAngle: rotateCount * CGFloat(Double.pi/2))
         layer.frame = player!.bounds
     }
+    
 }

@@ -71,7 +71,7 @@ class DetailPlayListVC: UIViewController {
         }
         
         var params: Parameters = ["part": "snippet,contentDetails",
-                                  "maxResults": 7,
+                                  "maxResults": 20,
                                   "type":"video",
                                   "key": API_KEY,
                                   "nextPageToken":nextPageToken]
@@ -213,6 +213,12 @@ extension DetailPlayListVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         let item = data[indexPath.row]
+        
+        Global.shared.idChannel = ""
+        Global.shared.titleChannel = ""
+        
+        Global.shared.idChannel = item.channelId
+        Global.shared.titleChannel = item.channelTitle
         
         UrlVideo.small = nil
         UrlVideo.hd = nil
