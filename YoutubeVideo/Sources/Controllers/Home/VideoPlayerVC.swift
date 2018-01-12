@@ -16,8 +16,18 @@ class VideoPlayerVC: UIViewController{
 
     var videoTitle: String!
     
+    var isFollow = false
+    var index = 0
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        for x in 0..<Global.shared.getFavoriteChannel().count {
+            
+            if Global.shared.idChannel == Global.shared.getFavoriteChannel()[x]["id"] {
+                isFollow = true
+                index = x
+            }
+        }
         
         let _ = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
 
@@ -83,9 +93,19 @@ class VideoPlayerVC: UIViewController{
                                                     "id": Global.shared.idChannel])
         }
         
+        let unfollow = UIAlertAction(title: "Unfollow", style: .default) {[unowned self] (_) in
+            
+            Global.shared.deleteFavoriteChannel(index: self.index)
+        }
+        
         let cancel = UIAlertAction(title: "Huỷ", style: .cancel, handler: nil)
         
-        alertController.addAction(action)
+        if isFollow {
+            alertController.addAction(unfollow)
+        } else {
+            alertController.addAction(action)
+        }
+        
         alertController.addAction(cancel)
         present(alertController, animated: true, completion: nil)
     }

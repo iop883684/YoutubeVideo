@@ -27,7 +27,6 @@ class Global {
     private init() {
         loadDefaultValues()
         fetchCloudValues()
-        
         pref = UserDefaults.standard
     }
     
@@ -83,6 +82,14 @@ class Global {
         guard let favorites = pref.object(forKey: "favorites") as? [[String: String]] else { return nil }
         return favorites
     }
+    
+    func deleteFavoriteChannel(index: Int) {
+        guard var favorites = pref.object(forKey: "favorites") as? [[String: String]] else { return }
+        favorites.remove(at: index)
+        
+        pref.set(favorites, forKey: "favorites")
+    }
+    
 }
 
 

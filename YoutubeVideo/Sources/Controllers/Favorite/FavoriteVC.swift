@@ -20,7 +20,7 @@ class FavoriteVC: UIViewController {
     private var refreshControl = UIRefreshControl()
     
     var isChannel: Bool!
-    
+    var data: [[String: String]] = []
     var id = ""
     var channelTitle = ""
     
@@ -29,7 +29,18 @@ class FavoriteVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        
         setUpTableView()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if data.count != Global.shared.getFavoriteChannel().count {
+            data = Global.shared.getFavoriteChannel()
+            tableView.reloadData()
+        }
     }
     
     //
@@ -80,15 +91,14 @@ extension FavoriteVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        guard let data = Global.shared.getFavoriteChannel()?.count else {
+        if data.count != 0 {
+            tableView.backgroundView?.isHidden = true
+            return data.count
+        } else {
             tableView.backgroundView?.isHidden = false
             return 0
         }
         
-        if data != 0 {
-            tableView.backgroundView?.isHidden = true
-        }
-        return data
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
