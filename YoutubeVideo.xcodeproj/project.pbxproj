@@ -16,6 +16,8 @@
 		884869D1200C86B300338110 /* SearchCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 884869CF200C86B300338110 /* SearchCollectionViewCell.xib */; };
 		884A087B1FF4CE0000FCB7C7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 884A087A1FF4CE0000FCB7C7 /* GoogleService-Info.plist */; };
 		884A087D1FF4CEDA00FCB7C7 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A087C1FF4CEDA00FCB7C7 /* Global.swift */; };
+		88525C18200CA6D900242C2D /* KeyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88525C16200CA6D900242C2D /* KeyCollectionViewCell.swift */; };
+		88525C19200CA6D900242C2D /* KeyCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88525C17200CA6D900242C2D /* KeyCollectionViewCell.xib */; };
 		88675AD11FF3B18E004E0468 /* HomeCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88675ACF1FF3B18E004E0468 /* HomeCollectionCell.swift */; };
 		88675AD21FF3B18E004E0468 /* HomeCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88675AD01FF3B18E004E0468 /* HomeCollectionCell.xib */; };
 		88675AD51FF3B1D5004E0468 /* PlayList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88675AD41FF3B1D5004E0468 /* PlayList.swift */; };
@@ -62,6 +64,8 @@
 		884869CF200C86B300338110 /* SearchCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchCollectionViewCell.xib; sourceTree = "<group>"; };
 		884A087A1FF4CE0000FCB7C7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		884A087C1FF4CEDA00FCB7C7 /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
+		88525C16200CA6D900242C2D /* KeyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyCollectionViewCell.swift; sourceTree = "<group>"; };
+		88525C17200CA6D900242C2D /* KeyCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KeyCollectionViewCell.xib; sourceTree = "<group>"; };
 		88675ACF1FF3B18E004E0468 /* HomeCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionCell.swift; sourceTree = "<group>"; };
 		88675AD01FF3B18E004E0468 /* HomeCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeCollectionCell.xib; sourceTree = "<group>"; };
 		88675AD41FF3B1D5004E0468 /* PlayList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayList.swift; sourceTree = "<group>"; };
@@ -140,6 +144,8 @@
 			children = (
 				884869CE200C86B300338110 /* SearchCollectionViewCell.swift */,
 				884869CF200C86B300338110 /* SearchCollectionViewCell.xib */,
+				88525C16200CA6D900242C2D /* KeyCollectionViewCell.swift */,
+				88525C17200CA6D900242C2D /* KeyCollectionViewCell.xib */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -386,6 +392,7 @@
 				884869D1200C86B300338110 /* SearchCollectionViewCell.xib in Resources */,
 				8898A8B81FF0F6390046F034 /* LaunchScreen.storyboard in Resources */,
 				8898A8D61FF107280046F034 /* User.storyboard in Resources */,
+				88525C19200CA6D900242C2D /* KeyCollectionViewCell.xib in Resources */,
 				88902EF520076F6B005DE008 /* Favorite.storyboard in Resources */,
 				88C692071FFCE23F007E1E45 /* PlayListCollectionViewCell.xib in Resources */,
 				88902F02200772E8005DE008 /* FavCollectionViewCell.xib in Resources */,
@@ -455,6 +462,7 @@
 				"${BUILT_PRODUCTS_DIR}/PKHUD/PKHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/TagListView/TagListView.framework",
 				"${BUILT_PRODUCTS_DIR}/XCDYouTubeKit/XCDYouTubeKit.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC/GRPCClient.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
@@ -477,6 +485,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PKHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TagListView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XCDYouTubeKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRPCClient.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
@@ -514,6 +523,7 @@
 				8847DC0B20034C06008E3F01 /* VideoPlayerVC.swift in Sources */,
 				8898A8CB1FF0FF210046F034 /* ViewController + Ext.swift in Sources */,
 				8898A8CF1FF0FFB50046F034 /* StartVC.swift in Sources */,
+				88525C18200CA6D900242C2D /* KeyCollectionViewCell.swift in Sources */,
 				8898A8DA1FF10A450046F034 /* HomeTableCell.swift in Sources */,
 				8847DC0D20034C5A008E3F01 /* BMCustomPlayer.swift in Sources */,
 				8898A8AE1FF0F6390046F034 /* AppDelegate.swift in Sources */,

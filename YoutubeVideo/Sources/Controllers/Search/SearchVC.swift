@@ -10,8 +10,10 @@ import UIKit
 import Alamofire
 import ObjectMapper
 import XCDYouTubeKit
+import FirebaseFirestore
 
 private let searchCellId = "searchCell"
+private let keyCellId = "keyCell"
 
 private let width = UIScreen.main.bounds.width
 
@@ -50,15 +52,9 @@ class SearchVC: UIViewController {
         
         collectionView.registerNib(SearchCollectionViewCell.self, searchCellId)
         collectionView.registerNib(LoadingCell.self, loadingCellId)
+        collectionView.registerNib(KeyCollectionViewCell.self, keyCellId)
         
     }
-    
-    @IBAction func tap(_ sender: UITapGestureRecognizer){
-        
-        print("32131231312312")
-        self.searchBar.endEditing(true)
-    }
-    
     
     //MARK: - CaLL API
     
@@ -137,7 +133,7 @@ extension SearchVC: UICollectionViewDataSource {
             }
             return 2
         } else {
-            return 0
+            return 1
         }
     }
     
@@ -149,7 +145,7 @@ extension SearchVC: UICollectionViewDataSource {
             
             return data.count
         } else {
-            return 0
+            return 1
         }
     }
     
@@ -172,7 +168,9 @@ extension SearchVC: UICollectionViewDataSource {
             
             return cell
         } else {
-            return UICollectionViewCell()
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: keyCellId, for: indexPath) as! KeyCollectionViewCell
+            
+            return cell
         }
     }
 }
@@ -183,10 +181,14 @@ extension SearchVC: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        if indexPath.section == 1 {
-            return CGSize(width: UIScreen.main.bounds.width, height: 50)
-        }else {
-            return CGSize(width: 340, height: 210)
+        if !isSearching {
+            if indexPath.section == 1 {
+                return CGSize(width: UIScreen.main.bounds.width, height: 50)
+            }else {
+                return CGSize(width: 340, height: 210)
+            }
+        } else {
+            return CGSize(width: UIScreen.main.bounds.width, height: 200)
         }
     }
     
