@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import ObjectMapper
+import XCDYouTubeKit
 
 private let searchCellId = "searchCell"
 
@@ -25,18 +26,20 @@ class SearchVC: UIViewController {
     lazy var searchBar = UISearchBar()
     
     var data: [Video] = []
-
+    
     var nextPageToken = ""
     var regionCode = "VN"
     var searchText = ""
     
+    var isSearching = true
+    var isHaveUrl = false
     var isFull = false
     var isLoading = false
     //MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         navigationItem.titleView = searchBar
         
         searchBar.delegate = self
@@ -47,10 +50,12 @@ class SearchVC: UIViewController {
         
         collectionView.registerNib(SearchCollectionViewCell.self, searchCellId)
         collectionView.registerNib(LoadingCell.self, loadingCellId)
+        
     }
     
     @IBAction func tap(_ sender: UITapGestureRecognizer){
         
+        print("32131231312312")
         self.searchBar.endEditing(true)
     }
     
@@ -72,7 +77,8 @@ class SearchVC: UIViewController {
                                   "q": text,
                                   "key": API_KEY,
                                   "pageToken":nextPageToken,
-                                  "regionCode": regionCode]
+                                  "regionCode": regionCode,
+                                  "type": "video"]
         
         print(params)
         
@@ -106,10 +112,17 @@ class SearchVC: UIViewController {
                     strongSelf.data.append(contentsOf: video)
                     strongSelf.collectionView.reloadData()
                 }
-                
         }
     }
-
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = segue.destination as? VideoPlayerVC {
+            
+            let indexPath = sender as! IndexPath
+            
+            vc.videoTitle = data[indexPath.row].title
+        }
+    }
 }
 
 
@@ -118,37 +131,49 @@ class SearchVC: UIViewController {
 extension SearchVC: UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        if isFull{
-            return 1
+        if !isSearching {
+            if isFull{
+                return 1
+            }
+            return 2
+        } else {
+            return 0
         }
-        return 2
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if  section == 1{
-            return 1
+        if !isSearching {
+            if  section == 1{
+                return 1
+            }
+            
+            return data.count
+        } else {
+            return 0
         }
-        
-        return data.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        if indexPath.section == 1 {
+        if !isSearching {
+            if indexPath.section == 1 {
+                
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: loadingCellId, for: indexPath) as! LoadingCell
+                cell.indicator.startAnimating()
+                return cell
+                
+            }
             
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: loadingCellId, for: indexPath) as! LoadingCell
-            cell.indicator.startAnimating()
+            let item = data[indexPath.row]
+            
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: searchCellId, for: indexPath) as! SearchCollectionViewCell
+            
+            cell.configure(item)
+            
             return cell
-            
+        } else {
+            return UICollectionViewCell()
         }
-        
-        let item = data[indexPath.row]
-        
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: searchCellId, for: indexPath) as! SearchCollectionViewCell
-        
-        cell.configure(item)
-        
-        return cell
     }
 }
 
@@ -176,6 +201,63 @@ extension SearchVC: UICollectionViewDelegateFlowLayout {
             }
         }
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let item = data[indexPath.row]
+        
+        Global.shared.idChannel = ""
+        Global.shared.titleChannel = ""
+        Global.shared.thumbChannel = ""
+        Global.shared.titlePlaylist = ""
+        
+        Global.shared.idChannel = item.channelId
+        Global.shared.titleChannel = item.channelTitle
+        Global.shared.thumbChannel = item.thumbnails
+        Global.shared.titlePlaylist = item.title
+        
+        UrlVideo.small = nil
+        UrlVideo.hd = nil
+        UrlVideo.medium = nil
+        
+        XCDYouTubeClient.default().getVideoWithIdentifier(item.videoId) {  [weak self] (video: XCDYouTubeVideo?, error: Error?) in
+            
+            guard let strongSelf = self else { return }
+            
+            if let err = error {
+                print("error:", err.localizedDescription)
+                return
+            }
+            
+            guard let streamURLs = video?.streamURLs else {
+                print("no url found")
+                return
+            }
+            
+            var isHaveUrl = false
+            
+            if let hdURL = streamURLs[VideoQuality.hd720]  {
+                UrlVideo.hd = hdURL
+                isHaveUrl = true
+            }
+            
+            if let mediumURL = streamURLs[VideoQuality.medium360]  {
+                UrlVideo.medium = mediumURL
+                isHaveUrl = true
+            }
+            
+            if let mediumURL = streamURLs[VideoQuality.small240]  {
+                UrlVideo.small = mediumURL
+                isHaveUrl = true
+            }
+            
+            if isHaveUrl {
+                strongSelf.performSegue(withIdentifier: "sgVideoPlayer", sender: indexPath)
+            } else{
+                print("no url suitable")
+            }
+        }
+    }
 }
 
 
@@ -183,13 +265,19 @@ extension SearchVC: UICollectionViewDelegateFlowLayout {
 
 extension SearchVC: UISearchBarDelegate {
     
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar){
         
-        if searchBar.text != nil {
-            data.removeAll()
-            self.searchText = searchBar.text!
-            requestAPI(searchText)
-        }
+        data.removeAll()
+        requestAPI(searchBar.text!)
+        isSearching = false
+        searchBar.endEditing(true)
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        
+        isSearching = true
+        data.removeAll()
+        collectionView.reloadData()
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
