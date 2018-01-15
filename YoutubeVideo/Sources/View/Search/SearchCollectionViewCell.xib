@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="AvenirNext.ttc">
+            <string>AvenirNext-Medium</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="searchCell" id="gTV-IL-0wX" customClass="SearchCollectionViewCell" customModule="YoutubeVideo" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="147" height="172"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="147" height="172"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J3h-Jy-iQ1">
+                        <rect key="frame" x="0.0" y="0.0" width="147" height="172"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3Kx-ZW-Y8z">
+                                <rect key="frame" x="0.0" y="0.0" width="147" height="172"/>
+                            </imageView>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="StJ-p7-tyA">
+                                <rect key="frame" x="0.0" y="149" width="147" height="22.5"/>
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I8m-nu-Rbe">
+                                        <rect key="frame" x="8" y="3" width="131" height="19.5"/>
+                                        <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="14"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="I8m-nu-Rbe" secondAttribute="trailing" constant="8" id="PHU-gQ-6aK"/>
+                                    <constraint firstAttribute="bottom" secondItem="I8m-nu-Rbe" secondAttribute="bottom" id="RTt-Fo-1ze"/>
+                                    <constraint firstItem="I8m-nu-Rbe" firstAttribute="leading" secondItem="StJ-p7-tyA" secondAttribute="leading" constant="8" id="RgK-yj-pcs"/>
+                                    <constraint firstItem="I8m-nu-Rbe" firstAttribute="top" secondItem="StJ-p7-tyA" secondAttribute="top" constant="3" id="wUi-dV-Tuu"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="StJ-p7-tyA" secondAttribute="trailing" id="8af-0i-3Y5"/>
+                            <constraint firstItem="StJ-p7-tyA" firstAttribute="leading" secondItem="J3h-Jy-iQ1" secondAttribute="leading" id="D0I-d1-lEU"/>
+                            <constraint firstAttribute="bottom" secondItem="StJ-p7-tyA" secondAttribute="bottom" id="O0m-v2-j1Y"/>
+                            <constraint firstAttribute="trailing" secondItem="3Kx-ZW-Y8z" secondAttribute="trailing" id="ULU-d4-WKe"/>
+                            <constraint firstItem="3Kx-ZW-Y8z" firstAttribute="leading" secondItem="J3h-Jy-iQ1" secondAttribute="leading" id="aVE-pf-JVJ"/>
+                            <constraint firstItem="3Kx-ZW-Y8z" firstAttribute="top" secondItem="J3h-Jy-iQ1" secondAttribute="top" id="ee3-nq-XVr"/>
+                            <constraint firstAttribute="bottom" secondItem="3Kx-ZW-Y8z" secondAttribute="bottom" id="oKv-b0-1dH"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="J3h-Jy-iQ1" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="MZO-Bt-osk"/>
+                <constraint firstItem="J3h-Jy-iQ1" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Qb2-b8-07R"/>
+                <constraint firstAttribute="bottom" secondItem="J3h-Jy-iQ1" secondAttribute="bottom" id="a6J-sP-Bq0"/>
+                <constraint firstAttribute="trailing" secondItem="J3h-Jy-iQ1" secondAttribute="trailing" id="yu1-pC-Zbs"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <size key="customSize" width="147" height="172"/>
+            <connections>
+                <outlet property="roundedView" destination="J3h-Jy-iQ1" id="yjq-7k-up0"/>
+                <outlet property="thumb" destination="3Kx-ZW-Y8z" id="641-ra-0L7"/>
+                <outlet property="title" destination="I8m-nu-Rbe" id="lka-sA-sgP"/>
+            </connections>
+            <point key="canvasLocation" x="-46.5" y="113"/>
+        </collectionViewCell>
+    </objects>
+</document>

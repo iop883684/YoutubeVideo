@@ -69,11 +69,6 @@ class HomeVC: BaseVC {
         }
 
         
-//        listPlaylist = [
-//            ("FAP TV","UC0jDoh3tVXCaqJ6oTve8ebA"),
-//            ("Lets Build That App","UCuP2vJ6kRutQBfRmdcI92mA"),
-//            ("10IFsOfficialSubTeam","UC_R1lYegdBvvo8zLzqzz9sQ")
-//        ]
         
     }
     

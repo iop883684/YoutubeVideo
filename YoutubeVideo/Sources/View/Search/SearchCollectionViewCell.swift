@@ -1,16 +1,15 @@
 //
-//  PlayListCollectionViewCell.swift
+//  SearchCollectionViewCell.swift
 //  YoutubeVideo
 //
-//  Created by Lac Tuan on 1/3/18.
+//  Created by Lac Tuan on 1/15/18.
 //  Copyright © 2018 Lac Tuan. All rights reserved.
 //
 
 import UIKit
 
-class PlayListCollectionViewCell: UICollectionViewCell {
+class SearchCollectionViewCell: UICollectionViewCell {
 
-    
     @IBOutlet weak var thumb: UIImageView!
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var roundedView: UIView!
@@ -32,10 +31,10 @@ class PlayListCollectionViewCell: UICollectionViewCell {
         self.layer.masksToBounds = false
         
     }
-
+    
     func configure(_ item: Any){
         
-        if let item = item as? Video{
+        if let item = item as? Video {
             
             let url = URL(string: item.thumbnails)
             
@@ -44,7 +43,7 @@ class PlayListCollectionViewCell: UICollectionViewCell {
             title.text = item.title
             roundedView.layer.cornerRadius = 12
             self.layer.cornerRadius = 12
-            
         }
     }
+
 }

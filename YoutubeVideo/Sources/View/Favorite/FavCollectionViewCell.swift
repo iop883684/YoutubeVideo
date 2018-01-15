@@ -9,22 +9,26 @@
 import UIKit
 
 class FavCollectionViewCell: UICollectionViewCell {
-
+    
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var thumb: UIImageView!
     
-    func configure(_ item: Any){
+    override func layoutSubviews() {
+        super.layoutSubviews()
         
-        if let item = item as? PlayList{
-            
-            let url = URL(string: item.thumbnails)
-            
-            thumb.kf.setImage(with: url)
-            
-            title.text = item.title
-            
-            self.layer.cornerRadius = 12
-        }
+        self.thumb.layer.cornerRadius = (self.frame.height - 30) / 2
     }
+    
+    func configure(title: String, thumb: String){
+        
+        let url = URL(string: thumb)
+        
+        self.thumb.kf.setImage(with: url)
+        
+        self.title.text = title
+        
+        
 
+    }
+    
 }

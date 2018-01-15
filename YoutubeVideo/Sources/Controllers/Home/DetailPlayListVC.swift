@@ -216,9 +216,13 @@ extension DetailPlayListVC: UICollectionViewDelegateFlowLayout {
         
         Global.shared.idChannel = ""
         Global.shared.titleChannel = ""
+        Global.shared.thumbChannel = ""
+        Global.shared.titlePlaylist = ""
         
         Global.shared.idChannel = item.channelId
         Global.shared.titleChannel = item.channelTitle
+        Global.shared.thumbChannel = item.thumbnails
+        Global.shared.titlePlaylist = item.title
         
         UrlVideo.small = nil
         UrlVideo.hd = nil

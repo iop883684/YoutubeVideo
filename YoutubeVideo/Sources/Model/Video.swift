@@ -18,6 +18,7 @@ class Video: Mappable{
     var nextPageToken = ""
     var channelId = ""
     var videoId = ""
+    var regionCode = ""
     
     required init?(map: Map) {
         
@@ -35,7 +36,11 @@ class Video: Mappable{
         videoId <- map["contentDetails.videoId"]
         if videoId.isEmpty {
             videoId <- map["contentDetails.upload.videoId"]
+            if videoId.isEmpty{
+                videoId <- map["id.videoId"]
+            }
         }
+        regionCode <- map["regionCode"]
     }
     
 }
@@ -45,6 +50,7 @@ class ResponseVideo: Mappable {
     var nextPageToken: String?
     var items:[Video]?
     var totalResults: Int?
+    var regionCode: String?
     
     required init?(map: Map) {
         
@@ -52,6 +58,7 @@ class ResponseVideo: Mappable {
     
     func mapping(map: Map) {
         
+        regionCode <- map["regionCode"]
         nextPageToken <- map["nextPageToken"]
         items <- map["items"]
         totalResults <- map["pageInfo.totalResults"]

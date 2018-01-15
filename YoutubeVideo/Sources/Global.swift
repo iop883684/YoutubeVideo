@@ -23,6 +23,8 @@ class Global {
     
     var idChannel = ""
     var titleChannel = ""
+    var thumbChannel = ""
+    var titlePlaylist = ""
     
     private init() {
         loadDefaultValues()

@@ -23,10 +23,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="O4f-IV-r9R">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Ymi-tY-ELp">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </tableView>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="OLW-Ij-Tg6">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="5" minY="20" maxX="5" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                            </collectionView>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bạn chưa theo dõi channel nào !" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AlL-aX-XQt">
                                 <rect key="frame" x="0.0" y="271" width="375" height="127"/>
                                 <constraints>
@@ -40,19 +47,19 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="O4f-IV-r9R" firstAttribute="top" secondItem="O8z-rM-TtU" secondAttribute="top" id="6NI-ZA-Ytr"/>
+                            <constraint firstItem="Ymi-tY-ELp" firstAttribute="trailing" secondItem="O8z-rM-TtU" secondAttribute="trailing" id="8py-l2-Bfs"/>
                             <constraint firstItem="AlL-aX-XQt" firstAttribute="centerY" secondItem="tTA-vh-ad0" secondAttribute="centerY" constant="1" id="H4B-KS-VpY"/>
+                            <constraint firstItem="Ymi-tY-ELp" firstAttribute="leading" secondItem="O8z-rM-TtU" secondAttribute="leading" id="LXP-Mv-HJX"/>
                             <constraint firstItem="AlL-aX-XQt" firstAttribute="centerX" secondItem="tTA-vh-ad0" secondAttribute="centerX" id="PAT-dr-Pro"/>
-                            <constraint firstItem="O4f-IV-r9R" firstAttribute="leading" secondItem="O8z-rM-TtU" secondAttribute="leading" id="Z7j-US-5uJ"/>
-                            <constraint firstItem="O8z-rM-TtU" firstAttribute="trailing" secondItem="O4f-IV-r9R" secondAttribute="trailing" id="cHO-5e-ChV"/>
-                            <constraint firstItem="O8z-rM-TtU" firstAttribute="bottom" secondItem="O4f-IV-r9R" secondAttribute="bottom" id="f95-Xv-vxD"/>
+                            <constraint firstItem="Ymi-tY-ELp" firstAttribute="top" secondItem="O8z-rM-TtU" secondAttribute="top" id="Z9a-hS-Eys"/>
+                            <constraint firstItem="Ymi-tY-ELp" firstAttribute="bottom" secondItem="O8z-rM-TtU" secondAttribute="bottom" id="rfe-MJ-JpD"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="O8z-rM-TtU"/>
                     </view>
                     <navigationItem key="navigationItem" title="Yêu Thích" id="XF5-Sj-DxX"/>
                     <connections>
+                        <outlet property="collectionView" destination="Ymi-tY-ELp" id="bZ2-0n-e52"/>
                         <outlet property="label" destination="AlL-aX-XQt" id="cQT-v1-0Xd"/>
-                        <outlet property="tableView" destination="O4f-IV-r9R" id="K08-xy-oE5"/>
                         <segue destination="pET-lW-SAk" kind="show" identifier="sgToDetail" id="JHi-Zo-Gla"/>
                     </connections>
                 </viewController>

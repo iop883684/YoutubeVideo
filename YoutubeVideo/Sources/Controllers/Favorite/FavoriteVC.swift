@@ -8,28 +8,23 @@
 
 import UIKit
 
-private let favCellId = "favCell"
+private let favCellId = "favCollectionCell"
 
 class FavoriteVC: UIViewController {
     
     //MARK: - IBOutlets
     
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var label: UILabel!
     
-    private var refreshControl = UIRefreshControl()
+    //MARK: - Variables
     
-    var isChannel: Bool!
     var data: [[String: String]] = []
-    var id = ""
-    var channelTitle = ""
     
     //MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
         
         setUpTableView()
     }
@@ -37,9 +32,13 @@ class FavoriteVC: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if data.count != Global.shared.getFavoriteChannel().count {
-            data = Global.shared.getFavoriteChannel()
-            tableView.reloadData()
+        guard let favorites = Global.shared.getFavoriteChannel() else {
+            return
+        }
+        
+        if data.count != favorites.count {
+            data = favorites
+            collectionView.reloadData()
         }
     }
     
@@ -47,91 +46,58 @@ class FavoriteVC: UIViewController {
     
     func setUpTableView(){
         
-        tableView.backgroundView = label
-        tableView.backgroundView?.isHidden = true
+        collectionView.backgroundView = label
+        collectionView.backgroundView?.isHidden = true
         
-        tableView.delegate = self
-        tableView.dataSource = self
+        collectionView.delegate = self
+        collectionView.dataSource = self
         
-        tableView.allowsSelection = false
-        tableView.separatorStyle = UITableViewCellSeparatorStyle.none
+        collectionView.registerNib(FavCollectionViewCell.self, favCellId)
         
-        tableView.registerNib(FavTableViewCell.self, favCellId)
-        refreshControl.addTarget(self, action: #selector(refreshAction), for: .valueChanged)
-        tableView.insertSubview(refreshControl, at: 0)
     }
-    
-    @objc func refreshAction(){
-        
-        tableView.reloadData()
-        
-        refreshControl.endRefreshing()
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let vc = segue.destination as? DetailPlayListVC {
-            
-            isChannel = false
-            vc.isChannel = isChannel
-            vc.id = self.id
-            vc.vcTitle = self.channelTitle
-        }
-        
-        let backItem = UIBarButtonItem()
-        backItem.title = ""
-        backItem.tintColor = UIColor.black
-        navigationItem.backBarButtonItem = backItem
-    }
-    
 }
 
-//MARK: - TAbleview Datasource
+//MARK: - Collection Datasource
 
-extension FavoriteVC: UITableViewDataSource {
+extension FavoriteVC: UICollectionViewDataSource{
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         if data.count != 0 {
-            tableView.backgroundView?.isHidden = true
+            collectionView.backgroundView?.isHidden = true
             return data.count
         } else {
-            tableView.backgroundView?.isHidden = false
+            collectionView.backgroundView?.isHidden = false
             return 0
         }
-        
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let item = Global.shared.getFavoriteChannel()![indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: favCellId, for: indexPath) as! FavTableViewCell
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        cell.delegate = self
+        let item = data[indexPath.row]
         
-        cell.configure(title: item["title"]!, id: item["id"]!)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: favCellId, for: indexPath) as! FavCollectionViewCell
+        
+        cell.configure(title: item["title"]!, thumb: item["thumb"]!)
         
         return cell
     }
 }
 
-//MARK: - Tableview Delegate
+//MARK: - Collection Delegate
 
-extension FavoriteVC: UITableViewDelegate {
+extension FavoriteVC: UICollectionViewDelegateFlowLayout{
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 230
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let width = UIScreen.main.bounds.width
+        
+        return CGSize.init(width: (width - 10 * 4 ) / 3, height: (width - 10 * 4) / 3)
     }
+    
 }
 
-//MARK: - Favorite Delegate
 
-extension FavoriteVC: FavTableViewCellDelegate{
-    
-    func toDetailPlayList(id: String, title: String) {
-        self.id = id
-        self.channelTitle = title
-        performSegue(withIdentifier: "sgToDetail", sender: nil)
-    }
-}
 
 
 
