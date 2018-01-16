@@ -14,25 +14,26 @@ import FirebaseFirestore
 
 private let searchCellId = "searchCell"
 private let keyCellId = "keyCell"
-
-private let width = UIScreen.main.bounds.width
+private let suggestCellId = "suggestCell"
 
 class SearchVC: UIViewController {
     
     //MARK: - IBOutlets
     
-    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var tableView: UITableView!
     
     //MARK: - Variables
     
-    lazy var searchBar = UISearchBar()
+    lazy var searchBar = UISearchBar(frame: CGRect.zero)
     
     var data: [Video] = []
+    var suggestionWords = [String]()
     
     var nextPageToken = ""
     var regionCode = "VN"
     var searchText = ""
     
+    var searchTimer: Timer?
     var isSearching = true
     var isHaveUrl = false
     var isFull = false
@@ -46,14 +47,24 @@ class SearchVC: UIViewController {
         
         searchBar.delegate = self
         searchBar.showsCancelButton = true
+        searchBar.becomeFirstResponder()
         
-        collectionView.delegate = self
-        collectionView.dataSource = self
+        setUpTableView()
+    }
+
+    func setUpTableView(){
         
-        collectionView.registerNib(SearchCollectionViewCell.self, searchCellId)
-        collectionView.registerNib(LoadingCell.self, loadingCellId)
-        collectionView.registerNib(KeyCollectionViewCell.self, keyCellId)
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.separatorStyle = .none
         
+        tableView.registerNib(SearchTableViewCell.self, searchCellId)
+        tableView.registerNib(KeyTableViewCell.self, keyCellId)
+        tableView.registerNib(SuggestionTableCell.self, suggestCellId)
+        
+        tableView.keyboardDismissMode = .onDrag
+        tableView.estimatedRowHeight = 300
+        tableView.rowHeight = UITableViewAutomaticDimension
     }
     
     //MARK: - CaLL API
@@ -106,9 +117,62 @@ class SearchVC: UIViewController {
                     strongSelf.regionCode = res.regionCode ?? ""
                     strongSelf.nextPageToken = res.nextPageToken ?? ""
                     strongSelf.data.append(contentsOf: video)
-                    strongSelf.collectionView.reloadData()
+                    strongSelf.tableView.reloadData()
                 }
         }
+    }
+    
+    //
+    
+    @objc func getSuggesstionKey(){
+        
+        guard let text = searchBar.text, !text.isEmpty else {
+            return
+        }
+        
+        let params = ["client":"firefox", "q":text]
+        let url = "http://suggestqueries.google.com/complete/search"
+        print("search key: \(text)")
+        
+        
+        Alamofire
+            .request(url, method: .get, parameters: params)
+            .response(completionHandler: { [weak self]  (res) in
+                
+                guard let strongSelf = self else {return}
+                
+                if let data = res.data{
+                    
+                    let str = String(data: data, encoding: String.Encoding.isoLatin1)
+                    //                    print("string:", str ?? "")
+                    guard let newData = str?.data(using: String.Encoding.utf8) else {
+                        return
+                    }
+                    
+                    do {
+                        
+                        let obj = try JSONSerialization.jsonObject(with: newData, options: JSONSerialization.ReadingOptions.allowFragments)
+                        //                        print("json", obj)
+                        
+                        let arr = obj as! [Any]
+                        let lastArr = arr[1]
+                        strongSelf.suggestionWords = lastArr as! [String]
+                        strongSelf.tableView.reloadData()
+                        
+                    } catch{
+                        
+                        print("json error", error.localizedDescription)
+                        
+                    }
+                    
+                } else{
+                    print("error ", res.error ?? "unknown")
+                    
+                }
+                
+            })
+        
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -119,56 +183,53 @@ class SearchVC: UIViewController {
             vc.videoTitle = data[indexPath.row].title
         }
     }
+    
+    
 }
 
 
-//MARK: - Collection Datasource
+//MARK: - tableView Datasource
 
-extension SearchVC: UICollectionViewDataSource {
+extension SearchVC: UITableViewDataSource {
     
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        if !isSearching {
-            if isFull{
-                return 1
-            }
-            return 2
-        } else {
-            return 1
-        }
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
     }
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if !isSearching {
-            if  section == 1{
-                return 1
-            }
-            
-            return data.count
-        } else {
-            return 1
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
+//        if section == 0 {
+//            return 1
+//        }
+//
+        return !isSearching ? data.count : suggestionWords.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+//        if indexPath.section == 0 {
+//
+//            let cell = tableView.dequeueReusableCell(withIdentifier: keyCellId, for: indexPath) as! KeyTableViewCell
+//
+//            cell.configForSearch(isSearching)
+//
+//            return cell
+//
+//        }
         if !isSearching {
-            if indexPath.section == 1 {
-                
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: loadingCellId, for: indexPath) as! LoadingCell
-                cell.indicator.startAnimating()
-                return cell
-                
-            }
             
             let item = data[indexPath.row]
             
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: searchCellId, for: indexPath) as! SearchCollectionViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: searchCellId, for: indexPath) as! SearchTableViewCell
             
             cell.configure(item)
             
             return cell
         } else {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: keyCellId, for: indexPath) as! KeyCollectionViewCell
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: suggestCellId, for: indexPath) as! SuggestionTableCell
+            
+            cell.configure(suggestionWords[indexPath.row])
             
             return cell
         }
@@ -177,18 +238,31 @@ extension SearchVC: UICollectionViewDataSource {
 
 //MARK: - Collection Delegate
 
-extension SearchVC: UICollectionViewDelegateFlowLayout {
+extension SearchVC: UITableViewDelegate {
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+//        if indexPath.section == 0 {
+//
+//            return UITableViewAutomaticDimension
+//        }
         
         if !isSearching {
-            if indexPath.section == 1 {
-                return CGSize(width: UIScreen.main.bounds.width, height: 50)
-            }else {
-                return CGSize(width: 340, height: 210)
-            }
+            return 230
         } else {
-            return CGSize(width: UIScreen.main.bounds.width, height: 200)
+            return 44
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        if isSearching {
+            
+            searchBar.text = suggestionWords[indexPath.row]
+            searchBarSearchButtonClicked(searchBar)
+            
         }
     }
     
@@ -198,68 +272,12 @@ extension SearchVC: UICollectionViewDelegateFlowLayout {
         let contentHeight = scrollView.contentSize.height
         
         if offsetY > contentHeight - scrollView.frame.size.height {
-            if !isFull && !isLoading {
+            if !isFull && !isLoading && !isSearching {
                 requestAPI(searchText)
             }
         }
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        let item = data[indexPath.row]
-        
-        Global.shared.idChannel = ""
-        Global.shared.titleChannel = ""
-        Global.shared.thumbChannel = ""
-        Global.shared.titlePlaylist = ""
-        
-        Global.shared.idChannel = item.channelId
-        Global.shared.titleChannel = item.channelTitle
-        Global.shared.thumbChannel = item.thumbnails
-        Global.shared.titlePlaylist = item.title
-        
-        UrlVideo.small = nil
-        UrlVideo.hd = nil
-        UrlVideo.medium = nil
-        
-        XCDYouTubeClient.default().getVideoWithIdentifier(item.videoId) {  [weak self] (video: XCDYouTubeVideo?, error: Error?) in
-            
-            guard let strongSelf = self else { return }
-            
-            if let err = error {
-                print("error:", err.localizedDescription)
-                return
-            }
-            
-            guard let streamURLs = video?.streamURLs else {
-                print("no url found")
-                return
-            }
-            
-            var isHaveUrl = false
-            
-            if let hdURL = streamURLs[VideoQuality.hd720]  {
-                UrlVideo.hd = hdURL
-                isHaveUrl = true
-            }
-            
-            if let mediumURL = streamURLs[VideoQuality.medium360]  {
-                UrlVideo.medium = mediumURL
-                isHaveUrl = true
-            }
-            
-            if let mediumURL = streamURLs[VideoQuality.small240]  {
-                UrlVideo.small = mediumURL
-                isHaveUrl = true
-            }
-            
-            if isHaveUrl {
-                strongSelf.performSegue(withIdentifier: "sgVideoPlayer", sender: indexPath)
-            } else{
-                print("no url suitable")
-            }
-        }
-    }
 }
 
 
@@ -271,20 +289,39 @@ extension SearchVC: UISearchBarDelegate {
         
         data.removeAll()
         requestAPI(searchBar.text!)
+        searchText = searchBar.text!
         isSearching = false
-        searchBar.endEditing(true)
+        searchBar.resignFirstResponder()
+        searchTimer?.invalidate()
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         
+        if searchBar.text == "" {
+            isSearching = false
+            suggestionWords.removeAll()
+            tableView.reloadData()
+        }
+        
         isSearching = true
         data.removeAll()
-        collectionView.reloadData()
+        tableView.reloadData()
+        
+        searchTimer?.invalidate()
+        searchTimer = Timer.scheduledTimer(timeInterval: 1,
+                                           target: self,
+                                           selector: #selector(getSuggesstionKey),
+                                           userInfo: nil,
+                                           repeats: true)
+        searchTimer?.fire()
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.text = ""
-        searchBar.endEditing(true)
+        data.removeAll()
+        suggestionWords.removeAll()
+        tableView.reloadData()
+        searchBar.resignFirstResponder()
     }
     
 }
