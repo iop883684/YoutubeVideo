@@ -28,12 +28,15 @@ class SearchVC: UIViewController {
     
     var data: [Video] = []
     var suggestionWords = [String]()
+    var historyData = [String]()
     
     var nextPageToken = ""
     var regionCode = "VN"
     var searchText = ""
     
     var searchTimer: Timer?
+    
+    var isShowHistory = true
     var isSearching = true
     var isHaveUrl = false
     var isFull = false
@@ -53,6 +56,8 @@ class SearchVC: UIViewController {
     }
 
     func setUpTableView(){
+        
+        historyData = HistorySearch.shared.getSearchHistories()?.reversed() ?? []
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -198,38 +203,33 @@ extension SearchVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-//        if section == 0 {
-//            return 1
-//        }
-//
-        return !isSearching ? data.count : suggestionWords.count
+
+        if isShowHistory {
+            return historyData.count
+        } else {
+            return !isSearching ? data.count : suggestionWords.count
+        }
+        
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-//        if indexPath.section == 0 {
-//
-//            let cell = tableView.dequeueReusableCell(withIdentifier: keyCellId, for: indexPath) as! KeyTableViewCell
-//
-//            cell.configForSearch(isSearching)
-//
-//            return cell
-//
-//        }
-        if !isSearching {
-            
+        if !isSearching && !isShowHistory {
+
             let item = data[indexPath.row]
-            
+
             let cell = tableView.dequeueReusableCell(withIdentifier: searchCellId, for: indexPath) as! SearchTableViewCell
-            
+
             cell.configure(item)
-            
+
             return cell
+        
         } else {
-            
+        
             let cell = tableView.dequeueReusableCell(withIdentifier: suggestCellId, for: indexPath) as! SuggestionTableCell
             
-            cell.configure(suggestionWords[indexPath.row])
+            cell.title.text = isShowHistory ? historyData[indexPath.row] : suggestionWords[indexPath.row]
             
             return cell
         }
@@ -241,28 +241,27 @@ extension SearchVC: UITableViewDataSource {
 extension SearchVC: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
-//        if indexPath.section == 0 {
-//
-//            return UITableViewAutomaticDimension
-//        }
-        
-        if !isSearching {
-            return 230
-        } else {
+
+        if isSearching {
             return 44
         }
+        if isShowHistory {
+            return 44
+        }
+        return 230
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         tableView.deselectRow(at: indexPath, animated: true)
         
-        if isSearching {
+        if isShowHistory {
             
+            searchBar.text = historyData[indexPath.row]
+            searchBarSearchButtonClicked(searchBar)
+        } else {
             searchBar.text = suggestionWords[indexPath.row]
             searchBarSearchButtonClicked(searchBar)
-            
         }
     }
     
@@ -272,7 +271,7 @@ extension SearchVC: UITableViewDelegate {
         let contentHeight = scrollView.contentSize.height
         
         if offsetY > contentHeight - scrollView.frame.size.height {
-            if !isFull && !isLoading && !isSearching {
+            if !isFull && !isLoading && !isSearching && !isShowHistory {
                 requestAPI(searchText)
             }
         }
@@ -293,35 +292,63 @@ extension SearchVC: UISearchBarDelegate {
         isSearching = false
         searchBar.resignFirstResponder()
         searchTimer?.invalidate()
+        
+        updateSearchHistory(text: searchText)
     }
     
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
-        if searchBar.text == "" {
+        if searchText == "" {
             isSearching = false
+            isShowHistory = true
             suggestionWords.removeAll()
             tableView.reloadData()
+            
+        } else {
+            
+            if isShowHistory == false {
+                return
+            }
+            isSearching = true
+            isShowHistory = false
+            data.removeAll()
+            tableView.reloadData()
+            
+            searchTimer?.invalidate()
+            searchTimer = Timer.scheduledTimer(timeInterval: 1,
+                                               target: self,
+                                               selector: #selector(getSuggesstionKey),
+                                               userInfo: nil,
+                                               repeats: true)
+            searchTimer?.fire()
+            
+            
         }
-        
-        isSearching = true
-        data.removeAll()
-        tableView.reloadData()
-        
-        searchTimer?.invalidate()
-        searchTimer = Timer.scheduledTimer(timeInterval: 1,
-                                           target: self,
-                                           selector: #selector(getSuggesstionKey),
-                                           userInfo: nil,
-                                           repeats: true)
-        searchTimer?.fire()
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        
         searchBar.text = ""
         data.removeAll()
         suggestionWords.removeAll()
         tableView.reloadData()
         searchBar.resignFirstResponder()
+    }
+    
+    func updateSearchHistory(text:String){
+        
+        if let index = historyData.index(of: text){
+            
+            HistorySearch.shared.deleteSearchHistories(index: historyData.count - index - 1)
+            historyData.remove(at: index)
+            
+        }
+        
+        HistorySearch.shared.appendSearchHistories(value: text)
+        historyData.insert(text, at: 0)
+        tableView.reloadData()
+        view.sendSubview(toBack: tableView)
+        
     }
     
 }

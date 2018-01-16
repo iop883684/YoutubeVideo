@@ -14,6 +14,7 @@
 		882ABC78200DDED300103BC4 /* KeyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 882ABC76200DDED300103BC4 /* KeyTableViewCell.xib */; };
 		882ABC7B200DEBA300103BC4 /* SuggestionTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882ABC79200DEBA300103BC4 /* SuggestionTableCell.swift */; };
 		882ABC7C200DEBA300103BC4 /* SuggestionTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 882ABC7A200DEBA300103BC4 /* SuggestionTableCell.xib */; };
+		882ABC7E200DFEB000103BC4 /* SearchHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882ABC7D200DFEB000103BC4 /* SearchHistory.swift */; };
 		8847DC0B20034C06008E3F01 /* VideoPlayerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8847DC0A20034C06008E3F01 /* VideoPlayerVC.swift */; };
 		8847DC0D20034C5A008E3F01 /* BMCustomPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8847DC0C20034C5A008E3F01 /* BMCustomPlayer.swift */; };
 		8847DC0F20034C92008E3F01 /* BMPlayerCustomControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8847DC0E20034C92008E3F01 /* BMPlayerCustomControlView.swift */; };
@@ -64,6 +65,7 @@
 		882ABC76200DDED300103BC4 /* KeyTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KeyTableViewCell.xib; sourceTree = "<group>"; };
 		882ABC79200DEBA300103BC4 /* SuggestionTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionTableCell.swift; sourceTree = "<group>"; };
 		882ABC7A200DEBA300103BC4 /* SuggestionTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SuggestionTableCell.xib; sourceTree = "<group>"; };
+		882ABC7D200DFEB000103BC4 /* SearchHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistory.swift; sourceTree = "<group>"; };
 		8847DC0A20034C06008E3F01 /* VideoPlayerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerVC.swift; sourceTree = "<group>"; };
 		8847DC0C20034C5A008E3F01 /* BMCustomPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMCustomPlayer.swift; sourceTree = "<group>"; };
 		8847DC0E20034C92008E3F01 /* BMPlayerCustomControlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BMPlayerCustomControlView.swift; sourceTree = "<group>"; };
@@ -224,6 +226,7 @@
 				88675AD61FF3B289004E0468 /* Constants.swift */,
 				8898A8AD1FF0F6390046F034 /* AppDelegate.swift */,
 				884A087C1FF4CEDA00FCB7C7 /* Global.swift */,
+				882ABC7D200DFEB000103BC4 /* SearchHistory.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -533,6 +536,7 @@
 				882ABC77200DDED300103BC4 /* KeyTableViewCell.swift in Sources */,
 				8898A8CF1FF0FFB50046F034 /* StartVC.swift in Sources */,
 				8898A8DA1FF10A450046F034 /* HomeTableCell.swift in Sources */,
+				882ABC7E200DFEB000103BC4 /* SearchHistory.swift in Sources */,
 				8847DC0D20034C5A008E3F01 /* BMCustomPlayer.swift in Sources */,
 				8898A8AE1FF0F6390046F034 /* AppDelegate.swift in Sources */,
 				88902EF92007709F005DE008 /* FavoriteVC.swift in Sources */,
