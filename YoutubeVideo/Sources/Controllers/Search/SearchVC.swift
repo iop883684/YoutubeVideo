@@ -29,13 +29,14 @@ class SearchVC: UIViewController {
     var data: [Video] = []
     var suggestionWords = [String]()
     var historyData = [String]()
+    var hotKeyWord = [String]()
     
     var nextPageToken = ""
     var regionCode = "VN"
     var searchText = ""
     
     var searchTimer: Timer?
-    
+
     var isShowHistory = true
     var isSearching = true
     var isHaveUrl = false
@@ -45,7 +46,7 @@ class SearchVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    
         navigationItem.titleView = searchBar
         
         searchBar.delegate = self
@@ -68,8 +69,9 @@ class SearchVC: UIViewController {
         tableView.registerNib(SuggestionTableCell.self, suggestCellId)
         
         tableView.keyboardDismissMode = .onDrag
-        tableView.estimatedRowHeight = 300
+        tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.reloadData()
     }
     
     //MARK: - CaLL API
@@ -198,12 +200,15 @@ class SearchVC: UIViewController {
 extension SearchVC: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-
+        if section == 0 {
+            return 1
+        }
+        
         if isShowHistory {
             return historyData.count
         } else {
@@ -214,6 +219,15 @@ extension SearchVC: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        if indexPath.section == 0{
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: keyCellId, for: indexPath) as! KeyTableViewCell
+
+            cell.delegate = self
+            
+            return cell
+        }
         
         if !isSearching && !isShowHistory {
 
@@ -242,6 +256,13 @@ extension SearchVC: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 
+        if indexPath.section == 0{
+            if isShowHistory {
+                return UITableViewAutomaticDimension
+            } else {
+                return 0
+            }
+        }
         if isSearching {
             return 44
         }
@@ -255,15 +276,19 @@ extension SearchVC: UITableViewDelegate {
         
         tableView.deselectRow(at: indexPath, animated: true)
         
-        if isShowHistory {
-            
-            searchBar.text = historyData[indexPath.row]
-            isShowHistory = false
-            searchBarSearchButtonClicked(searchBar)
-        } else {
-            searchBar.text = suggestionWords[indexPath.row]
-            searchBarSearchButtonClicked(searchBar)
-            
+        switch indexPath.section {
+        case 1:
+            if isShowHistory {
+                
+                searchBar.text = historyData[indexPath.row]
+                searchBarSearchButtonClicked(searchBar)
+            } else {
+                searchBar.text = suggestionWords[indexPath.row]
+                searchBarSearchButtonClicked(searchBar)
+                
+            }
+        default:
+            break;
         }
         
     }
@@ -292,6 +317,7 @@ extension SearchVC: UISearchBarDelegate {
         data.removeAll()
         requestAPI(searchBar.text!)
         searchText = searchBar.text!
+        isShowHistory = false
         isSearching = false
         searchBar.resignFirstResponder()
         searchTimer?.invalidate()
@@ -354,6 +380,20 @@ extension SearchVC: UISearchBarDelegate {
         
     }
     
+}
+
+extension SearchVC: KeyTableViewCellDelegate {
+    
+    func reloadSection() {
+        tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
+    }
+    
+    func clickBtn(_ btnTitle: String){
+        
+        searchBar.text = btnTitle
+        searchBarSearchButtonClicked(searchBar)
+    }
+
 }
 
 

@@ -10,14 +10,29 @@ import UIKit
 import FirebaseFirestore
 import TagListView
 
-class KeyTableViewCell: UITableViewCell {
+protocol KeyTableViewCellDelegate: NSObjectProtocol {
+   
+    func reloadSection()
+    func clickBtn(_ btnTitle: String)
+}
+
+class KeyTableViewCell: UITableViewCell, TagListViewDelegate {
 
     @IBOutlet weak var tagListView: TagListView!
     
+    weak var delegate: KeyTableViewCellDelegate?
+    
     override func awakeFromNib() {
+        
+        tagListView.delegate = self
+        
+        guard let regionCode = Locale.current.regionCode else { return }
+        
+        let region = regionCode.lowercased()
+        
         let db = Firestore.firestore()
         
-        db.collection("trending").document("vn").getDocument() {[weak self] (document, error) in
+        db.collection("trending").document(region).getDocument() {[weak self] (document, error) in
             
             guard let strongSelf = self else { return }
             
@@ -28,7 +43,14 @@ class KeyTableViewCell: UITableViewCell {
             guard let doc = document?.data()["keyword"] as? [String] else { return }
             
             strongSelf.setUpTagList(doc)
+            
+            strongSelf.delegate?.reloadSection()
         }
+    }
+    
+    func tagPressed(_ title: String, tagView: TagView, sender: TagListView) {
+        
+        delegate?.clickBtn(title)
     }
     
     func setUpTagList(_ list: [String]){
@@ -38,14 +60,12 @@ class KeyTableViewCell: UITableViewCell {
         tagListView.textFont = UIFont.systemFont(ofSize: 15)
         tagListView.alignment = .center
     }
-    
-    func configForSearch(_ isSearching: Bool) {
-        
-        if !isSearching {
-            
-            self.isHidden = true
-        } else {
-            self.isHidden = false
-        }
-    }
 }
+
+
+
+
+
+
+
+
