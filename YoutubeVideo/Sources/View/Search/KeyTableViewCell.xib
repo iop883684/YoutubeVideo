@@ -20,7 +20,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oW4-xb-tXa" customClass="TagListView" customModule="TagListView">
-                        <rect key="frame" x="16" y="11" width="288" height="100"/>
+                        <rect key="frame" x="16" y="11" width="288" height="89"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -48,7 +48,7 @@
                     <constraint firstItem="oW4-xb-tXa" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="11" id="Vcb-qM-IRu"/>
                     <constraint firstItem="oW4-xb-tXa" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="Wnp-l5-1tk"/>
                     <constraint firstAttribute="trailing" secondItem="oW4-xb-tXa" secondAttribute="trailing" constant="16" id="Z1f-iE-yxx"/>
-                    <constraint firstAttribute="bottom" secondItem="oW4-xb-tXa" secondAttribute="bottom" id="kuR-m5-3KF"/>
+                    <constraint firstAttribute="bottom" secondItem="oW4-xb-tXa" secondAttribute="bottom" constant="10.5" id="kuR-m5-3KF"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

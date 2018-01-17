@@ -15,6 +15,8 @@ import FirebaseFirestore
 private let searchCellId = "searchCell"
 private let keyCellId = "keyCell"
 private let suggestCellId = "suggestCell"
+private let keyHeaderCellId = "keyHeaderCell"
+private let suggestHeaderId = "suggestHeader"
 
 class SearchVC: UIViewController {
     
@@ -67,6 +69,8 @@ class SearchVC: UIViewController {
         tableView.registerNib(SearchTableViewCell.self, searchCellId)
         tableView.registerNib(KeyTableViewCell.self, keyCellId)
         tableView.registerNib(SuggestionTableCell.self, suggestCellId)
+        tableView.registerNib(keyHeaderTVC.self, keyHeaderCellId)
+        tableView.registerNib(SuggestionTVC.self, suggestHeaderId)
         
         tableView.keyboardDismissMode = .onDrag
         tableView.estimatedRowHeight = 100
@@ -214,8 +218,27 @@ extension SearchVC: UITableViewDataSource {
         } else {
             return !isSearching ? data.count : suggestionWords.count
         }
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        
+        switch section {
+            
+        case 0:
+            
+            let header = tableView.dequeueReusableCell(withIdentifier: keyHeaderCellId) as! keyHeaderTVC
+            
+            return header
+            
+        case 1:
+            
+            let header = tableView.dequeueReusableCell(withIdentifier: suggestHeaderId) as! SuggestionTVC
+            
+            header.delegate = self
+            return header
+        default:
+            return nil
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -245,14 +268,39 @@ extension SearchVC: UITableViewDataSource {
             
             cell.title.text = isShowHistory ? historyData[indexPath.row] : suggestionWords[indexPath.row]
             
+            cell.deleteBtn.isHidden = isShowHistory ? false : true
+            
+            cell.delegate = self
+            
             return cell
         }
     }
 }
 
-//MARK: - Collection Delegate
+//MARK: - TableView Delegate
 
 extension SearchVC: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        
+        if isShowHistory {
+            
+            switch section {
+                
+            case 0:
+                return 35
+        
+            case 1:
+                return 35
+                
+            default:
+                return 0
+            }
+        } else {
+            return 0
+        }
+        
+    }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 
@@ -382,10 +430,13 @@ extension SearchVC: UISearchBarDelegate {
     
 }
 
+//MARK: - HotKeyWordCell Delegate
+
 extension SearchVC: KeyTableViewCellDelegate {
     
     func reloadSection() {
-        tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
+        tableView.reloadData()
+        //tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
     }
     
     func clickBtn(_ btnTitle: String){
@@ -393,9 +444,36 @@ extension SearchVC: KeyTableViewCellDelegate {
         searchBar.text = btnTitle
         searchBarSearchButtonClicked(searchBar)
     }
-
 }
 
+//MARK: - SuggestionWordCell Delegate
+
+extension SearchVC: SuggestionTableCellDelegate {
+    
+    func tapDeleteBtn(_ text: String) {
+        
+        guard let index = historyData.index(of: text) else {
+            return
+        }
+        
+        HistorySearch.shared.deleteSearchHistories(index: historyData.count - index - 1)
+        historyData.remove(at: index)
+        
+        let indexPath = IndexPath(row: index, section: 1)
+        tableView.deleteRows(at: [indexPath], with: .fade)
+        tableView.reloadData()
+    }
+}
+
+extension SearchVC: SuggestionTVCDelegate{
+    
+    func tapDeleteBtn() {
+        
+        HistorySearch.shared.clearData()
+        historyData.removeAll()
+        tableView.reloadData()
+    }
+}
 
 
 

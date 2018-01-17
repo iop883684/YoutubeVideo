@@ -25,6 +25,10 @@
 		88675AD21FF3B18E004E0468 /* HomeCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88675AD01FF3B18E004E0468 /* HomeCollectionCell.xib */; };
 		88675AD51FF3B1D5004E0468 /* PlayList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88675AD41FF3B1D5004E0468 /* PlayList.swift */; };
 		88675AD71FF3B289004E0468 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88675AD61FF3B289004E0468 /* Constants.swift */; };
+		886D88F7200F5781004460E7 /* keyHeaderTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886D88F5200F5781004460E7 /* keyHeaderTVC.swift */; };
+		886D88F8200F5781004460E7 /* keyHeaderTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 886D88F6200F5781004460E7 /* keyHeaderTVC.xib */; };
+		886D88FB200F5BB1004460E7 /* SuggestionTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886D88F9200F5BB1004460E7 /* SuggestionTVC.swift */; };
+		886D88FC200F5BB1004460E7 /* SuggestionTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 886D88FA200F5BB1004460E7 /* SuggestionTVC.xib */; };
 		88902EF520076F6B005DE008 /* Favorite.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88902EF420076F6B005DE008 /* Favorite.storyboard */; };
 		88902EF92007709F005DE008 /* FavoriteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88902EF82007709F005DE008 /* FavoriteVC.swift */; };
 		88902F01200772E8005DE008 /* FavCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88902EFF200772E8005DE008 /* FavCollectionViewCell.swift */; };
@@ -76,6 +80,10 @@
 		88675AD01FF3B18E004E0468 /* HomeCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeCollectionCell.xib; sourceTree = "<group>"; };
 		88675AD41FF3B1D5004E0468 /* PlayList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayList.swift; sourceTree = "<group>"; };
 		88675AD61FF3B289004E0468 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		886D88F5200F5781004460E7 /* keyHeaderTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = keyHeaderTVC.swift; sourceTree = "<group>"; };
+		886D88F6200F5781004460E7 /* keyHeaderTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = keyHeaderTVC.xib; sourceTree = "<group>"; };
+		886D88F9200F5BB1004460E7 /* SuggestionTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionTVC.swift; sourceTree = "<group>"; };
+		886D88FA200F5BB1004460E7 /* SuggestionTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SuggestionTVC.xib; sourceTree = "<group>"; };
 		88902EF420076F6B005DE008 /* Favorite.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Favorite.storyboard; sourceTree = "<group>"; };
 		88902EF82007709F005DE008 /* FavoriteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteVC.swift; sourceTree = "<group>"; };
 		88902EFF200772E8005DE008 /* FavCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -148,6 +156,7 @@
 		884869CD200C86A000338110 /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				886D88F4200F5709004460E7 /* Header */,
 				882ABC71200DDE6100103BC4 /* SearchTableViewCell.swift */,
 				882ABC72200DDE6100103BC4 /* SearchTableViewCell.xib */,
 				882ABC75200DDED300103BC4 /* KeyTableViewCell.swift */,
@@ -167,6 +176,17 @@
 				880D12481FFF7A5E00325746 /* VideoQuality.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		886D88F4200F5709004460E7 /* Header */ = {
+			isa = PBXGroup;
+			children = (
+				886D88F5200F5781004460E7 /* keyHeaderTVC.swift */,
+				886D88F6200F5781004460E7 /* keyHeaderTVC.xib */,
+				886D88F9200F5BB1004460E7 /* SuggestionTVC.swift */,
+				886D88FA200F5BB1004460E7 /* SuggestionTVC.xib */,
+			);
+			path = Header;
 			sourceTree = "<group>";
 		};
 		88902EF720077094005DE008 /* Favorite */ = {
@@ -401,9 +421,11 @@
 				8898A8B81FF0F6390046F034 /* LaunchScreen.storyboard in Resources */,
 				882ABC78200DDED300103BC4 /* KeyTableViewCell.xib in Resources */,
 				8898A8D61FF107280046F034 /* User.storyboard in Resources */,
+				886D88F8200F5781004460E7 /* keyHeaderTVC.xib in Resources */,
 				88902EF520076F6B005DE008 /* Favorite.storyboard in Resources */,
 				88C692071FFCE23F007E1E45 /* PlayListCollectionViewCell.xib in Resources */,
 				88902F02200772E8005DE008 /* FavCollectionViewCell.xib in Resources */,
+				886D88FC200F5BB1004460E7 /* SuggestionTVC.xib in Resources */,
 				884A087B1FF4CE0000FCB7C7 /* GoogleService-Info.plist in Resources */,
 				8898A8B51FF0F6390046F034 /* Assets.xcassets in Resources */,
 				882ABC7C200DEBA300103BC4 /* SuggestionTableCell.xib in Resources */,
@@ -536,6 +558,8 @@
 				882ABC77200DDED300103BC4 /* KeyTableViewCell.swift in Sources */,
 				8898A8CF1FF0FFB50046F034 /* StartVC.swift in Sources */,
 				8898A8DA1FF10A450046F034 /* HomeTableCell.swift in Sources */,
+				886D88FB200F5BB1004460E7 /* SuggestionTVC.swift in Sources */,
+				886D88F7200F5781004460E7 /* keyHeaderTVC.swift in Sources */,
 				882ABC7E200DFEB000103BC4 /* SearchHistory.swift in Sources */,
 				8847DC0D20034C5A008E3F01 /* BMCustomPlayer.swift in Sources */,
 				8898A8AE1FF0F6390046F034 /* AppDelegate.swift in Sources */,

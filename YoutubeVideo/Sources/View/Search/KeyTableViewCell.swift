@@ -57,7 +57,7 @@ class KeyTableViewCell: UITableViewCell, TagListViewDelegate {
         tagListView.addTags(list)
         tagListView.borderWidth = 0;
         tagListView.clipsToBounds = true
-        tagListView.textFont = UIFont.systemFont(ofSize: 15)
+        tagListView.textFont = UIFont.systemFont(ofSize: 13)
         tagListView.alignment = .center
     }
 }
