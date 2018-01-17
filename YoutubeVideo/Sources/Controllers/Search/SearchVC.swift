@@ -258,11 +258,14 @@ extension SearchVC: UITableViewDelegate {
         if isShowHistory {
             
             searchBar.text = historyData[indexPath.row]
+            isShowHistory = false
             searchBarSearchButtonClicked(searchBar)
         } else {
             searchBar.text = suggestionWords[indexPath.row]
             searchBarSearchButtonClicked(searchBar)
+            
         }
+        
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
