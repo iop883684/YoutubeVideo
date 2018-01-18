@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         
         let _ = Global.shared
-    
+        Global.shared.clearHistory()
         return true
     }
 

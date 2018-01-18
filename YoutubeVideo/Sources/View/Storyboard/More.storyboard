@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="JCo-Jc-xb3">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="AvenirNext.ttc">
+            <string>AvenirNext-Medium</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Tôi-->
+        <scene sceneID="zRq-xc-G1m">
+            <objects>
+                <viewController id="N4E-br-lbf" customClass="MoreVC" customModule="YoutubeVideo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="IUo-gz-aWa">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="L7r-lm-ny8">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" red="0.94117647058823528" green="0.94509803921568625" blue="0.94901960784313721" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="m3x-b4-qNj" firstAttribute="trailing" secondItem="L7r-lm-ny8" secondAttribute="trailing" id="8ID-Bw-ZCB"/>
+                            <constraint firstItem="L7r-lm-ny8" firstAttribute="top" secondItem="m3x-b4-qNj" secondAttribute="top" id="9Mc-KH-5rA"/>
+                            <constraint firstItem="L7r-lm-ny8" firstAttribute="leading" secondItem="m3x-b4-qNj" secondAttribute="leading" id="UuZ-2N-FHC"/>
+                            <constraint firstItem="m3x-b4-qNj" firstAttribute="bottom" secondItem="L7r-lm-ny8" secondAttribute="bottom" id="zgd-Vu-EF0"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="m3x-b4-qNj"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Tôi" id="E1p-Gx-sR4"/>
+                    <connections>
+                        <outlet property="tableView" destination="L7r-lm-ny8" id="3n1-xJ-RvS"/>
+                        <segue destination="KnJ-Ro-xXv" kind="show" identifier="sgHistory" id="4mh-4s-f0T"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="auo-oe-2VB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="520.79999999999995" y="-257.72113943028489"/>
+        </scene>
+        <!--Đã xem-->
+        <scene sceneID="fgd-wC-qr9">
+            <objects>
+                <viewController title="Đã xem" id="KnJ-Ro-xXv" customClass="HistoryVC" customModule="YoutubeVideo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="IrC-Rt-wAd">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="m8e-95-ONP">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="20" minimumInteritemSpacing="10" id="v6N-G6-hAA">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="10" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                            </collectionView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bạn chưa xem video nào !" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WNV-zm-mH8">
+                                <rect key="frame" x="16" y="313.5" width="343.5" height="40"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="29"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="WNV-zm-mH8" firstAttribute="centerX" secondItem="IrC-Rt-wAd" secondAttribute="centerX" id="M17-Kr-Du4"/>
+                            <constraint firstItem="m8e-95-ONP" firstAttribute="top" secondItem="dZB-za-PDo" secondAttribute="top" id="SIh-xn-M4k"/>
+                            <constraint firstItem="WNV-zm-mH8" firstAttribute="centerY" secondItem="IrC-Rt-wAd" secondAttribute="centerY" id="UHt-lo-dDQ"/>
+                            <constraint firstItem="dZB-za-PDo" firstAttribute="trailing" secondItem="m8e-95-ONP" secondAttribute="trailing" id="VPw-4h-Lzh"/>
+                            <constraint firstItem="m8e-95-ONP" firstAttribute="leading" secondItem="dZB-za-PDo" secondAttribute="leading" id="fdg-Ka-7n2"/>
+                            <constraint firstItem="dZB-za-PDo" firstAttribute="bottom" secondItem="m8e-95-ONP" secondAttribute="bottom" id="jdT-6E-9Vp"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="dZB-za-PDo"/>
+                    </view>
+                    <connections>
+                        <outlet property="collectionView" destination="m8e-95-ONP" id="F5K-rQ-vxW"/>
+                        <outlet property="notiLbl" destination="WNV-zm-mH8" id="Noy-mv-nOM"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="b7d-51-iir" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1368.8" y="-258.62068965517244"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="tQM-ru-okL">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="JCo-Jc-xb3" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="fHY-qp-TDi">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="N4E-br-lbf" kind="relationship" relationship="rootViewController" id="uvN-GE-U9I"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="car-Iq-DI0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-202" y="-258"/>
+        </scene>
+    </scenes>
+</document>

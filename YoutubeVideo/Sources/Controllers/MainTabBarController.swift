@@ -99,8 +99,8 @@ class MainTabBarController: UITabBarController {
         let tabBarItemSearch  =  UITabBarItem(tabBarSystemItem: .search, tag: 20)
         navigationSearch.tabBarItem = tabBarItemSearch
         
-        // User
-        let navigationUser = UIStoryboard(name: Storyboard.User.name, bundle: nil).instantiateInitialViewController()!
+        // More
+        let navigationUser = UIStoryboard(name: Storyboard.More.name, bundle: nil).instantiateInitialViewController()!
 //        let userImg = #imageLiteral(resourceName: "user")
         let tabBarItemUser =  UITabBarItem(tabBarSystemItem: .more, tag: 30)
         navigationUser.tabBarItem = tabBarItemUser

@@ -18,6 +18,8 @@ class Global {
         return instanceGl
     }()
     
+    
+    
     var loadingDoneCallback: (() -> ())?
     var fetchComplete: Bool = false
     
@@ -25,6 +27,11 @@ class Global {
     var titleChannel = ""
     var thumbChannel = ""
     var titlePlaylist = ""
+    var watchHistory = 0
+    
+    let appName = Bundle.main.infoDictionary![kCFBundleNameKey as String] as! String
+    let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as AnyObject
+    let build = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as AnyObject
     
     private init() {
         loadDefaultValues()
@@ -70,6 +77,12 @@ class Global {
         
     }
     
+    func clearHistory(){
+        
+        pref.set(nil, forKey: "videoWatched")
+        
+    }
+    
     func addFavoriteChannel(dict: [String: String]) {
         var favorites = [[String: String]]()
         if let _favorites = pref.object(forKey: "favorites") as? [[String: String]] {
@@ -92,6 +105,21 @@ class Global {
         pref.set(favorites, forKey: "favorites")
     }
     
+    func addIdVideoWatched(id: String) {
+        
+        var videoWatched = [String]()
+        if let _videoWatched = pref.object(forKey: "videoWatched") as? [String] {
+            videoWatched = _videoWatched
+        }
+        videoWatched.append(id)
+        
+        pref.set(videoWatched, forKey: "videoWatched")
+    }
+    
+    func getIdVideoWatched() -> [String]! {
+        guard let videoWatched = pref.object(forKey: "videoWatched") as? [String] else { return nil }
+        return videoWatched
+    }
 }
 
 

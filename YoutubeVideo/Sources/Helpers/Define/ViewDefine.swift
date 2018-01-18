@@ -6,8 +6,8 @@ struct Storyboard {
 
     }
     
-    struct User {
-        static let name                         = "User"
+    struct More {
+        static let name                         = "More"
 
     }
     
