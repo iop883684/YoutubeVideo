@@ -38,16 +38,30 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QQB-p8-52M">
+                        <rect key="frame" x="0.0" y="53.5" width="320" height="1"/>
+                        <color key="backgroundColor" red="0.94117647059999998" green="0.94509803920000002" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="VrI-hl-WMt"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="trailing" secondItem="QQB-p8-52M" secondAttribute="trailing" id="H3C-ub-u2u"/>
                     <constraint firstAttribute="bottomMargin" secondItem="sGI-SU-60P" secondAttribute="bottom" constant="2" id="QWL-GS-IJV"/>
                     <constraint firstItem="sGI-SU-60P" firstAttribute="leading" secondItem="aSp-rQ-M2l" secondAttribute="trailing" constant="8" id="VcK-Og-wQr"/>
                     <constraint firstItem="sGI-SU-60P" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="1" id="kPV-1F-MOZ"/>
+                    <constraint firstItem="QQB-p8-52M" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="vBE-bp-woD"/>
+                    <constraint firstAttribute="bottom" secondItem="QQB-p8-52M" secondAttribute="bottom" id="vit-Cr-99e"/>
                     <constraint firstItem="aSp-rQ-M2l" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="wI2-Jj-h8i"/>
                     <constraint firstItem="aSp-rQ-M2l" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="zh1-m7-yIP"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="thumb" destination="aSp-rQ-M2l" id="H7T-RD-K46"/>
+                <outlet property="title" destination="sGI-SU-60P" id="YuD-Zk-bim"/>
+            </connections>
             <point key="canvasLocation" x="-6" y="43.5"/>
         </tableViewCell>
     </objects>

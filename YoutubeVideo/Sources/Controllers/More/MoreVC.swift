@@ -11,10 +11,6 @@ import MessageUI
 import StoreKit
 
 private let historyCellId = "historyCell"
-private let feedBackCellId = "feedBackCell"
-private let otherCellId = "otherCell"
-private let shareCellId = "shareCell"
-private let rateCellId = "rateCell"
 
 class MoreVC: UIViewController {
     
@@ -24,20 +20,25 @@ class MoreVC: UIViewController {
     
     //MARK: - Variables
     
+    var arrayTitle = [[String]]()
+    var arrayThumb = [[UIImage]]()
+    
     //MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        arrayTitle = [["Đã xem"],
+                     ["Góp ý","Ứng dụng khác","Chia sẻ","Đánh giá"]]
+        
+        arrayThumb = [[#imageLiteral(resourceName: "ic_query_builder")],
+                     [#imageLiteral(resourceName: "ic_feedback"), #imageLiteral(resourceName: "ic_share"), #imageLiteral(resourceName: "ic_share"), #imageLiteral(resourceName: "ic_star_rate_18pt")]]
+        
         tableView.separatorStyle = .none
         tableView.delegate = self
         tableView.dataSource = self
         
         tableView.registerNib(HistoryTableViewCell.self, historyCellId)
-        tableView.registerNib(FeedBackTableViewCell.self, feedBackCellId)
-        tableView.registerNib(OtherTableViewCell.self, otherCellId)
-        tableView.registerNib(ShareTableViewCell.self, shareCellId)
-        tableView.registerNib(RateTableViewCell.self, rateCellId)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -100,54 +101,24 @@ class MoreVC: UIViewController {
 extension MoreVC: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return arrayTitle.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        switch  section {
-        case 0:
-            return 1
-        case 1:
-            return 4
-        default:
-            return 0
-        }
+        return arrayTitle[section].count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        switch indexPath.section {
-            
-        case 0:
-            
-            let cell = tableView.dequeueReusableCell(withIdentifier: historyCellId, for: indexPath) as! HistoryTableViewCell
-            
-            return cell
-            
-        case 1:
-            if indexPath.row == 0 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: feedBackCellId, for: indexPath) as! FeedBackTableViewCell
-                
-                return cell
-            }else if indexPath.row == 1 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: otherCellId, for: indexPath) as! OtherTableViewCell
-                
-                return cell
-            } else if indexPath.row == 2 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: shareCellId, for: indexPath) as! ShareTableViewCell
-                
-                return cell
-            } else {
-                
-                let cell = tableView.dequeueReusableCell(withIdentifier: rateCellId, for: indexPath) as! RateTableViewCell
-                
-                return cell
-            }
-            
-        default:
-            return UITableViewCell()
-        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: historyCellId, for: indexPath) as! HistoryTableViewCell
+        
+        let title = arrayTitle[indexPath.section][indexPath.row]
+        let img = arrayThumb[indexPath.section][indexPath.row]
+
+        cell.configure(title, img)
+        
+        return cell
     }
 }
 
@@ -194,11 +165,11 @@ extension MoreVC: UITableViewDelegate {
         }
     }
     
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let view = UIView(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 3))
-        view.backgroundColor = UIColor(red: 240/255, green: 241/255, blue: 242/255, alpha: 1)
-        return view
-    }
+//    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+//        let view = UIView(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 3))
+//        view.backgroundColor = UIColor(red: 240/255, green: 241/255, blue: 242/255, alpha: 1)
+//        return view
+//    }
 }
 
 extension MoreVC: MFMailComposeViewControllerDelegate {

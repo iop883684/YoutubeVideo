@@ -10,4 +10,13 @@ import UIKit
 
 class HistoryTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var title: UILabel!
+    @IBOutlet weak var thumb: UIImageView!
+    
+    func configure(_ name: String,_ img: UIImage ){
+        
+        title.text = name
+        
+        thumb.image = img
+    }
 }
