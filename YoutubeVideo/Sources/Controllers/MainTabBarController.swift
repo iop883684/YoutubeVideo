@@ -86,7 +86,7 @@ class MainTabBarController: UITabBarController {
         // Home
         let navigationHome = UIStoryboard(name: Storyboard.Home.name, bundle: nil).instantiateInitialViewController()!
 //        let homeImg = #imageLiteral(resourceName: "home")
-        let tabBarItemHome =  UITabBarItem(tabBarSystemItem: .topRated, tag: 10)
+        let tabBarItemHome =  UITabBarItem(tabBarSystemItem: .mostViewed, tag: 10)
         navigationHome.tabBarItem = tabBarItemHome
         
         // Favorite
