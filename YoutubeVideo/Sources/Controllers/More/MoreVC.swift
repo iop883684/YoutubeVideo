@@ -32,7 +32,7 @@ class MoreVC: UIViewController {
                      ["Góp ý","Ứng dụng khác","Chia sẻ","Đánh giá"]]
         
         arrayThumb = [[#imageLiteral(resourceName: "ic_query_builder")],
-                     [#imageLiteral(resourceName: "ic_feedback"), #imageLiteral(resourceName: "ic_share"), #imageLiteral(resourceName: "ic_share"), #imageLiteral(resourceName: "ic_star_rate_18pt")]]
+                     [#imageLiteral(resourceName: "ic_message"), #imageLiteral(resourceName: "ic_new_releases"), #imageLiteral(resourceName: "ic_share"), #imageLiteral(resourceName: "ic_star_border")]]
         
         tableView.separatorStyle = .none
         tableView.delegate = self
