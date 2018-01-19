@@ -8,10 +8,13 @@
 
 import UIKit
 import MessageUI
+import StoreKit
 
 private let historyCellId = "historyCell"
 private let feedBackCellId = "feedBackCell"
 private let otherCellId = "otherCell"
+private let shareCellId = "shareCell"
+private let rateCellId = "rateCell"
 
 class MoreVC: UIViewController {
     
@@ -33,6 +36,8 @@ class MoreVC: UIViewController {
         tableView.registerNib(HistoryTableViewCell.self, historyCellId)
         tableView.registerNib(FeedBackTableViewCell.self, feedBackCellId)
         tableView.registerNib(OtherTableViewCell.self, otherCellId)
+        tableView.registerNib(ShareTableViewCell.self, shareCellId)
+        tableView.registerNib(RateTableViewCell.self, rateCellId)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -67,6 +72,27 @@ class MoreVC: UIViewController {
         
         return mailComposerVC
     }
+    
+    func share(){
+        
+        let activityVC = UIActivityViewController(activityItems: [LINK_SHARE], applicationActivities: nil)
+        
+        activityVC.popoverPresentationController?.sourceView = self.view
+        
+        self.present(activityVC, animated: true, completion: nil)
+    }
+    
+    func rateApp(appId: String) {
+        
+        guard let url = URL(string : "https://itunes.apple.com/app/\(APP_ID)") else {
+            return
+        }
+        if #available(iOS 10.3, *) {
+            SKStoreReviewController.requestReview()
+        } else if #available(iOS 10.0, *) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+    }
 }
 
 //MARK: - TableView DataSource
@@ -83,7 +109,7 @@ extension MoreVC: UITableViewDataSource {
         case 0:
             return 1
         case 1:
-            return 2
+            return 4
         default:
             return 0
         }
@@ -104,8 +130,17 @@ extension MoreVC: UITableViewDataSource {
                 let cell = tableView.dequeueReusableCell(withIdentifier: feedBackCellId, for: indexPath) as! FeedBackTableViewCell
                 
                 return cell
-            }else {
+            }else if indexPath.row == 1 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: otherCellId, for: indexPath) as! OtherTableViewCell
+                
+                return cell
+            } else if indexPath.row == 2 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: shareCellId, for: indexPath) as! ShareTableViewCell
+                
+                return cell
+            } else {
+                
+                let cell = tableView.dequeueReusableCell(withIdentifier: rateCellId, for: indexPath) as! RateTableViewCell
                 
                 return cell
             }
@@ -142,9 +177,16 @@ extension MoreVC: UITableViewDelegate {
                     
                     self.present(mailComposeViewController, animated: true, completion: nil)
                 }
-            } else {
+            } else if indexPath.row == 1 {
+                
                 let url = URL(string: "https://github.com/")
                 UIApplication.shared.openURL(url!)
+                
+            } else if indexPath.row == 2 {
+                
+                share()
+            } else {
+                rateApp(appId: APP_ID)
             }
             
         default:
