@@ -20,6 +20,6 @@ class HistoryTableViewCell: UITableViewCell {
         thumb.image = img
 
         thumb.image = thumb.image!.withRenderingMode(.alwaysTemplate)
-        thumb.tintColor = UIColor(red: 48/255, green: 48/255, blue: 48/255, alpha: 1)
+        thumb.tintColor = UIColor(red: 67/255, green: 67/255, blue: 67/255, alpha: 1)
     }
 }

@@ -38,12 +38,14 @@ class BMPlayerCustomControlView: BMPlayerControlView {
         playbackRateButton.addTarget(self, action: #selector(onPlaybackRateButtonPressed), for: .touchUpInside)
         playbackRateButton.snp.makeConstraints {
             $0.right.equalTo(chooseDefitionView.snp.left).offset(-5)
-            $0.centerY.equalTo(topMaskView).offset(10)
+            $0.centerY.equalTo(topMaskView).offset(15)
         }
         
         chooseDefitionView.snp.makeConstraints { (make) in
-            make.centerY.equalTo(topMaskView).offset(13)
+            make.centerY.equalTo(chooseDefitionView)
         }
+        
+    
         
     }
     
