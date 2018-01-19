@@ -29,17 +29,20 @@ class BMPlayerCustomControlView: BMPlayerControlView {
         mainMaskView.backgroundColor   = UIColor.clear
         topMaskView.backgroundColor    = UIColor.black.withAlphaComponent(0.4)
         bottomMaskView.backgroundColor = UIColor.black.withAlphaComponent(0.4)
-        timeSlider.setThumbImage(UIImage(named: "custom_slider_thumb"), for: .normal)
+        timeSlider.setThumbImage(#imageLiteral(resourceName: "Pod_Asset_BMPlayer_slider_thumb") , for: .normal)
         
         topMaskView.addSubview(playbackRateButton)
         
         playbackRateButton.setTitleColor(UIColor ( red: 1.0, green: 1.0, blue: 1.0, alpha: 0.9 ), for: .normal)
-        playbackRateButton.setImage(#imageLiteral(resourceName: "ic_more_vert_white_48pt"), for: .normal)
+        playbackRateButton.setImage(#imageLiteral(resourceName: "ic_more_vert_white"), for: .normal)
         playbackRateButton.addTarget(self, action: #selector(onPlaybackRateButtonPressed), for: .touchUpInside)
-        playbackRateButton.titleLabel?.font   = UIFont.systemFont(ofSize: 12)
         playbackRateButton.snp.makeConstraints {
             $0.right.equalTo(chooseDefitionView.snp.left).offset(-5)
             $0.centerY.equalTo(topMaskView).offset(10)
+        }
+        
+        chooseDefitionView.snp.makeConstraints { (make) in
+            make.centerY.equalTo(topMaskView).offset(13)
         }
         
     }

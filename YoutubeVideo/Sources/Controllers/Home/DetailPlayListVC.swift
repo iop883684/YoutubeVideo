@@ -11,6 +11,7 @@ import Alamofire
 import AlamofireObjectMapper
 import XCDYouTubeKit
 import MobilePlayer
+import PKHUD
 
 private let videoChannelCellId = "videoChannelCell"
 private let playListCellId = "playListCell"
@@ -207,6 +208,8 @@ extension DetailPlayListVC: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
+        HUD.show(.labeledProgress(title: "Loading...", subtitle: ""))
+        
         let item = data[indexPath.row]
         
         Global.shared.idChannel = ""
@@ -258,6 +261,7 @@ extension DetailPlayListVC: UICollectionViewDelegateFlowLayout {
             
             if isHaveUrl {
                 strongSelf.performSegue(withIdentifier: "sgPlayer", sender: indexPath)
+                HUD.hide(animated: true)
             } else{
                 print("no url suitable")
             }
