@@ -9,16 +9,18 @@
 import UIKit
 import BMPlayer
 
+protocol BMPlayerCustomControlViewDelegate: NSObjectProtocol {
+    func didTapMoreBtn()
+}
+
 class BMPlayerCustomControlView: BMPlayerControlView {
     
+    weak var delega: BMPlayerCustomControlViewDelegate?
+    
     var playbackRateButton = UIButton(type: .custom)
-    var playRate: Float = 1.0
     
-    var rotateButton = UIButton(type: .custom)
-    var rotateCount: CGFloat = 0
-    
-    var button = UIButton(type: .custom)
-    
+    var moreBtn = UIButton(type: .custom)
+
     /**
      Override if need to customize UI components
      */
@@ -31,54 +33,20 @@ class BMPlayerCustomControlView: BMPlayerControlView {
         
         topMaskView.addSubview(playbackRateButton)
         
-        playbackRateButton.layer.cornerRadius = 2
-        playbackRateButton.layer.borderWidth  = 1
-        playbackRateButton.layer.borderColor  = UIColor ( red: 1.0, green: 1.0, blue: 1.0, alpha: 0.8 ).cgColor
         playbackRateButton.setTitleColor(UIColor ( red: 1.0, green: 1.0, blue: 1.0, alpha: 0.9 ), for: .normal)
-        playbackRateButton.setTitle("  rate \(playRate)  ", for: .normal)
+        playbackRateButton.setImage(#imageLiteral(resourceName: "ic_more_vert_white_48pt"), for: .normal)
         playbackRateButton.addTarget(self, action: #selector(onPlaybackRateButtonPressed), for: .touchUpInside)
         playbackRateButton.titleLabel?.font   = UIFont.systemFont(ofSize: 12)
-        playbackRateButton.isHidden = true
         playbackRateButton.snp.makeConstraints {
             $0.right.equalTo(chooseDefitionView.snp.left).offset(-5)
-            $0.centerY.equalTo(chooseDefitionView)
+            $0.centerY.equalTo(chooseDefitionView).offset(-5)
         }
         
-        bottomMaskView.addSubview(rotateButton)
-        rotateButton.layer.cornerRadius = 2
-        rotateButton.layer.borderWidth  = 1
-        rotateButton.layer.borderColor  = UIColor ( red: 1.0, green: 1.0, blue: 1.0, alpha: 0.8 ).cgColor
-        rotateButton.setTitleColor(UIColor ( red: 1.0, green: 1.0, blue: 1.0, alpha: 0.9 ), for: .normal)
-        rotateButton.setTitle("  rotate  ", for: .normal)
-        rotateButton.addTarget(self, action: #selector(onRotateButtonPressed), for: .touchUpInside)
-        rotateButton.titleLabel?.font   = UIFont.systemFont(ofSize: 12)
-        rotateButton.isHidden = true
-        rotateButton.snp.makeConstraints {
-            $0.right.equalTo(playbackRateButton.snp.left).offset(-5)
-            $0.centerY.equalTo(chooseDefitionView)
-        }
-        topMaskView.addSubview(button)
-        
-        button.layer.cornerRadius = 2
-        button.layer.borderWidth  = 1
-        button.layer.borderColor  = UIColor ( red: 1.0, green: 1.0, blue: 1.0, alpha: 0.8 ).cgColor
-        button.setTitleColor(UIColor ( red: 1.0, green: 1.0, blue: 1.0, alpha: 0.9 ), for: .normal)
-        button.setTitle("  button \(playRate)  ", for: .normal)
-        button.addTarget(self, action: #selector(onPlaybackRateButtonPressed), for: .touchUpInside)
-        button.titleLabel?.font   = UIFont.systemFont(ofSize: 12)
-        button.isHidden = false
-        button.snp.makeConstraints {
-            $0.right.equalTo(chooseDefitionView.snp.left).offset(-25)
-            $0.centerY.equalTo(chooseDefitionView)
-        }
     }
-    
-    
     
     override func updateUI(_ isForFullScreen: Bool) {
         super.updateUI(isForFullScreen)
-        playbackRateButton.isHidden = !isForFullScreen
-        rotateButton.isHidden = !isForFullScreen
+        chooseDefitionView.isHidden = false
         if let layer = player?.playerLayer {
             layer.frame = player!.bounds
         }
@@ -86,19 +54,13 @@ class BMPlayerCustomControlView: BMPlayerControlView {
     
     override func controlViewAnimation(isShow: Bool) {
         self.isMaskShowing = isShow
-        
         UIView.animate(withDuration: 0.24, animations: {
             self.topMaskView.snp.remakeConstraints {
-                $0.top.equalTo(self.mainMaskView).offset(isShow ? 0 : -65)
+                $0.top.equalTo(self.mainMaskView).offset(isShow ? 0 : -70)
                 $0.left.right.equalTo(self.mainMaskView)
                 $0.height.equalTo(65)
             }
             
-            self.bottomMaskView.snp.remakeConstraints {
-                $0.bottom.equalTo(self.mainMaskView).offset(isShow ? 0 : 50)
-                $0.left.right.equalTo(self.mainMaskView)
-                $0.height.equalTo(50)
-            }
             self.layoutIfNeeded()
         }) { (_) in
             self.autoFadeOutControlViewWithAnimation()
@@ -106,32 +68,10 @@ class BMPlayerCustomControlView: BMPlayerControlView {
     }
     
     @objc func onPlaybackRateButtonPressed() {
-        autoFadeOutControlViewWithAnimation()
-        switch playRate {
-        case 1.0:
-            playRate = 1.5
-        case 1.5:
-            playRate = 0.5
-        case 0.5:
-            playRate = 1.0
-        default:
-            playRate = 1.0
-        }
-        playbackRateButton.setTitle("  rate \(playRate)  ", for: .normal)
-        delegate?.controlView?(controlView: self, didChangeVideoPlaybackRate: playRate)
+        
+        delega?.didTapMoreBtn()
         
     }
     
-    
-    
-    @objc func onRotateButtonPressed() {
-        guard let layer = player?.playerLayer else {
-            return
-        }
-        print("rotated")
-        rotateCount += 1
-        layer.transform = CGAffineTransform(rotationAngle: rotateCount * CGFloat(Double.pi/2))
-        layer.frame = player!.bounds
-    }
     
 }

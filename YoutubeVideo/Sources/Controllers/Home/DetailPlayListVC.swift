@@ -135,12 +135,7 @@ class DetailPlayListVC: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let vc = segue.destination as? VideoPlayerVC{
-            
-            let indexPath = sender as! IndexPath
 
-            vc.videoTitle = self.data[indexPath.row].title
-        }
     }
 
 }

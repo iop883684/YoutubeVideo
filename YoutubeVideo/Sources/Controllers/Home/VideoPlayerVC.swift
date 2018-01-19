@@ -10,14 +10,16 @@ import UIKit
 import BMPlayer
 
 class VideoPlayerVC: UIViewController{
-    
-    @IBOutlet weak var player: BMCustomPlayer!
-    @IBOutlet weak var moreBtn: UIButton!
 
-    var videoTitle: String!
+    @IBOutlet weak var moreBtn: UIButton!
     
-    var isFollow = false
-    var index = 0
+    private var videoTitle: String!
+    private var player: BMPlayer!
+    
+    private var isFollow = false
+    private var controller: BMPlayerCustomControlView? = nil
+    private var index: Int!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -29,30 +31,39 @@ class VideoPlayerVC: UIViewController{
                     index = x
                 }
             }
-
+            
         }
         
+        controller = BMPlayerCustomControlView()
         
-        let _ = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
-
-        navigationController?.navigationBar.isHidden = true
-        tabBarController?.tabBar.isHidden = true
+        player = BMPlayer(customControlView: controller)
+        view.addSubview(player)
         
-        BMPlayerConf.enableChooseDefinition = true
-        BMPlayerConf.enableBrightnessGestures = false
+        controller?.chooseDefitionView.isHidden = false
+        
+        player.snp.makeConstraints { (make) in
+            make.top.equalTo(view.snp.top)
+            make.left.equalTo(view.snp.left)
+            make.right.equalTo(view.snp.right)
+            make.bottom.equalTo(view.snp.bottom)
+        }
+        
+        controller?.delega = self
+        player.delegate = self
         
         player.backBlock = { [unowned self] (isFullScreen) in
-            if isFullScreen == true {
+            if isFullScreen {
                 return
+            } else {
+                let _ = self.navigationController?.popViewController(animated: true)
             }
-            let _ = self.navigationController?.popViewController(animated: true)
         }
         
         var listDefinition = [BMPlayerResourceDefinition]()
-
+        
         if UrlVideo.small != nil{
             let small = BMPlayerResourceDefinition(url: UrlVideo.small,
-                                                    definition: "240p")
+                                                   definition: "240p")
             listDefinition.append(small)
         }
         
@@ -74,10 +85,19 @@ class VideoPlayerVC: UIViewController{
         let asset = BMPlayerResource(name: "",
                                      definitions: listDefinition,
                                      cover: UrlVideo.medium)
-
-        player.setVideo(resource: asset)
-
         
+        player.setVideo(resource: asset)
+        
+        self.view.layoutIfNeeded()
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController?.navigationBar.isHidden = true
+        tabBarController?.tabBar.isHidden = true
+        UIApplication.shared.isStatusBarHidden = true
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -85,9 +105,13 @@ class VideoPlayerVC: UIViewController{
         
         navigationController?.navigationBar.isHidden = false
         tabBarController?.tabBar.isHidden = false
+        UIApplication.shared.isStatusBarHidden = false
     }
+    
+}
 
-    @IBAction func btnPressed(_ sender: UIButton){
+extension VideoPlayerVC: BMPlayerCustomControlViewDelegate {
+    func didTapMoreBtn() {
         
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
@@ -112,25 +136,36 @@ class VideoPlayerVC: UIViewController{
         }
         
         alertController.addAction(cancel)
-        present(alertController, animated: true, completion: nil)
-    }
-    
-    @objc func update(){
-        
-        if UIApplication.shared.isStatusBarHidden == true {
-            UIView.animate(withDuration: 0.1, delay: 0.1, options: .curveEaseIn, animations: {
-                
-                self.moreBtn.alpha = 0
-            }, completion: nil)
-        }else {
-            moreBtn.alpha = 1
-        }
-    }
-    
-    
+        self.present(alertController, animated: true, completion: nil)
 
+    }
+    
+    
+    
 }
 
+extension VideoPlayerVC: BMPlayerDelegate {
+    
+    func bmPlayer(player: BMPlayer, playerStateDidChange state: BMPlayerState) {
+        
+    }
+    
+    func bmPlayer(player: BMPlayer, loadedTimeDidChange loadedDuration: TimeInterval, totalDuration: TimeInterval) {
+        
+    }
+    
+    func bmPlayer(player: BMPlayer, playTimeDidChange currentTime: TimeInterval, totalTime: TimeInterval) {
+        
+    }
+    
+    func bmPlayer(player: BMPlayer, playerIsPlaying playing: Bool) {
+        
+    }
+    
+    func bmPlayer(player: BMPlayer, playerOrientChanged isFullscreen: Bool) {
+        
+    }
+}
 
 
 

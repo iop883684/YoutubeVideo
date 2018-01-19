@@ -55,40 +55,10 @@
                     <view key="view" contentMode="scaleToFill" id="8kl-Vx-dVe">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="URP-fd-ZJp" customClass="BMCustomPlayer" customModule="YoutubeVideo" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <gestureRecognizers/>
-                            </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yMz-FS-hkI">
-                                <rect key="frame" x="263" y="23" width="40" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="69u-MA-kp1"/>
-                                    <constraint firstAttribute="width" constant="40" id="Ufu-YE-YsX"/>
-                                </constraints>
-                                <state key="normal" image="ic_more_vert_white_48pt"/>
-                                <connections>
-                                    <action selector="btnPressed:" destination="V7S-wL-pqh" eventType="touchUpInside" id="hc5-Hm-JHK"/>
-                                </connections>
-                            </button>
-                        </subviews>
                         <color key="backgroundColor" red="0.93282169103622437" green="0.94921404123306274" blue="0.94500714540481567" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="URP-fd-ZJp" firstAttribute="trailing" secondItem="x64-nG-DXe" secondAttribute="trailing" id="6cR-gS-J3s"/>
-                            <constraint firstItem="yMz-FS-hkI" firstAttribute="top" secondItem="x64-nG-DXe" secondAttribute="top" constant="3" id="N5b-R5-fHm"/>
-                            <constraint firstItem="URP-fd-ZJp" firstAttribute="top" secondItem="8kl-Vx-dVe" secondAttribute="top" id="bQA-rl-gDP"/>
-                            <constraint firstItem="URP-fd-ZJp" firstAttribute="bottom" secondItem="x64-nG-DXe" secondAttribute="bottom" id="mxM-C0-BPx"/>
-                            <constraint firstItem="x64-nG-DXe" firstAttribute="trailing" secondItem="yMz-FS-hkI" secondAttribute="trailing" constant="72" id="rSP-dW-CHv"/>
-                            <constraint firstItem="URP-fd-ZJp" firstAttribute="leading" secondItem="x64-nG-DXe" secondAttribute="leading" id="ugq-iF-IIR"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="x64-nG-DXe"/>
                     </view>
                     <nil key="simulatedTopBarMetrics"/>
-                    <connections>
-                        <outlet property="moreBtn" destination="yMz-FS-hkI" id="VKb-sh-qOt"/>
-                        <outlet property="player" destination="URP-fd-ZJp" id="yEQ-Ft-S7L"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hTy-RC-21c" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -154,7 +124,4 @@
             <point key="canvasLocation" x="-791" y="-143"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="ic_more_vert_white_48pt" width="48" height="48"/>
-    </resources>
 </document>
