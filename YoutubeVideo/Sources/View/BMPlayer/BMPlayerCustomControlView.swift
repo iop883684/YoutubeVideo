@@ -39,7 +39,7 @@ class BMPlayerCustomControlView: BMPlayerControlView {
         playbackRateButton.titleLabel?.font   = UIFont.systemFont(ofSize: 12)
         playbackRateButton.snp.makeConstraints {
             $0.right.equalTo(chooseDefitionView.snp.left).offset(-5)
-            $0.centerY.equalTo(chooseDefitionView).offset(-5)
+            $0.centerY.equalTo(topMaskView).offset(10)
         }
         
     }
@@ -61,6 +61,12 @@ class BMPlayerCustomControlView: BMPlayerControlView {
                 $0.height.equalTo(65)
             }
             
+            self.bottomMaskView.snp.remakeConstraints {
+                $0.bottom.equalTo(self.mainMaskView).offset(isShow ? 0 : 50)
+                $0.left.right.equalTo(self.mainMaskView)
+                $0.height.equalTo(50)
+            }
+            
             self.layoutIfNeeded()
         }) { (_) in
             self.autoFadeOutControlViewWithAnimation()
@@ -68,9 +74,7 @@ class BMPlayerCustomControlView: BMPlayerControlView {
     }
     
     @objc func onPlaybackRateButtonPressed() {
-        
         delega?.didTapMoreBtn()
-        
     }
     
     
