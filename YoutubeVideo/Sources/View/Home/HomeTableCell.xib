@@ -47,12 +47,27 @@
                             <action selector="titlePressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="ix3-mK-Dbd"/>
                         </connections>
                     </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jOQ-Wy-eMV">
+                        <rect key="frame" x="258" y="7" width="55" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="Pm7-eG-WAB"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="11"/>
+                        <state key="normal" title="Xem thêm">
+                            <color key="titleColor" red="0.46540332939080892" green="0.47001128314715357" blue="0.47001128314715357" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="moreBtnPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Dgd-8M-WVN"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="oRJ-Qq-wH3" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="6" id="F8h-fa-bJW"/>
                     <constraint firstItem="pG5-jy-Uam" firstAttribute="top" secondItem="oRJ-Qq-wH3" secondAttribute="bottom" constant="2" id="Jf2-3m-IpL"/>
                     <constraint firstItem="oRJ-Qq-wH3" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="NyJ-2f-weH"/>
                     <constraint firstItem="pG5-jy-Uam" firstAttribute="top" secondItem="oRJ-Qq-wH3" secondAttribute="bottom" constant="2" id="P1q-Eo-zzI"/>
+                    <constraint firstAttribute="trailing" secondItem="jOQ-Wy-eMV" secondAttribute="trailing" constant="7" id="W9f-la-G47"/>
+                    <constraint firstItem="pG5-jy-Uam" firstAttribute="top" secondItem="jOQ-Wy-eMV" secondAttribute="bottom" constant="2" id="XDA-n1-XyU"/>
                     <constraint firstItem="pG5-jy-Uam" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="lz6-Lm-oL3"/>
                     <constraint firstAttribute="trailing" secondItem="pG5-jy-Uam" secondAttribute="trailing" id="vsb-Cs-e0f"/>
                     <constraint firstAttribute="bottom" secondItem="pG5-jy-Uam" secondAttribute="bottom" constant="2" id="ybh-G1-oOo"/>
@@ -63,7 +78,7 @@
                 <outlet property="collectionView" destination="pG5-jy-Uam" id="Ep6-fI-9I8"/>
                 <outlet property="title" destination="oRJ-Qq-wH3" id="Zn2-gS-bVU"/>
             </connections>
-            <point key="canvasLocation" x="-166" y="27.5"/>
+            <point key="canvasLocation" x="-340" y="28"/>
         </tableViewCell>
     </objects>
 </document>

@@ -21,15 +21,18 @@ class HomeVC: BaseVC {
     @IBOutlet weak var indicator: UIActivityIndicatorView!
 
     private var data = [(title:String, obj:[PlayList])]()
-    private var listPlaylist = [(title:String, channelId:String)]()
+    
     private var playlistId: String!
     
-    var playlistTitle: String!
+    private var playlistTitle: String!
+    private var channelTitle:String!
+    private var channelId: String!
     
-    var channelTitle:String!
-    var channelId: String!
+    private var isChannel: Bool!
+    private var isLoading = false
     
-    var isChannel: Bool!
+    private var refreshControl = UIRefreshControl()
+    private var db: Firestore!
     
     //MARK: - Lifecycle
     
@@ -38,10 +41,23 @@ class HomeVC: BaseVC {
         
         configureTableView()
         
+        refreshControl.addTarget(self, action: #selector(refreshAction), for: .valueChanged)
+        tableView.insertSubview(refreshControl, at: 0)
+        
         indicator.color = UIColor.gray
         indicator.startAnimating()
 
-        let db = Firestore.firestore()
+        db = Firestore.firestore()
+        
+        getListChannel()
+    }
+    
+    @objc func refreshAction() {
+        
+        
+    }
+    
+    func getListChannel(){
         
         db.collection("playlist").document(regionCode!).getDocument {[weak self] (snapshot, error) in
             
@@ -58,7 +74,7 @@ class HomeVC: BaseVC {
                 
                 let title = snap["name"] as! String
                 let id = snap["id"] as! String
-
+                
                 strongSelf.getListVideo(id, title)
                 strongSelf.tableView.reloadData()
             }
@@ -84,8 +100,9 @@ class HomeVC: BaseVC {
     
     func getListVideo(_ channelId: String, _ title:String){
         
-        let url = "https://www.googleapis.com/youtube/v3/playlists"
 
+        
+        let url = "https://www.googleapis.com/youtube/v3/playlists"
         
         let params:Parameters = [
             "part":"snippet,contentDetails",
@@ -99,8 +116,9 @@ class HomeVC: BaseVC {
             .request(url, method: .get, parameters: params)
             .responseArray(keyPath: "items") { [weak self] (response: DataResponse<[PlayList]>) in
                 
-                print(url)
                 guard let strongSelf = self else {return}
+
+                strongSelf.refreshControl.endRefreshing()
                 
                 if let error = response.result.error {
                     print(error.localizedDescription)

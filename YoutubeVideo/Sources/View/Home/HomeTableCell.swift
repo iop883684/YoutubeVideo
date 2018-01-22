@@ -42,6 +42,11 @@ class HomeTableCell: UITableViewCell {
         collectionView.registerNib(HomeCollectionCell.self, homeCollectionCellId)
     }
     
+    @IBAction func moreBtnPressed(_ sender: UIButton) {
+        
+        delegate?.toDetailChannel(channelId, channelTitle)
+    }
+    
     @IBAction func titlePressed(_ sender: UIButton){
         
         delegate?.toDetailChannel(channelId, channelTitle)
