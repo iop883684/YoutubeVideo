@@ -40,10 +40,10 @@ class HomeVC: BaseVC {
         
         indicator.color = UIColor.gray
         indicator.startAnimating()
-        
+
         let db = Firestore.firestore()
         
-        db.collection("playlist").getDocuments() {[weak self] (snapshot, error) in
+        db.collection("playlist").document(regionCode!).getDocument {[weak self] (snapshot, error) in
             
             guard let strongSelf = self else { return }
             
@@ -52,23 +52,19 @@ class HomeVC: BaseVC {
                 return
             }
             
+            guard let snapshot = snapshot?.data()["channelList"] as? [[String: Any]] else { return }
             
-            for document in snapshot!.documents{
+            for snap in snapshot {
                 
-                let title = document.data()["name"] as! String
-                let id = document.data()["id"] as! String
-                
-                strongSelf.listPlaylist.append((title: title, channelId: id))
-            }
-            
-            for obj in strongSelf.listPlaylist{
-                strongSelf.getListVideo(obj.channelId, obj.title)
+                let title = snap["name"] as! String
+                let id = snap["id"] as! String
 
+                strongSelf.getListVideo(id, title)
+                strongSelf.tableView.reloadData()
             }
+            
             strongSelf.indicator.stopAnimating()
         }
-
-        
         
     }
     

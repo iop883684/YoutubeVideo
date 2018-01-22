@@ -25,14 +25,10 @@ class KeyTableViewCell: UITableViewCell, TagListViewDelegate {
     override func awakeFromNib() {
         
         tagListView.delegate = self
-        
-        guard let regionCode = Locale.current.regionCode else { return }
-        
-        let region = regionCode.lowercased()
-        
+    
         let db = Firestore.firestore()
         
-        db.collection("trending").document(region).getDocument() {[weak self] (document, error) in
+        db.collection("trending").document(regionCode!).getDocument() {[weak self] (document, error) in
             
             guard let strongSelf = self else { return }
             

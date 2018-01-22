@@ -24,6 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let _ = Global.shared
         
         Global.shared.clearHistory()
+        
+        
         return true
     }
 
