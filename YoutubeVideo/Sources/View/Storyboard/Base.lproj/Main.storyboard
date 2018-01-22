@@ -15,7 +15,7 @@
         </array>
     </customFonts>
     <scenes>
-        <!--Item-->
+        <!--Popular-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController storyboardIdentifier="StartVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="StartVC" customModule="YoutubeVideo" customModuleProvider="target" sceneMemberID="viewController">
@@ -45,7 +45,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="SGa-bf-BeG"/>
+                    <tabBarItem key="tabBarItem" title="Popular" id="SGa-bf-BeG"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

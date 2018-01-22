@@ -86,7 +86,7 @@ class MainTabBarController: UITabBarController {
         // Home
         let navigationHome = UIStoryboard(name: Storyboard.Home.name, bundle: nil).instantiateInitialViewController()!
 //        let homeImg = #imageLiteral(resourceName: "home")
-        let tabBarItemHome =  UITabBarItem(tabBarSystemItem: .mostViewed, tag: 10)
+        let tabBarItemHome =  UITabBarItem(tabBarSystemItem: .mostViewed , tag: 10)
         navigationHome.tabBarItem = tabBarItemHome
         
         // Favorite
@@ -107,6 +107,9 @@ class MainTabBarController: UITabBarController {
         
         // set list childs controller to tabbar
         let controllers = [navigationHome, navigationFav ,navigationSearch, navigationUser]
+        
+        self.tabBarController?.tabBar.items?[0].title = NSLocalizedString("Popular", comment: "comment")
+        
         self.viewControllers = controllers
         self.hideTabbar(hide: false)
     }

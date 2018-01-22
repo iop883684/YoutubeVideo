@@ -223,7 +223,7 @@ extension DetailPlayListVC: UICollectionViewDelegateFlowLayout {
         Global.shared.titlePlaylist = item.title
         
         Global.shared.addIdVideoWatched(id: item.videoId)
-        
+
         UrlVideo.small = nil
         UrlVideo.hd = nil
         UrlVideo.medium = nil

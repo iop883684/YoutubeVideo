@@ -19,6 +19,8 @@ class BMPlayerCustomControlView: BMPlayerControlView {
     
     var playbackRateButton = UIButton(type: .custom)
     
+    fileprivate var isSelectecDefitionViewOpened = false
+    
     var moreBtn = UIButton(type: .custom)
 
     /**
@@ -38,15 +40,13 @@ class BMPlayerCustomControlView: BMPlayerControlView {
         playbackRateButton.addTarget(self, action: #selector(onPlaybackRateButtonPressed), for: .touchUpInside)
         playbackRateButton.snp.makeConstraints {
             $0.right.equalTo(chooseDefitionView.snp.left).offset(-5)
-            $0.centerY.equalTo(topMaskView).offset(15)
+            $0.centerY.equalTo(topMaskView).offset(10)
         }
         
         chooseDefitionView.snp.makeConstraints { (make) in
-            make.centerY.equalTo(chooseDefitionView)
+
+            make.top.equalTo(titleLabel.snp.top).offset(-4)
         }
-        
-    
-        
     }
     
     override func updateUI(_ isForFullScreen: Bool) {
