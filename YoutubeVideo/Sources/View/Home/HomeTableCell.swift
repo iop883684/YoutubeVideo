@@ -24,6 +24,7 @@ class HomeTableCell: UITableViewCell {
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var title: UIButton!
+    @IBOutlet weak var moreBtn: UIButton!
     
     //MARK: - Variables
     
@@ -40,6 +41,7 @@ class HomeTableCell: UITableViewCell {
         collectionView.dataSource = self
         
         collectionView.registerNib(HomeCollectionCell.self, homeCollectionCellId)
+        
     }
     
     @IBAction func moreBtnPressed(_ sender: UIButton) {
@@ -59,9 +61,10 @@ class HomeTableCell: UITableViewCell {
         self.title.setTitle(title, for: .normal)
         self.channelId = channelId
         self.channelTitle = channelTitle
-        collectionView.reloadData()
         
+        collectionView.reloadData()
     }
+    
     
 }
 
@@ -76,7 +79,7 @@ extension HomeTableCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: homeCollectionCellId, for: indexPath) as! HomeCollectionCell
-        
+        moreBtn.setTitle("See More".localized(), for: .normal)
         cell.configure(data[indexPath.row])
         
         return cell

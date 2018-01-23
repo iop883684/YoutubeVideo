@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import Localize_Swift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -25,6 +26,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Global.shared.clearHistory()
         
+        if Global.shared.getLanguage() == "" {
+            let lang = Locale.current.languageCode
+            
+            Localize.setCurrentLanguage(lang!)
+            
+            Global.shared.addLanguage(lang: lang!)
+        } else {
+            Localize.setCurrentLanguage(Global.shared.getLanguage())
+        }
         
         return true
     }

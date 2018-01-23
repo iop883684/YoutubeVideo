@@ -29,7 +29,13 @@ class HistoryVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.setText()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
+        self.setText()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -44,6 +50,12 @@ class HistoryVC: UIViewController {
                 requestAPI(id: id)
             }
         }
+    }
+    
+    func setText(){
+        
+        self.title = "History".localized()
+        notiLbl.text = "You didn't watch any video".localized()
     }
     
     func requestAPI(id: String){

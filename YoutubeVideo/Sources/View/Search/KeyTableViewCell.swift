@@ -36,7 +36,7 @@ class KeyTableViewCell: UITableViewCell, TagListViewDelegate {
                 print("error")
                 return
             }
-            guard let doc = document?.data()["keyword"] as? [String] else { return }
+            guard let doc = document?.data()!["keyword"] as? [String] else { return }
             
             strongSelf.setUpTagList(doc)
             

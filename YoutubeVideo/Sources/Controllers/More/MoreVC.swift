@@ -9,6 +9,7 @@
 import UIKit
 import MessageUI
 import StoreKit
+import Localize_Swift
 
 private let historyCellId = "historyCell"
 
@@ -28,11 +29,10 @@ class MoreVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        arrayTitle = [["Đã xem"],
-                     ["Góp ý","Ứng dụng khác","Chia sẻ","Đánh giá"]]
+        self.setText()
         
         arrayThumb = [[#imageLiteral(resourceName: "ic_query_builder")],
-                     [#imageLiteral(resourceName: "ic_message"), #imageLiteral(resourceName: "ic_new_releases"), #imageLiteral(resourceName: "ic_share"), #imageLiteral(resourceName: "ic_star_border")]]
+                      [#imageLiteral(resourceName: "ic_message"), #imageLiteral(resourceName: "ic_new_releases"), #imageLiteral(resourceName: "ic_share"), #imageLiteral(resourceName: "ic_star_border"), #imageLiteral(resourceName: "ic_feedback")]]
         
         tableView.separatorStyle = .none
         tableView.delegate = self
@@ -45,6 +45,19 @@ class MoreVC: UIViewController {
         super.viewWillAppear(animated)
         
         UIApplication.shared.isStatusBarHidden = false
+         self.setText()
+    }
+    
+    @objc func setText() {
+        
+        arrayTitle = [ ["History".localized()],
+                       
+                       ["Feedback".localized() ,"Other".localized(),
+                        "Share".localized(),"Review".localized(),"Language".localized()] ]
+        
+        self.title = "Setting".localized()
+        
+        tableView.reloadData()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -156,8 +169,10 @@ extension MoreVC: UITableViewDelegate {
             } else if indexPath.row == 2 {
                 
                 share()
-            } else {
+            } else if indexPath.row == 3{
                 rateApp(appId: APP_ID)
+            } else {
+                performSegue(withIdentifier: "sgLanguage", sender: nil)
             }
             
         default:

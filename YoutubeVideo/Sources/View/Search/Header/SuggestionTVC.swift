@@ -14,6 +14,9 @@ protocol SuggestionTVCDelegate: NSObjectProtocol {
 }
 
 class SuggestionTVC: UITableViewCell {
+    
+    @IBOutlet weak var title: UILabel!
+    @IBOutlet weak var deleteBtn: UIButton!
 
     weak var delegate: SuggestionTVCDelegate?
     
@@ -21,5 +24,10 @@ class SuggestionTVC: UITableViewCell {
     @IBAction func deleteBtn(_ sender: UIButton){
         
         delegate?.tapDeleteBtn()
+    }
+    
+    func configure() {
+        title.text = "History".localized()
+        deleteBtn.setTitle("Delete all".localized(), for: .normal)
     }
 }

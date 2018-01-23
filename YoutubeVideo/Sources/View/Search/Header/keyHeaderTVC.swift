@@ -9,5 +9,12 @@
 import UIKit
 
 class keyHeaderTVC: UITableViewCell {
+    
+    @IBOutlet weak var title: UILabel!
+    
+    func configure(){
+        
+        title.text = "Hot Keyword".localized()
+    }
 
 }

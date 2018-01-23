@@ -1,0 +1,23 @@
+/* 
+  Localizable.strings
+  YoutubeVideo
+
+  Created by Lac Tuan on 1/23/18.
+  Copyright © 2018 Lac Tuan. All rights reserved.
+*/
+
+
+"See More" = "Xem Thêm";
+"Home" = "Trang Chủ";
+"Feedback" = "Góp ý" ;
+"History" ="Đã xem"  ;
+"Review" =  "Đánh giá" ;
+"Share" = "Chia sẻ";
+"Setting" = "Cài Đặt";
+"Language" = "Ngôn ngữ";
+"Other" = "Ứng dụng khác";
+"You don't follow any channel" = "Bạn không theo dõi kênh nào";
+"Hot Keyword" = "Từ khoá hot";
+"Delete all" = "Xoá hết";
+"Switch Language" = "Đổi ngôn ngữ";
+"You didn't watch any video" = "Bạn chưa xem video nào";

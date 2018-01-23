@@ -18,8 +18,6 @@ class Global {
         return instanceGl
     }()
     
-    
-    
     var loadingDoneCallback: (() -> ())?
     var fetchComplete: Bool = false
     
@@ -120,6 +118,32 @@ class Global {
         guard let videoWatched = pref.object(forKey: "videoWatched") as? [String] else { return nil }
         return videoWatched
     }
+    
+    func addLanguage(lang: String) {
+        
+        var languageDevice: String!
+        if let language = pref.object(forKey: "language") as? String {
+            languageDevice = language
+        }
+        languageDevice = lang
+        
+        pref.set(languageDevice, forKey: "language")
+    }
+    
+    func getLanguage() -> String! {
+        
+        guard let language = pref.object(forKey: "language") as? String else { return "" }
+        
+        return language
+    }
+    
+    func clearLanguage(){
+        
+        pref.set(nil, forKey: "language")
+        
+    }
+    
+
 }
 
 

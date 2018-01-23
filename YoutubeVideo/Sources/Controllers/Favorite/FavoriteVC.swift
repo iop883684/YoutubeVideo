@@ -25,8 +25,15 @@ class FavoriteVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    
         setUpTableView()
+        self.setText()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.setText()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -40,6 +47,12 @@ class FavoriteVC: UIViewController {
             data = favorites
             collectionView.reloadData()
         }
+    }
+    
+    func setText() {
+        
+        self.title = "Favorites".localized()
+        label.text = "You don't follow any channel".localized()
     }
     
     //

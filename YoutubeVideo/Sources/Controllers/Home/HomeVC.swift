@@ -54,7 +54,20 @@ class HomeVC: BaseVC {
     
     @objc func refreshAction() {
         
+        refreshControl.endRefreshing()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
+        self.title = "Home".localized()
+        tableView.reloadData()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.tableView.reloadData()
     }
     
     func getListChannel(){
@@ -68,7 +81,7 @@ class HomeVC: BaseVC {
                 return
             }
             
-            guard let snapshot = snapshot?.data()["channelList"] as? [[String: Any]] else { return }
+            guard let snapshot = snapshot?.data()!["channelList"] as? [[String: Any]] else { return }
             
             for snap in snapshot {
                 
@@ -99,8 +112,6 @@ class HomeVC: BaseVC {
     //MARK: - Call API
     
     func getListVideo(_ channelId: String, _ title:String){
-        
-
         
         let url = "https://www.googleapis.com/youtube/v3/playlists"
         

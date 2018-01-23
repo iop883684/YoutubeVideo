@@ -28,22 +28,22 @@ class SearchVC: UIViewController {
     
     lazy var searchBar = UISearchBar(frame: CGRect.zero)
     
-    var data: [Video] = []
-    var suggestionWords = [String]()
-    var historyData = [String]()
-    var hotKeyWord = [String]()
+    private var data: [Video] = []
+    private var suggestionWords = [String]()
+    private var historyData = [String]()
+    private var hotKeyWord = [String]()
     
-    var nextPageToken = ""
-    var regionCode = "VN"
-    var searchText = ""
+    private var nextPageToken = ""
+    private var regionCode = "VN"
+    private var searchText = ""
     
-    var searchTimer: Timer?
+    private var searchTimer: Timer?
 
-    var isShowHistory = true
-    var isSearching = true
-    var isHaveUrl = false
-    var isFull = false
-    var isLoading = false
+    private var isShowHistory = true
+    private var isSearching = true
+    private var isHaveUrl = false
+    private var isFull = false
+    private var isLoading = false
     //MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -223,11 +223,15 @@ extension SearchVC: UITableViewDataSource {
             
             let header = tableView.dequeueReusableCell(withIdentifier: keyHeaderCellId) as! keyHeaderTVC
             
+            header.configure()
+            
             return header
             
         case 1:
             
             let header = tableView.dequeueReusableCell(withIdentifier: suggestHeaderId) as! SuggestionTVC
+            
+            header.configure()
             
             header.delegate = self
             return header
@@ -431,7 +435,6 @@ extension SearchVC: KeyTableViewCellDelegate {
     
     func reloadSection() {
         tableView.reloadData()
-        //tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
     }
     
     func clickBtn(_ btnTitle: String){

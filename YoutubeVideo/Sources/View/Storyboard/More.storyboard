@@ -11,6 +11,7 @@
     </dependencies>
     <customFonts key="customFonts">
         <array key="AvenirNext.ttc">
+            <string>AvenirNext-Bold</string>
             <string>AvenirNext-Medium</string>
         </array>
     </customFonts>
@@ -41,11 +42,46 @@
                     <connections>
                         <outlet property="tableView" destination="L7r-lm-ny8" id="3n1-xJ-RvS"/>
                         <segue destination="KnJ-Ro-xXv" kind="show" identifier="sgHistory" id="4mh-4s-f0T"/>
+                        <segue destination="LET-6R-eDH" kind="show" identifier="sgLanguage" id="7Fr-nR-tfZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="auo-oe-2VB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="520.79999999999995" y="-257.72113943028489"/>
+        </scene>
+        <!--LanguageVC-->
+        <scene sceneID="BBg-dA-4HX">
+            <objects>
+                <viewController id="LET-6R-eDH" customClass="LanguageVC" customModule="YoutubeVideo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="djG-b9-7xv">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OFb-tw-CBL">
+                                <rect key="frame" x="132" y="303.5" width="111" height="59"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="34"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="doChangeLanguage:" destination="LET-6R-eDH" eventType="touchUpInside" id="Tcf-gN-3H7"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="OFb-tw-CBL" firstAttribute="centerX" secondItem="djG-b9-7xv" secondAttribute="centerX" id="59D-cn-etk"/>
+                            <constraint firstItem="OFb-tw-CBL" firstAttribute="centerY" secondItem="djG-b9-7xv" secondAttribute="centerY" id="70g-4P-cJg"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="pS4-X1-nrR"/>
+                    </view>
+                    <connections>
+                        <outlet property="switchBtn" destination="OFb-tw-CBL" id="ekX-de-KMd"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hrF-c0-Avm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1372" y="-921.58920539730138"/>
         </scene>
         <!--Đã xem-->
         <scene sceneID="fgd-wC-qr9">
