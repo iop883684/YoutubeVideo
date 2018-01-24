@@ -38,6 +38,8 @@ class MainTabBarController: UITabBarController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(checkTimeOut), name: .UIApplicationDidBecomeActive, object: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -51,6 +53,12 @@ class MainTabBarController: UITabBarController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        
+        NotificationCenter.default.removeObserver(self, name: .UIApplicationDidBecomeActive, object: nil)
+    }
+    
+    deinit {
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -73,6 +81,19 @@ class MainTabBarController: UITabBarController {
     // MARK: - Call Api
     
     // MARK: - Functions
+    
+    @objc func checkTimeOut(){
+        let date = Date()
+        let time = date.timeIntervalSince1970
+        
+        guard let timeOutApp = Global.shared.timeOutApp else { return }
+        
+        if time - timeOutApp >= 1 {
+            print("update")
+            self.setupMainApp()
+        }
+    }
+    
     private func setupStartApp() {
         let startViewController = StartVC.getViewControllerFromStoryboard(Storyboard.Main.name)
         // set list childs controller to tabbar

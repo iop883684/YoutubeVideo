@@ -21,6 +21,7 @@ class Global {
     var loadingDoneCallback: (() -> ())?
     var fetchComplete: Bool = false
     
+    var timeOutApp: Double!
     var idChannel = ""
     var titleChannel = ""
     var thumbChannel = ""

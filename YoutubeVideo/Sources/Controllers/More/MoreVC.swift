@@ -25,7 +25,7 @@ class MoreVC: UIViewController {
     var arrayThumb = [[UIImage]]()
     
     //MARK: - Lifecycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

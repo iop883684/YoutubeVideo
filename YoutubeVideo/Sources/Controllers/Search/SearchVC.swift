@@ -190,7 +190,6 @@ class SearchVC: UIViewController {
         
     }
     
-    
 }
 
 
@@ -239,7 +238,7 @@ extension SearchVC: UITableViewDataSource {
             return nil
         }
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.section == 0{

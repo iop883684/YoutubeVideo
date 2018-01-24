@@ -52,6 +52,8 @@ class HomeVC: BaseVC {
         getListChannel()
     }
     
+
+    
     @objc func refreshAction() {
         
         refreshControl.endRefreshing()
@@ -64,12 +66,13 @@ class HomeVC: BaseVC {
         tableView.reloadData()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         
-        self.tableView.reloadData()
+        
     }
     
+
     func getListChannel(){
         
         db.collection("playlist").document(regionCode!).getDocument {[weak self] (snapshot, error) in
