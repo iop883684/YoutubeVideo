@@ -22,7 +22,7 @@ class HomeVC: BaseVC {
     @IBOutlet weak var indicator: UIActivityIndicatorView!
 
     private var data = [(title:String, obj:[PlayList])]()
-    private var bannerThumb = [String]()
+    private var bannerThumb = [PlayList]()
     
     private var playlistId: String!
     
@@ -148,7 +148,7 @@ class HomeVC: BaseVC {
                 }
                 
                 strongSelf.data.append((title,videos))
-                strongSelf.bannerThumb.append(videos[0].thumbnails)
+                strongSelf.bannerThumb.append(videos[0])
                 strongSelf.tableView.reloadData()
                 
         }

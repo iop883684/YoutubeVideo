@@ -13,7 +13,7 @@ class PagerTableViewCell: UITableViewCell, FSPagerViewDataSource, FSPagerViewDel
 
     @IBOutlet weak var pagerView: FSPagerView!
     
-    private var thumb = [String]()
+    private var thumb = [PlayList]()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -28,7 +28,7 @@ class PagerTableViewCell: UITableViewCell, FSPagerViewDataSource, FSPagerViewDel
         pagerView.itemSize = pagerView.frame.size.applying(transform)
     }
     
-    func configure(_ banner: [String]){
+    func configure(_ banner: [PlayList]){
         
         thumb = banner
         pagerView.reloadData()
@@ -42,9 +42,10 @@ class PagerTableViewCell: UITableViewCell, FSPagerViewDataSource, FSPagerViewDel
         
         let cell = pagerView.dequeueReusableCell(withReuseIdentifier: "cell", at: index)
         
-        let url = URL(string: thumb[index])
+        let url = URL(string: thumb[index].thumbnails)
         
         cell.imageView?.kf.setImage(with: url)
+        cell.textLabel?.text = thumb[index].title
         
         return cell
     }
