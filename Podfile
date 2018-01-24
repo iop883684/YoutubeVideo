@@ -21,4 +21,5 @@ pod 'BMPlayer', '~> 1.0.0'
 
 pod 'TagListView', '~> 1.0'
 pod 'Localize-Swift', '~> 2.0'
+pod 'FSPagerView'
 end

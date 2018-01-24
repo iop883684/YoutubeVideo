@@ -33,6 +33,8 @@
 		886D88F8200F5781004460E7 /* keyHeaderTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 886D88F6200F5781004460E7 /* keyHeaderTVC.xib */; };
 		886D88FB200F5BB1004460E7 /* SuggestionTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886D88F9200F5BB1004460E7 /* SuggestionTVC.swift */; };
 		886D88FC200F5BB1004460E7 /* SuggestionTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 886D88FA200F5BB1004460E7 /* SuggestionTVC.xib */; };
+		8883AE702018701D00C64062 /* PagerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8883AE6E2018701D00C64062 /* PagerTableViewCell.swift */; };
+		8883AE712018701D00C64062 /* PagerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8883AE6F2018701D00C64062 /* PagerTableViewCell.xib */; };
 		88902EF520076F6B005DE008 /* Favorite.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88902EF420076F6B005DE008 /* Favorite.storyboard */; };
 		88902EF92007709F005DE008 /* FavoriteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88902EF82007709F005DE008 /* FavoriteVC.swift */; };
 		88902F01200772E8005DE008 /* FavCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88902EFF200772E8005DE008 /* FavCollectionViewCell.swift */; };
@@ -100,6 +102,8 @@
 		886D88F6200F5781004460E7 /* keyHeaderTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = keyHeaderTVC.xib; sourceTree = "<group>"; };
 		886D88F9200F5BB1004460E7 /* SuggestionTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionTVC.swift; sourceTree = "<group>"; };
 		886D88FA200F5BB1004460E7 /* SuggestionTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SuggestionTVC.xib; sourceTree = "<group>"; };
+		8883AE6E2018701D00C64062 /* PagerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerTableViewCell.swift; sourceTree = "<group>"; };
+		8883AE6F2018701D00C64062 /* PagerTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PagerTableViewCell.xib; sourceTree = "<group>"; };
 		88902EF420076F6B005DE008 /* Favorite.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Favorite.storyboard; sourceTree = "<group>"; };
 		88902EF82007709F005DE008 /* FavoriteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteVC.swift; sourceTree = "<group>"; };
 		88902EFF200772E8005DE008 /* FavCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -368,6 +372,8 @@
 				8898A8D91FF10A450046F034 /* HomeTableCell.xib */,
 				88675ACF1FF3B18E004E0468 /* HomeCollectionCell.swift */,
 				88675AD01FF3B18E004E0468 /* HomeCollectionCell.xib */,
+				8883AE6E2018701D00C64062 /* PagerTableViewCell.swift */,
+				8883AE6F2018701D00C64062 /* PagerTableViewCell.xib */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -485,6 +491,7 @@
 				884755F22016DDC8003EA851 /* Localizable.strings in Resources */,
 				882ABC7C200DEBA300103BC4 /* SuggestionTableCell.xib in Resources */,
 				88C6920B1FFCEFBA007E1E45 /* LoadingCell.xib in Resources */,
+				8883AE712018701D00C64062 /* PagerTableViewCell.xib in Resources */,
 				8898A8B31FF0F6390046F034 /* Main.storyboard in Resources */,
 				88675AD21FF3B18E004E0468 /* HomeCollectionCell.xib in Resources */,
 				8898A8DF1FF10C8B0046F034 /* Search.storyboard in Resources */,
@@ -543,6 +550,7 @@
 				"${BUILT_PRODUCTS_DIR}/AlamofireObjectMapper/AlamofireObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/BMPlayer/BMPlayer.framework",
 				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
+				"${BUILT_PRODUCTS_DIR}/FSPagerView/FSPagerView.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/Localize-Swift/Localize_Swift.framework",
@@ -567,6 +575,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireObjectMapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BMPlayer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FSPagerView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Localize_Swift.framework",
@@ -614,6 +623,7 @@
 				884A087D1FF4CEDA00FCB7C7 /* Global.swift in Sources */,
 				8898A8C31FF0FAE90046F034 /* ViewDefine.swift in Sources */,
 				8847DC0B20034C06008E3F01 /* VideoPlayerVC.swift in Sources */,
+				8883AE702018701D00C64062 /* PagerTableViewCell.swift in Sources */,
 				8898A8CB1FF0FF210046F034 /* ViewController + Ext.swift in Sources */,
 				882ABC77200DDED300103BC4 /* KeyTableViewCell.swift in Sources */,
 				8898A8CF1FF0FFB50046F034 /* StartVC.swift in Sources */,

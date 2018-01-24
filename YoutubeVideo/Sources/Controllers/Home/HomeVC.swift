@@ -14,6 +14,7 @@ import Firebase
 import FirebaseFirestore
 
 private let homeTableCellId = "homeTableCell"
+private let pagerCellId = "pagerCell"
 
 class HomeVC: BaseVC {
     
@@ -21,6 +22,7 @@ class HomeVC: BaseVC {
     @IBOutlet weak var indicator: UIActivityIndicatorView!
 
     private var data = [(title:String, obj:[PlayList])]()
+    private var bannerThumb = [String]()
     
     private var playlistId: String!
     
@@ -108,6 +110,7 @@ class HomeVC: BaseVC {
         tableView.separatorStyle = UITableViewCellSeparatorStyle.none
         tableView.allowsSelection = false
         
+        tableView.registerNib(PagerTableViewCell.self, pagerCellId)
         tableView.registerNib(HomeTableCell.self, homeTableCellId)
         tableView.reloadData()
     }
@@ -145,6 +148,7 @@ class HomeVC: BaseVC {
                 }
                 
                 strongSelf.data.append((title,videos))
+                strongSelf.bannerThumb.append(videos[0].thumbnails)
                 strongSelf.tableView.reloadData()
                 
         }
@@ -180,11 +184,27 @@ class HomeVC: BaseVC {
 
 extension HomeVC: UITableViewDataSource {
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        if section == 0 {
+            return 1
+        }
         return data.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        if indexPath.section == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: pagerCellId, for: indexPath) as! PagerTableViewCell
+            
+            cell.configure(bannerThumb)
+            
+            return cell
+        }
         
         let cell = tableView.dequeueReusableCell(withIdentifier: homeTableCellId, for: indexPath) as! HomeTableCell
         
