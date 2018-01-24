@@ -22,4 +22,6 @@ pod 'BMPlayer', '~> 1.0.0'
 pod 'TagListView', '~> 1.0'
 pod 'Localize-Swift', '~> 2.0'
 pod 'FSPagerView'
+pod 'Firebase/Core'
+pod 'Firebase/Messaging'
 end
