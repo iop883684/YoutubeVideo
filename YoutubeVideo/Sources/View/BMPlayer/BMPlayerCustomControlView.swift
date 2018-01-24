@@ -45,7 +45,7 @@ class BMPlayerCustomControlView: BMPlayerControlView {
         
         chooseDefitionView.snp.makeConstraints { (make) in
 
-            make.top.equalTo(titleLabel.snp.top).offset(-4)
+            make.top.equalTo(titleLabel.snp.top).offset(-7)
         }
     }
     

@@ -37,6 +37,7 @@ class LanguageVC: UIViewController {
                 Localize.setCurrentLanguage(language)
                 Global.shared.clearLanguage()
                 Global.shared.addLanguage(lang: language)
+                self.setText()
             })
             actionSheet.addAction(languageAction)
         }

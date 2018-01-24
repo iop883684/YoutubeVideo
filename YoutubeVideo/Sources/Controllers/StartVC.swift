@@ -11,6 +11,7 @@ import UIKit
 class StartVC: BaseVC {
     
     // MARK: - IBOutlet
+    @IBOutlet weak var label: UILabel!
     
     // MARK: - Varialbes
     
@@ -29,6 +30,8 @@ class StartVC: BaseVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        label.text = "Loading...".localized()
     }
     
     override func viewDidAppear(_ animated: Bool) {

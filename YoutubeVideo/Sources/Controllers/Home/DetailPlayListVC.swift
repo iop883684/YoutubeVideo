@@ -208,7 +208,7 @@ extension DetailPlayListVC: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        HUD.show(.labeledProgress(title: "Loading...", subtitle: ""))
+        HUD.show(.labeledProgress(title: "Loading...".localized(), subtitle: ""))
         
         let item = data[indexPath.row]
         

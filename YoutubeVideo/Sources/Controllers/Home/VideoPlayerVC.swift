@@ -115,19 +115,19 @@ extension VideoPlayerVC: BMPlayerCustomControlViewDelegate {
         
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
-        let action = UIAlertAction(title: "Follow This Channel", style: .default) { (_) in
+        let action = UIAlertAction(title: "Follow This Channel".localized(), style: .default) { (_) in
             
             Global.shared.addFavoriteChannel(dict: ["title": Global.shared.titleChannel,
                                                     "id": Global.shared.idChannel,
                                                     "thumb": Global.shared.thumbChannel])
         }
         
-        let unfollow = UIAlertAction(title: "Unfollow", style: .default) {[unowned self] (_) in
+        let unfollow = UIAlertAction(title: "Unfollow".localized(), style: .default) {[unowned self] (_) in
             
             Global.shared.deleteFavoriteChannel(index: self.index)
         }
         
-        let cancel = UIAlertAction(title: "Huỷ", style: .cancel, handler: nil)
+        let cancel = UIAlertAction(title: "Cancel".localized(), style: .cancel, handler: nil)
         
         if isFollow {
             alertController.addAction(unfollow)
