@@ -68,6 +68,20 @@ class FavoriteVC: UIViewController {
         collectionView.registerNib(FavCollectionViewCell.self, favCellId)
         
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        let backItem = UIBarButtonItem()
+        backItem.title = ""
+        backItem.tintColor = UIColor.black
+        navigationItem.backBarButtonItem = backItem
+        
+        if let vc = segue.destination as? DetailPlayListVC , let indexPath = sender as? IndexPath{
+            
+            vc.itemId = data[indexPath.row]["id"]
+            vc.vcTitle = data[indexPath.row]["title"]
+        }
+    }
 }
 
 //MARK: - Collection Datasource
@@ -105,9 +119,13 @@ extension FavoriteVC: UICollectionViewDelegateFlowLayout{
         
         let width = UIScreen.main.bounds.width
         
-        return CGSize.init(width: (width - 10 * 4 ) / 3, height: (width - 10 * 4) / 3)
+        return CGSize.init(width: (width - 10 * 4) / 3, height: 120)
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        performSegue(withIdentifier: "sgToDetail", sender: indexPath)
+    }
 }
 
 

@@ -51,6 +51,7 @@
 		8898A8DB1FF10A450046F034 /* HomeTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8898A8D91FF10A450046F034 /* HomeTableCell.xib */; };
 		8898A8DD1FF10ADB0046F034 /* TableView + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8898A8DC1FF10ADB0046F034 /* TableView + Ext.swift */; };
 		8898A8DF1FF10C8B0046F034 /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8898A8DE1FF10C8B0046F034 /* Search.storyboard */; };
+		889F2CD32019BD760089D820 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 889F2CD22019BD760089D820 /* GoogleService-Info.plist */; };
 		88A37561200376320082D452 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A37560200376320082D452 /* Video.swift */; };
 		88B9B9BA201054A3002E7786 /* MoreVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B9B9B8201054A3002E7786 /* MoreVC.swift */; };
 		88B9B9BF20105780002E7786 /* HistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B9B9BD20105780002E7786 /* HistoryTableViewCell.swift */; };
@@ -62,7 +63,6 @@
 		88C692071FFCE23F007E1E45 /* PlayListCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88C692051FFCE23F007E1E45 /* PlayListCollectionViewCell.xib */; };
 		88C6920A1FFCEFBA007E1E45 /* LoadingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C692081FFCEFBA007E1E45 /* LoadingCell.swift */; };
 		88C6920B1FFCEFBA007E1E45 /* LoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88C692091FFCEFBA007E1E45 /* LoadingCell.xib */; };
-		88D1BE4C201984520026E2B8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 88D1BE4B201984520026E2B8 /* GoogleService-Info.plist */; };
 		DC7A81CA1FFAC19100350E32 /* Youtube.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7A81C91FFAC19100350E32 /* Youtube.swift */; };
 		E48980DA425372DE0EEC997E /* Pods_YoutubeVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA448A49D62E051178BF882E /* Pods_YoutubeVideo.framework */; };
 /* End PBXBuildFile section */
@@ -118,6 +118,7 @@
 		8898A8D91FF10A450046F034 /* HomeTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeTableCell.xib; sourceTree = "<group>"; };
 		8898A8DC1FF10ADB0046F034 /* TableView + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TableView + Ext.swift"; sourceTree = "<group>"; };
 		8898A8DE1FF10C8B0046F034 /* Search.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Search.storyboard; sourceTree = "<group>"; };
+		889F2CD22019BD760089D820 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		88A37560200376320082D452 /* Video.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
 		88B9B9B8201054A3002E7786 /* MoreVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreVC.swift; sourceTree = "<group>"; };
 		88B9B9BD20105780002E7786 /* HistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewCell.swift; sourceTree = "<group>"; };
@@ -131,7 +132,6 @@
 		88C692091FFCEFBA007E1E45 /* LoadingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingCell.xib; sourceTree = "<group>"; };
 		88F62E3620188E1B000BFFF0 /* YoutubeVideo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = YoutubeVideo.entitlements; sourceTree = "<group>"; };
 		DC7A81C91FFAC19100350E32 /* Youtube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Youtube.swift; sourceTree = "<group>"; };
-		DC9D92312019AE0000805BE2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FA448A49D62E051178BF882E /* Pods_YoutubeVideo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YoutubeVideo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -258,7 +258,7 @@
 				8898A8B41FF0F6390046F034 /* Assets.xcassets */,
 				8898A8B61FF0F6390046F034 /* LaunchScreen.storyboard */,
 				8898A8B91FF0F6390046F034 /* Info.plist */,
-				DC9D92312019AE0000805BE2 /* GoogleService-Info.plist */,
+				889F2CD22019BD760089D820 /* GoogleService-Info.plist */,
 			);
 			path = YoutubeVideo;
 			sourceTree = "<group>";
@@ -494,7 +494,7 @@
 				883D59C22011ACA000360ED6 /* HistoryCollectionViewCell.xib in Resources */,
 				88B9B9C020105780002E7786 /* HistoryTableViewCell.xib in Resources */,
 				8898A8D11FF106220046F034 /* Home.storyboard in Resources */,
-				DC9D92322019AE0000805BE2 /* GoogleService-Info.plist in Resources */,
+				889F2CD32019BD760089D820 /* GoogleService-Info.plist in Resources */,
 				8898A8DB1FF10A450046F034 /* HomeTableCell.xib in Resources */,
 				882ABC74200DDE6100103BC4 /* SearchTableViewCell.xib in Resources */,
 			);
