@@ -37,14 +37,17 @@ class VideoPlayerVC: UIViewController{
         super.viewDidLoad()
         
         if id != "" {
-            requestApi()
+            
             setUpView()
+            getVideoDetail()
+            
         } else {
             if videoObj == nil{
                 HUD.flash(.label("no video object"), delay:1)
                 return
             }
             setUpView()
+            getStreamingLink()
         }
     }
     func setUpView(){
@@ -61,9 +64,47 @@ class VideoPlayerVC: UIViewController{
         Global.shared.addIdVideoWatched(id: id)
         
         setupPlayer()
-        getStreamingLink()
+       
     }
     
+    
+    func getVideoDetail(){
+        
+        HUD.show(.labeledProgress(title: "Loading...".localized(), subtitle: ""))
+        
+        let url = "https://www.googleapis.com/youtube/v3/videos"
+        
+        let params: Parameters = ["part": "snippet,contentDetails",
+                                  "id": id,
+                                  "maxResults": 1,
+                                  "type":"video",
+                                  "key": API_KEY,]
+        
+        Alamofire
+            .request(url, method: .get, parameters: params)
+            .responseObject {[weak self] (response: DataResponse<ResponseVideo>) in
+                
+                guard let strongSelf = self else { return }
+                
+                
+                if let error = response.error {
+                    HUD.flash(.label(error.localizedDescription), delay: 1)
+                }
+                
+                guard let res = response.result.value else {
+                    HUD.flash(.label("no url found"), delay: 1)
+                    return
+                }
+                
+                HUD.hide()
+                
+                if let video = res.items, video.count > 0 {
+                    strongSelf.videoObj = video[0]
+                    strongSelf.getStreamingLink()
+                }
+        }
+        
+    }
     
     func setupPlayer(){
         
@@ -151,6 +192,7 @@ class VideoPlayerVC: UIViewController{
     
     func updatePlayer(configObj:[(res:String, link:URL)]){
         
+        HUD.show(.labeledProgress(title: "Get video detail".localized(), subtitle: ""))
         
         var listDefinition = [BMPlayerResourceDefinition]()
         
@@ -168,39 +210,6 @@ class VideoPlayerVC: UIViewController{
         player.setVideo(resource: asset)
         
         self.view.layoutIfNeeded()
-        
-    }
-    
-    func requestApi(){
-        
-        let url = "https://www.googleapis.com/youtube/v3/videos"
-        
-        let params: Parameters = ["part": "snippet,contentDetails",
-                                  "id": id,
-                                  "maxResults": 1,
-                                  "type":"video",
-                                  "key": API_KEY,]
-        
-        Alamofire
-            .request(url, method: .get, parameters: params)
-            .responseObject {[weak self] (response: DataResponse<ResponseVideo>) in
-                
-                guard let strongSelf = self else { return }
-                
-                
-                if let error = response.error {
-                    print(error)
-                }
-                
-                guard let res = response.result.value else {
-                    print("no value")
-                    return
-                }
-                
-                if let video = res.items {
-                    strongSelf.videoObj = video[0]
-                }
-        }
         
     }
     

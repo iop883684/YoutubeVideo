@@ -11,7 +11,7 @@ import Firebase
 import Localize_Swift
 import UserNotifications
 import FirebaseMessaging
-
+import PKHUD
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate {
@@ -33,7 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 options: authOptions,
                 completionHandler: {_, _ in
                     
-                    print("31212312")
+                    print("did have permission push noti")
             })
         } else {
             let settings: UIUserNotificationSettings =
@@ -68,44 +68,51 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         // Note: This callback is fired at each app startup and whenever a new token is generated.
     }
     
+
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        var token = ""
+        for i in 0..<deviceToken.count {
+            token = token + String(format: "%02.2hhx", arguments: [deviceToken[i]])
+        }
+        print(token)
+    }
+    
     private func application(application: UIApplication,
                      didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         Messaging.messaging().apnsToken = deviceToken
     }
 
-    func applicationWillResignActive(_ application: UIApplication) {
-        // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-        // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
-        let date = Date()
-        let time = date.timeIntervalSince1970
-        Global.shared.timeOutApp = time
-    }
+
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any],
                      fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        // If you are receiving a notification message while your app is in the background,
-        // this callback will not be fired till the user taps on the notification launching the application.
-        // TODO: Handle data of notification
         
         // With swizzling disabled you must let Messaging know about the message, for Analytics
         // Messaging.messaging().appDidReceiveMessage(userInfo)
         
         // Print full message.
-
-        if let userInfo = userInfo["url"] {
-            
-            let url = URL(string: userInfo as! String)
-            
-            UIApplication.shared.openURL(url!)
-        }
         
-        if let userInfo = userInfo["videoId"] {
+        print(userInfo)
+
+        if let urlStr = userInfo["url"] as? String {
             
-            let id = "\(userInfo)"
-            let sb = UIStoryboard(name: "Home", bundle: nil)
+            let url = URL(string: urlStr)
+            UIApplication.shared.openURL(url!)
+            
+        } else if let videoId = userInfo["videoId"] as? String {
+            
+            guard videoId.count == 11 else{
+                HUD.flash(.label("VideoID wrong format"), delay: 1)
+                return
+            }
+            
+            //dismiss previous player if nessessary
+            window?.rootViewController?.dismiss(animated: false, completion: nil)
+            
+            let sb = UIStoryboard(name: Storyboard.Home.name, bundle: nil)
             let vc = sb.instantiateViewController(withIdentifier: "VideoPlayerVC") as! VideoPlayerVC
             
-            vc.id = id
+            vc.id = videoId
             window?.rootViewController?.present(vc, animated: true, completion: nil)
             
         }
@@ -115,25 +122,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         completionHandler(UIBackgroundFetchResult.newData)
     }
     
-    func applicationDidEnterBackground(_ application: UIApplication) {
-        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-        // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-
+    //MARK: - AppActive
+    
+    func applicationWillResignActive(_ application: UIApplication) {
+        let date = Date()
+        let time = date.timeIntervalSince1970
+        Global.shared.timeOutApp = time
     }
-
-
-    func applicationWillEnterForeground(_ application: UIApplication) {
-        // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
-    }
-
-    func applicationDidBecomeActive(_ application: UIApplication) {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    }
-
-    func applicationWillTerminate(_ application: UIApplication) {
-        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    }
-
 
 }
 
