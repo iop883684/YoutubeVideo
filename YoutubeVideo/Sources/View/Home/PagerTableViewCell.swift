@@ -10,9 +10,16 @@ import UIKit
 import FSPagerView
 import Kingfisher
 
+protocol PagerTableViewCellDelegate: NSObjectProtocol {
+    
+    func toDetail(_ video: Video)
+}
+
 class PagerTableViewCell: UITableViewCell, FSPagerViewDataSource, FSPagerViewDelegate {
 
     @IBOutlet weak var pagerView: FSPagerView!
+    
+    weak var delegate: PagerTableViewCellDelegate?
     
     private var videos = [Video]()
     
@@ -22,11 +29,10 @@ class PagerTableViewCell: UITableViewCell, FSPagerViewDataSource, FSPagerViewDel
         pagerView.dataSource = self
         pagerView.delegate = self
         pagerView.register(FSPagerViewCell.self, forCellWithReuseIdentifier: "cell")
-//        pagerView.transformer = FSPagerViewTransformer(type: .crossFading)
+
         pagerView.isInfinite = true
         pagerView.automaticSlidingInterval = 5.0
-//        let transform = CGAffineTransform(scaleX: 0.8, y: 0.95)
-//        pagerView.itemSize = pagerView.frame.size.applying(transform)
+
     }
     
     func configure(_ banner: [Video]){
@@ -53,6 +59,11 @@ class PagerTableViewCell: UITableViewCell, FSPagerViewDataSource, FSPagerViewDel
         cell.textLabel?.text = videos[index].title
         
         return cell
+    }
+    
+    func pagerView(_ pagerView: FSPagerView, didSelectItemAt index: Int) {
+        
+        delegate?.toDetail(videos[index])
     }
     
 }

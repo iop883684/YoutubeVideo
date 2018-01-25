@@ -209,6 +209,7 @@ extension HomeVC: UITableViewDataSource {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: pagerCellId, for: indexPath) as! PagerTableViewCell
             cell.configure(bannerVideo)
+            cell.delegate = self
             return cell
         }
         
@@ -261,6 +262,13 @@ extension HomeVC: HomeTableCellDelegate{
     
 }
 
+extension HomeVC: PagerTableViewCellDelegate {
+    
+    func toDetail(_ video: Video) {
+        
+        performSegue(withIdentifier: "sgPlayList", sender: (id: video.videoId, title: video.title))
+    }
+}
 
 
 

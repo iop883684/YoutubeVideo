@@ -51,6 +51,7 @@ class DetailPlayListVC: UIViewController {
         var url = ""
         
         let isChannel = !itemId.contains("PL")
+        print(itemId)
 
         if isChannel{
              url = "https://www.googleapis.com/youtube/v3/activities"
