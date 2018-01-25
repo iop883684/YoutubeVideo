@@ -14,48 +14,58 @@ import Localize_Swift
 private let historyCellId = "historyCell"
 
 class MoreVC: UIViewController {
-    
-    //MARK: - IBOutlets
-    
+
     @IBOutlet weak var tableView: UITableView!
-    
-    //MARK: - Variables
-    
-    var arrayTitle = [[String]]()
-    var arrayThumb = [[UIImage]]()
+    private var listItem = [(key:String, thumb:UIImage)]()
+    private var availableLanguages = Localize.availableLanguages()
     
     //MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.setText()
-        
-        arrayThumb = [[#imageLiteral(resourceName: "ic_query_builder")],
-                      [#imageLiteral(resourceName: "ic_message"), #imageLiteral(resourceName: "ic_new_releases"), #imageLiteral(resourceName: "ic_share"), #imageLiteral(resourceName: "ic_star_border"), #imageLiteral(resourceName: "ic_feedback")]]
-        
-        tableView.separatorStyle = .none
-        tableView.delegate = self
-        tableView.dataSource = self
+        print(availableLanguages)
+        if availableLanguages.contains("Base"){
+            availableLanguages.remove(at: 0)
+        }
         
         tableView.registerNib(HistoryTableViewCell.self, historyCellId)
+        
+        setText()
     }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         UIApplication.shared.isStatusBarHidden = false
-         self.setText()
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(setText),
+                                               name: NSNotification.Name(LCLLanguageChangeNotification),
+                                               object: nil)
+        
     }
+    
+    // Remove the LCLLanguageChangeNotification on viewWillDisappear
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     
     @objc func setText() {
         
-        arrayTitle = [ ["History".localized()],
-                       
-                       ["Feedback".localized() ,"Other".localized(),
-                        "Share".localized(),"Review".localized(),"Language".localized()] ]
-        
         self.title = "Setting".localized()
+        
+        listItem = [
+            ("History",#imageLiteral(resourceName: "ic_query_builder")),
+            ("Feedback",#imageLiteral(resourceName: "ic_feedback")),
+            ("Other",#imageLiteral(resourceName: "ic_new_releases")),
+            ("Share",#imageLiteral(resourceName: "ic_share")),
+            ("Review",#imageLiteral(resourceName: "ic_star_border")),
+            ("Language", #imageLiteral(resourceName: "ic_language"))
+        ]
         
         tableView.reloadData()
     }
@@ -87,7 +97,7 @@ class MoreVC: UIViewController {
         return mailComposerVC
     }
     
-    func share(){
+    func shareAction(){
         
         let activityVC = UIActivityViewController(activityItems: [LINK_SHARE], applicationActivities: nil)
         
@@ -96,17 +106,47 @@ class MoreVC: UIViewController {
         self.present(activityVC, animated: true, completion: nil)
     }
     
-    func rateApp(appId: String) {
+    func rateApp() {
         
-        guard let url = URL(string : "https://itunes.apple.com/app/\(APP_ID)") else {
-            return
-        }
         if #available(iOS 10.3, *) {
             SKStoreReviewController.requestReview()
         } else if #available(iOS 10.0, *) {
+            
+            guard let url = URL(string : "https://itunes.apple.com/app/\(APP_ID)") else {
+                return
+            }
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
+        
     }
+    
+    func changeLanguage() {
+        
+        let lastLang = Localize.currentLanguage()
+        
+        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
+        
+        for language in availableLanguages {
+            let displayName = Localize.displayNameForLanguage(language)
+            let languageAction = UIAlertAction(title: displayName, style: .default, handler: {
+                (alert: UIAlertAction!) -> Void in
+                
+                if language != lastLang{
+                    Localize.setCurrentLanguage(language)
+                }
+//                Global.shared.clearLanguage()
+//                Global.shared.addLanguage(lang: language)
+            })
+            actionSheet.addAction(languageAction)
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: {
+            (alert: UIAlertAction) -> Void in
+        })
+        actionSheet.addAction(cancelAction)
+        self.present(actionSheet, animated: true, completion: nil)
+    }
+    
 }
 
 //MARK: - TableView DataSource
@@ -114,22 +154,18 @@ class MoreVC: UIViewController {
 extension MoreVC: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return arrayTitle.count
+        return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return arrayTitle[section].count
+        return listItem.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: historyCellId, for: indexPath) as! HistoryTableViewCell
-        
-        let title = arrayTitle[indexPath.section][indexPath.row]
-        let img = arrayThumb[indexPath.section][indexPath.row]
-
-        cell.configure(title, img)
+        cell.setContentCell(listItem[indexPath.row])
         
         return cell
     }
@@ -148,43 +184,39 @@ extension MoreVC: UITableViewDelegate {
         
         tableView.deselectRow(at: indexPath, animated: true)
         
-        switch indexPath.section {
+        let key = listItem[indexPath.row].key
+        
+        switch key {
             
-        case 0:
+        case "History":
             performSegue(withIdentifier: "sgHistory", sender: nil)
             
-        case 1:
-            if indexPath.row == 0 {
+        case "Feedback":
                 let mailComposeViewController = configuredMailComposeViewController()
-                
                 if MFMailComposeViewController.canSendMail() {
-                    
                     self.present(mailComposeViewController, animated: true, completion: nil)
                 }
-            } else if indexPath.row == 1 {
-                
+            
+        case "Other":
                 let url = URL(string: "https://github.com/")
                 UIApplication.shared.openURL(url!)
-                
-            } else if indexPath.row == 2 {
-                
-                share()
-            } else if indexPath.row == 3{
-                rateApp(appId: APP_ID)
-            } else {
-                performSegue(withIdentifier: "sgLanguage", sender: nil)
-            }
+            
+        case "Share":
+                shareAction()
+            
+        case "Review":
+                rateApp()
+            
+        case "Language":
+                changeLanguage()
             
         default:
             break;
         }
+
     }
     
-//    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-//        let view = UIView(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 3))
-//        view.backgroundColor = UIColor(red: 240/255, green: 241/255, blue: 242/255, alpha: 1)
-//        return view
-//    }
+
 }
 
 extension MoreVC: MFMailComposeViewControllerDelegate {

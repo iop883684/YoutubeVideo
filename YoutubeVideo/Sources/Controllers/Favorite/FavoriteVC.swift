@@ -52,7 +52,7 @@ class FavoriteVC: UIViewController {
     func setText() {
         
         self.title = "Favorites".localized()
-        label.text = "You don't follow any channel".localized()
+        label.text = "follow no channel".localized()
     }
     
     //

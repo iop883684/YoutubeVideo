@@ -14,6 +14,8 @@ class Video: Mappable{
     var id = ""
     var title = ""
     var thumbnails = ""
+    var thumbHigh:String?
+    
     var channelTitle = ""
     var nextPageToken = ""
     var channelId = ""
@@ -30,8 +32,11 @@ class Video: Mappable{
         title <- map["snippet.title"]
         id <- map["id"]
         thumbnails <- map["snippet.thumbnails.medium.url"]
+        thumbHigh <- map["snippet.thumbnails.high.url"]
+        
         channelTitle <- map["snippet.channelTitle"]
         nextPageToken <- map["nextPageToken"]
+        
         channelId <- map["snippet.channelId"]
         videoId <- map["contentDetails.videoId"]
         if videoId.isEmpty {

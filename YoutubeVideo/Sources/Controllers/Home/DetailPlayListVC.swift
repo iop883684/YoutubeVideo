@@ -9,8 +9,6 @@
 import UIKit
 import Alamofire
 import AlamofireObjectMapper
-import XCDYouTubeKit
-import MobilePlayer
 import PKHUD
 
 private let videoChannelCellId = "videoChannelCell"
@@ -18,40 +16,27 @@ private let playListCellId = "playListCell"
 
 class DetailPlayListVC: UIViewController {
 
-    //MARK: - IBOutlets
-    
     @IBOutlet weak var collectionView: UICollectionView!
-    
-    //MARK: - Variables
-    
-    var vcTitle: String!
-    var id: String!
 
-    var data: [Video] = []
-    
-    var nextPageToken = ""
-    
-    var isFull = false
-    var isChannel: Bool!
-    var isLoading = false
+    var vcTitle: String!
+    var itemId: String!
+
+    private var data: [Video] = []
+    private var nextPageToken = ""
+    private var isFull = false
+    private var isLoading = false
     
     //MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        requestApi()
-
         self.title = vcTitle
-        
         configureCollection()
+        
+        requestApi()
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        UIApplication.shared.isStatusBarHidden = false
-    }
     
     //MARK: - Call API
     
@@ -65,6 +50,8 @@ class DetailPlayListVC: UIViewController {
         
         var url = ""
         
+        let isChannel = !itemId.contains("PL")
+
         if isChannel{
              url = "https://www.googleapis.com/youtube/v3/activities"
         } else {
@@ -78,9 +65,9 @@ class DetailPlayListVC: UIViewController {
                                   "nextPageToken":nextPageToken]
         
         if isChannel {
-            params["channelId"] = id
+            params["channelId"] = itemId
         }else {
-            params["playlistId"] = id
+            params["playlistId"] = itemId
         }
 
         Alamofire
@@ -126,18 +113,6 @@ class DetailPlayListVC: UIViewController {
         collectionView.reloadData()
     }
 
-    
-    func playVideo(_ url: URL,_ title: String){
-        
-        let playerVC = MobilePlayerViewController(contentURL: url)
-        playerVC.title = title
-        playerVC.activityItems = [url] // Check the documentation for more information.
-        self.present(playerVC, animated: true, completion: nil)
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
-    }
 
 }
 
@@ -190,7 +165,9 @@ extension DetailPlayListVC: UICollectionViewDelegateFlowLayout {
         if indexPath.section == 1 {
             return CGSize(width: UIScreen.main.bounds.width, height: 50)
         }else {
-            return CGSize(width: 340, height: 210)
+            let width = UIScreen.main.bounds.size.width - 20
+            let height = width/16*9
+            return CGSize(width: width, height: height)
         }
     }
     
@@ -207,66 +184,18 @@ extension DetailPlayListVC: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        HUD.show(.labeledProgress(title: "Loading...".localized(), subtitle: ""))
-        
-        let item = data[indexPath.row]
-        
-        Global.shared.idChannel = ""
-        Global.shared.titleChannel = ""
-        Global.shared.thumbChannel = ""
-        Global.shared.titlePlaylist = ""
-        
-        Global.shared.idChannel = item.channelId
-        Global.shared.titleChannel = item.channelTitle
-        Global.shared.thumbChannel = item.thumbnails
-        Global.shared.titlePlaylist = item.title
-        
-        Global.shared.addIdVideoWatched(id: item.videoId)
+        performSegue(withIdentifier: "sgPlayer", sender: data[indexPath.row])
 
-        UrlVideo.small = nil
-        UrlVideo.hd = nil
-        UrlVideo.medium = nil
-
-        XCDYouTubeClient.default().getVideoWithIdentifier(item.videoId) {  [weak self] (video: XCDYouTubeVideo?, error: Error?) in
-
-            guard let strongSelf = self else { return }
-            
-            if let err = error {
-                print("error:", err.localizedDescription)
-                return
-            }
-            
-            guard let streamURLs = video?.streamURLs else {
-                print("no url found")
-                return
-            }
-            
-            var isHaveUrl = false
-            
-            if let hdURL = streamURLs[VideoQuality.hd720]  {
-                UrlVideo.hd = hdURL
-                isHaveUrl = true
-            }
-            
-            if let mediumURL = streamURLs[VideoQuality.medium360]  {
-                UrlVideo.medium = mediumURL
-                isHaveUrl = true
-            }
-            
-            if let mediumURL = streamURLs[VideoQuality.small240]  {
-                UrlVideo.small = mediumURL
-                isHaveUrl = true
-            }
-            
-            if isHaveUrl {
-                strongSelf.performSegue(withIdentifier: "sgPlayer", sender: indexPath)
-                HUD.hide(animated: true)
-            } else{
-                print("no url suitable")
-            }
-        }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if let vc = segue.destination as? VideoPlayerVC{
+            vc.videoObj = sender as! Video
+        }
+        
+    }
+    
 }
 
 

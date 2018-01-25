@@ -9,12 +9,6 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="AvenirNext.ttc">
-            <string>AvenirNext-Bold</string>
-            <string>AvenirNext-Medium</string>
-        </array>
-    </customFonts>
     <scenes>
         <!--Tôi-->
         <scene sceneID="zRq-xc-G1m">
@@ -24,9 +18,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="L7r-lm-ny8">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="L7r-lm-ny8">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" red="0.94117647058823528" green="0.94509803921568625" blue="0.94901960784313721" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="N4E-br-lbf" id="YPz-gB-cWv"/>
+                                    <outlet property="delegate" destination="N4E-br-lbf" id="rjG-po-3EY"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -42,46 +40,11 @@
                     <connections>
                         <outlet property="tableView" destination="L7r-lm-ny8" id="3n1-xJ-RvS"/>
                         <segue destination="KnJ-Ro-xXv" kind="show" identifier="sgHistory" id="4mh-4s-f0T"/>
-                        <segue destination="LET-6R-eDH" kind="show" identifier="sgLanguage" id="7Fr-nR-tfZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="auo-oe-2VB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="520.79999999999995" y="-257.72113943028489"/>
-        </scene>
-        <!--LanguageVC-->
-        <scene sceneID="BBg-dA-4HX">
-            <objects>
-                <viewController id="LET-6R-eDH" customClass="LanguageVC" customModule="YoutubeVideo" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="djG-b9-7xv">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OFb-tw-CBL">
-                                <rect key="frame" x="132" y="303.5" width="111" height="59"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="34"/>
-                                <state key="normal" title="Button">
-                                    <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="doChangeLanguage:" destination="LET-6R-eDH" eventType="touchUpInside" id="Tcf-gN-3H7"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="OFb-tw-CBL" firstAttribute="centerX" secondItem="djG-b9-7xv" secondAttribute="centerX" id="59D-cn-etk"/>
-                            <constraint firstItem="OFb-tw-CBL" firstAttribute="centerY" secondItem="djG-b9-7xv" secondAttribute="centerY" id="70g-4P-cJg"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="pS4-X1-nrR"/>
-                    </view>
-                    <connections>
-                        <outlet property="switchBtn" destination="OFb-tw-CBL" id="ekX-de-KMd"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hrF-c0-Avm" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1372" y="-921.58920539730138"/>
         </scene>
         <!--Đã xem-->
         <scene sceneID="fgd-wC-qr9">
@@ -103,8 +66,8 @@
                                 <cells/>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bạn chưa xem video nào !" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WNV-zm-mH8">
-                                <rect key="frame" x="99" y="323.5" width="178" height="20.5"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="15"/>
+                                <rect key="frame" x="89.5" y="324" width="196.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>

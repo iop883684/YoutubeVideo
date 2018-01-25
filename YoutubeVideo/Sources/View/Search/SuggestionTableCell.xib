@@ -52,12 +52,12 @@
                             <action selector="btnDelete:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="rAS-gY-kjV"/>
                         </connections>
                     </button>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v56-YU-eRA">
-                        <rect key="frame" x="36" y="12" width="43" height="22"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v56-YU-eRA">
+                        <rect key="frame" x="36" y="12" width="245" height="22"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="22" id="iFx-fH-0Hw"/>
                         </constraints>
-                        <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -70,6 +70,7 @@
                     <constraint firstItem="v56-YU-eRA" firstAttribute="leading" secondItem="paC-dE-RoC" secondAttribute="trailing" constant="8" id="SC4-js-uoa"/>
                     <constraint firstItem="v56-YU-eRA" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="ean-S8-0nf"/>
                     <constraint firstItem="iiM-cy-FCe" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="jHe-4j-bO1"/>
+                    <constraint firstItem="esA-wf-Anh" firstAttribute="leading" secondItem="v56-YU-eRA" secondAttribute="trailing" constant="8" id="maK-pq-E3e"/>
                     <constraint firstItem="paC-dE-RoC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="oLH-zw-HWB"/>
                     <constraint firstAttribute="trailing" secondItem="iiM-cy-FCe" secondAttribute="trailing" id="upM-40-KRb"/>
                 </constraints>

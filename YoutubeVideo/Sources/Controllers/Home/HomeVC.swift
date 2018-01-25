@@ -12,6 +12,7 @@ import Alamofire
 import PKHUD
 import Firebase
 import FirebaseFirestore
+import Localize_Swift
 
 private let homeTableCellId = "homeTableCell"
 private let pagerCellId = "pagerCell"
@@ -21,16 +22,9 @@ class HomeVC: BaseVC {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var indicator: UIActivityIndicatorView!
 
-    private var data = [(title:String, obj:[PlayList])]()
-    private var bannerThumb = [PlayList]()
-    
-    private var playlistId: String!
-    
-    private var playlistTitle: String!
-    private var channelTitle:String!
-    private var channelId: String!
-    
-    private var isChannel: Bool!
+    private var data = [(title:String, obj:[Video])]()
+    private var bannerVideo = [Video]()
+
     private var isLoading = false
     
     private var refreshControl = UIRefreshControl()
@@ -40,6 +34,8 @@ class HomeVC: BaseVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.title = "Home".localized()
         
         configureTableView()
         
@@ -52,34 +48,42 @@ class HomeVC: BaseVC {
         db = Firestore.firestore()
         
         getListChannel()
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(setText),
+                                               name: NSNotification.Name(LCLLanguageChangeNotification),
+                                               object: nil)
+        
     }
     
+    
+    @objc func setText(){
+        
+        self.title = "Home".localized()
+        refreshAction()
+        
+    }
 
     
     @objc func refreshAction() {
         
-        refreshControl.endRefreshing()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        self.title = "Home".localized()
+        data.removeAll()
+        bannerVideo.removeAll()
         tableView.reloadData()
+        getListChannel()
     }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        
-    }
-    
 
     func getListChannel(){
         
         db.collection("playlist").document(regionCode!).getDocument {[weak self] (snapshot, error) in
             
             guard let strongSelf = self else { return }
+            
+            strongSelf.indicator.stopAnimating()
+            
+            if strongSelf.refreshControl.isRefreshing{
+                strongSelf.refreshControl.endRefreshing()
+            }
             
             if error != nil {
                 print("error")
@@ -96,8 +100,8 @@ class HomeVC: BaseVC {
                 strongSelf.getListVideo(id, title)
                 strongSelf.tableView.reloadData()
             }
+ 
             
-            strongSelf.indicator.stopAnimating()
         }
         
     }
@@ -123,7 +127,7 @@ class HomeVC: BaseVC {
         
         let params:Parameters = [
             "part":"snippet,contentDetails",
-            "type":"video",
+//            "type":"video",
             "key":API_KEY,
             "maxResults":10,
             "channelId":channelId]
@@ -131,7 +135,7 @@ class HomeVC: BaseVC {
         
         Alamofire
             .request(url, method: .get, parameters: params)
-            .responseArray(keyPath: "items") { [weak self] (response: DataResponse<[PlayList]>) in
+            .responseArray(keyPath: "items") { [weak self] (response: DataResponse<[Video]>) in
                 
                 guard let strongSelf = self else {return}
 
@@ -148,7 +152,7 @@ class HomeVC: BaseVC {
                 }
                 
                 strongSelf.data.append((title,videos))
-                strongSelf.bannerThumb.append(videos[0])
+                strongSelf.bannerVideo.append(videos[0])
                 strongSelf.tableView.reloadData()
                 
         }
@@ -157,27 +161,30 @@ class HomeVC: BaseVC {
     //
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let vc = segue.destination as? DetailPlayListVC {
-            
-            if !isChannel {
-                vc.id = self.playlistId
-                
-                vc.vcTitle = self.playlistTitle
-                
-            }else {
-                vc.id = self.channelId
-                vc.vcTitle = self.channelTitle
-            }
-            
-             vc.isChannel = self.isChannel
-            
-        }
         
         let backItem = UIBarButtonItem()
         backItem.title = ""
         backItem.tintColor = UIColor.black
         navigationItem.backBarButtonItem = backItem
+        
+        if let vc = segue.destination as? DetailPlayListVC, let obj = sender as? (id:String, title:String) {
+            
+            vc.vcTitle = obj.title
+            vc.itemId = obj.id
+            
+        } else if let vc = segue.destination as? VideoPlayerVC{
+            
+            vc.videoObj = sender as! Video
+            
+        }
+        
+        
     }
+    
+    deinit {
+         NotificationCenter.default.removeObserver(self)
+    }
+    
 }
 
 //MARK: - TableView Datasource
@@ -199,10 +206,9 @@ extension HomeVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.section == 0 {
+            
             let cell = tableView.dequeueReusableCell(withIdentifier: pagerCellId, for: indexPath) as! PagerTableViewCell
-            
-            cell.configure(bannerThumb)
-            
+            cell.configure(bannerVideo)
             return cell
         }
         
@@ -222,8 +228,14 @@ extension HomeVC: UITableViewDataSource {
 extension HomeVC: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 230
+        
+        if indexPath.section == 0{
+            return UIScreen.main.bounds.size.width/16*9
+        }
+        
+        return 240
     }
+
 
 }
 
@@ -231,20 +243,20 @@ extension HomeVC: UITableViewDelegate {
 
 extension HomeVC: HomeTableCellDelegate{
     
-    func toDetailPlayList(_ playlistId: String, _ playlistTitle: String){
+    func toListVideo(_ itemId: String, _ title: String) {
+
+        performSegue(withIdentifier: "sgPlayList", sender: (id:itemId, title:title))
         
-        self.playlistTitle = playlistTitle
-        self.playlistId = playlistId
-        self.isChannel = false
-        performSegue(withIdentifier: "sgPlayList", sender: nil)
     }
     
-    func toDetailChannel(_ channelId : String, _ channelTitle:String){
+    func openVideo(video: Video) {
         
-        self.channelId = channelId
-        self.channelTitle = channelTitle
-        self.isChannel = true
-        performSegue(withIdentifier: "sgPlayList", sender: nil)
+        if video.videoId.contains("PL"){
+            performSegue(withIdentifier: "sgPlayList", sender: (id:video.videoId, title:video.title))
+        } else{
+            performSegue(withIdentifier: "sgShowPlayerHome", sender: video)
+        }
+        
     }
     
 }

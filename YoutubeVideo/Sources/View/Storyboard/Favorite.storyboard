@@ -9,11 +9,6 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="AvenirNext.ttc">
-            <string>AvenirNext-Bold</string>
-        </array>
-    </customFonts>
     <scenes>
         <!--Yêu Thích-->
         <scene sceneID="ucH-FP-Hvu">
@@ -35,12 +30,8 @@
                                 <cells/>
                             </collectionView>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bạn chưa theo dõi channel nào !" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AlL-aX-XQt">
-                                <rect key="frame" x="0.0" y="271" width="375" height="127"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="127" id="2AU-gu-PW5"/>
-                                    <constraint firstAttribute="width" constant="375" id="HgO-jM-yYp"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="15"/>
+                                <rect key="frame" x="65" y="325" width="245" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>

@@ -8,12 +8,13 @@
 
 import UIKit
 import FSPagerView
+import Kingfisher
 
 class PagerTableViewCell: UITableViewCell, FSPagerViewDataSource, FSPagerViewDelegate {
 
     @IBOutlet weak var pagerView: FSPagerView!
     
-    private var thumb = [PlayList]()
+    private var videos = [Video]()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -21,31 +22,35 @@ class PagerTableViewCell: UITableViewCell, FSPagerViewDataSource, FSPagerViewDel
         pagerView.dataSource = self
         pagerView.delegate = self
         pagerView.register(FSPagerViewCell.self, forCellWithReuseIdentifier: "cell")
-        pagerView.transformer = FSPagerViewTransformer(type: .linear)
+//        pagerView.transformer = FSPagerViewTransformer(type: .crossFading)
         pagerView.isInfinite = true
-        pagerView.automaticSlidingInterval = 3.0
-        let transform = CGAffineTransform(scaleX: 0.8, y: 0.95)
-        pagerView.itemSize = pagerView.frame.size.applying(transform)
+        pagerView.automaticSlidingInterval = 5.0
+//        let transform = CGAffineTransform(scaleX: 0.8, y: 0.95)
+//        pagerView.itemSize = pagerView.frame.size.applying(transform)
     }
     
-    func configure(_ banner: [PlayList]){
+    func configure(_ banner: [Video]){
         
-        thumb = banner
+        videos = banner
         pagerView.reloadData()
     }
     
     func numberOfItems(in pagerView: FSPagerView) -> Int {
-        return thumb.count
+        return videos.count
     }
     
     func pagerView(_ pagerView: FSPagerView, cellForItemAt index: Int) -> FSPagerViewCell {
         
         let cell = pagerView.dequeueReusableCell(withReuseIdentifier: "cell", at: index)
+
+        let url = URL(string: videos[index].thumbHigh ?? videos[index].thumbnails)
         
-        let url = URL(string: thumb[index].thumbnails)
+        cell.imageView?.contentMode = .scaleAspectFill
+        cell.imageView?.layer.masksToBounds = true
+        cell.imageView?.kf.setImage(with: url,
+                                    options: [.transition(ImageTransition.fade(0.5))])
         
-        cell.imageView?.kf.setImage(with: url)
-        cell.textLabel?.text = thumb[index].title
+        cell.textLabel?.text = videos[index].title
         
         return cell
     }

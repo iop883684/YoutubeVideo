@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class PlayListCollectionViewCell: UICollectionViewCell {
 
@@ -29,7 +30,10 @@ class PlayListCollectionViewCell: UICollectionViewCell {
         self.layer.shadowRadius = 2.5
         self.layer.shadowOpacity = 0.7
         self.layer.shadowOffset = CGSize.zero
-        self.layer.masksToBounds = false
+        self.layer.masksToBounds = true
+        
+        //            roundedView.layer.cornerRadius = 12
+        self.layer.cornerRadius = 7
         
     }
 
@@ -39,11 +43,11 @@ class PlayListCollectionViewCell: UICollectionViewCell {
             
             let url = URL(string: item.thumbnails)
             
-            thumb.kf.setImage(with: url)
+            thumb.kf.setImage(with: url,
+                              options: [.transition(ImageTransition.fade(0.5))])
             
             title.text = item.title
-            roundedView.layer.cornerRadius = 12
-            self.layer.cornerRadius = 12
+
             
         }
     }

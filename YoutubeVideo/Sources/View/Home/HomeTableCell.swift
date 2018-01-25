@@ -12,9 +12,8 @@ private let homeCollectionCellId = "homeCollectionCell"
 
 protocol HomeTableCellDelegate: NSObjectProtocol{
     
-    func toDetailPlayList(_ playlistId: String, _ playlistTitle: String)
-    
-    func toDetailChannel(_ channelId: String, _ channelTitle:String)
+    func toListVideo(_ itemId: String,_ title: String)
+    func openVideo(video:Video)
     
 }
 
@@ -30,10 +29,10 @@ class HomeTableCell: UITableViewCell {
     
     weak var delegate: HomeTableCellDelegate?
     
-    var data: [PlayList] = []
+    private var data: [Video] = []
     
-    var channelId: String!
-    var channelTitle: String!
+    private var channelId: String!
+    private var channelTitle: String!
     
     override func awakeFromNib() {
         
@@ -46,15 +45,15 @@ class HomeTableCell: UITableViewCell {
     
     @IBAction func moreBtnPressed(_ sender: UIButton) {
         
-        delegate?.toDetailChannel(channelId, channelTitle)
+        delegate?.toListVideo(channelId, channelTitle)
     }
     
     @IBAction func titlePressed(_ sender: UIButton){
         
-        delegate?.toDetailChannel(channelId, channelTitle)
+        delegate?.toListVideo(channelId, channelTitle)
     }
     
-    func configure(_ item: [PlayList], _ title: String, _ channelId: String, _ channelTitle: String){
+    func configure(_ item: [Video], _ title: String, _ channelId: String, _ channelTitle: String){
         
         self.data = item
         //lbTitle.text = title
@@ -97,9 +96,8 @@ extension HomeTableCell: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    
-        let item = data[indexPath.row]
-        delegate?.toDetailPlayList(item.id , item.title)
+  
+        delegate?.openVideo(video: data[indexPath.row])
     }
 }
 
