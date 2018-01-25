@@ -46,6 +46,7 @@ class SearchVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     
+        self.setText()
         navigationItem.titleView = searchBar
         
         searchBar.delegate = self
@@ -54,11 +55,29 @@ class SearchVC: UIViewController {
         
         setUpTableView()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(setText),
+                                               name: NSNotification.Name(LCLLanguageChangeNotification),
+                                               object: nil)
+
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    @objc func setText(){
+        
+        self.title = "Search".localized()
+    }
 
     func setUpTableView(){
         
         historyData = HistorySearch.shared.getSearchHistories()?.reversed() ?? []
-        
         
         tableView.registerNib(SearchTableViewCell.self, searchCellId)
         tableView.registerNib(KeyTableViewCell.self, keyCellId)

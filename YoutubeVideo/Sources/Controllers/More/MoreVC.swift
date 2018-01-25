@@ -32,19 +32,19 @@ class MoreVC: UIViewController {
         tableView.registerNib(HistoryTableViewCell.self, historyCellId)
         
         setText()
+        
+        
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        UIApplication.shared.isStatusBarHidden = false
-        
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(setText),
                                                name: NSNotification.Name(LCLLanguageChangeNotification),
                                                object: nil)
-        
+        UIApplication.shared.isStatusBarHidden = false
     }
     
     // Remove the LCLLanguageChangeNotification on viewWillDisappear

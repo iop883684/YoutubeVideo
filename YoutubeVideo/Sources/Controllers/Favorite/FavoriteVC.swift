@@ -6,6 +6,7 @@
 //  Copyright © 2018 Lac Tuan. All rights reserved.
 //
 
+import Localize_Swift
 import UIKit
 
 private let favCellId = "favCollectionCell"
@@ -28,12 +29,17 @@ class FavoriteVC: UIViewController {
     
         setUpTableView()
         self.setText()
+        
     }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.setText()
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(setText),
+                                               name: NSNotification.Name(LCLLanguageChangeNotification),
+                                               object: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -49,7 +55,11 @@ class FavoriteVC: UIViewController {
         }
     }
     
-    func setText() {
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    @objc func setText() {
         
         self.title = "Favorites".localized()
         label.text = "follow no channel".localized()
@@ -118,8 +128,10 @@ extension FavoriteVC: UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let width = UIScreen.main.bounds.width
+        print((width - 10 * 4) / 3)
+        return CGSize.init(width: (width - 10 * 4) / 3, height: (width - 1 * 4) / 3)
         
-        return CGSize.init(width: (width - 10 * 4) / 3, height: 120)
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

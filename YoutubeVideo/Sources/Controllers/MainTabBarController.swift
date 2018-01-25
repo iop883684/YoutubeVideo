@@ -107,23 +107,23 @@ class MainTabBarController: UITabBarController {
         // Home
         let navigationHome = UIStoryboard(name: Storyboard.Home.name, bundle: nil).instantiateInitialViewController()!
 //        let homeImg = #imageLiteral(resourceName: "home")
-        let tabBarItemHome =  UITabBarItem(tabBarSystemItem: .mostViewed , tag: 10)
+        let tabBarItemHome =  UITabBarItem(title: "Popular".localized(), image: #imageLiteral(resourceName: "list-simple-star-7"), tag: 10)
         navigationHome.tabBarItem = tabBarItemHome
         
         // Favorite
         let navigationFav = UIStoryboard(name: Storyboard.Favorite.name, bundle: nil).instantiateInitialViewController()!
-        let tabBarItemFav  =  UITabBarItem(tabBarSystemItem: .favorites , tag: 40)
+        let tabBarItemFav  =  UITabBarItem(title: "Favorites".localized(), image: #imageLiteral(resourceName: "ic_star_36pt"), tag: 40)
         navigationFav.tabBarItem = tabBarItemFav
         
         // Search
         let navigationSearch = UIStoryboard(name: Storyboard.Search.name, bundle: nil).instantiateInitialViewController()!
-        let tabBarItemSearch  =  UITabBarItem(tabBarSystemItem: .search, tag: 20)
+        let tabBarItemSearch  =  UITabBarItem(title: "Search".localized(), image: #imageLiteral(resourceName: "ic_search_36pt"), tag: 20)
         navigationSearch.tabBarItem = tabBarItemSearch
         
         // More
         let navigationUser = UIStoryboard(name: Storyboard.More.name, bundle: nil).instantiateInitialViewController()!
 //        let userImg = #imageLiteral(resourceName: "user")
-        let tabBarItemUser =  UITabBarItem(tabBarSystemItem: .more, tag: 30)
+        let tabBarItemUser =  UITabBarItem(title: "Setting".localized(), image: #imageLiteral(resourceName: "ic_more_horiz_36pt"), tag: 30)
         navigationUser.tabBarItem = tabBarItemUser
         
         // set list childs controller to tabbar

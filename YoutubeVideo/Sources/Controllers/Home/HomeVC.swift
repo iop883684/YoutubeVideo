@@ -59,7 +59,7 @@ class HomeVC: BaseVC {
     
     @objc func setText(){
         
-        self.title = "Home".localized()
+        self.title = "Popular".localized()
         refreshAction()
         
     }

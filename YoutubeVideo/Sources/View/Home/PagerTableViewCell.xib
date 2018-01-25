@@ -22,16 +22,29 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oKC-yE-bl3" customClass="FSPagerView" customModule="FSPagerView">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="128"/>
                     </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rXx-Jq-nhY" customClass="FSPageControl" customModule="FSPagerView">
+                        <rect key="frame" x="0.0" y="103.5" width="320" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="a6J-QH-SID"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="hidesForSinglePage" value="YES"/>
+                        </userDefinedRuntimeAttributes>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="oKC-yE-bl3" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="9Gl-vG-vqc"/>
+                    <constraint firstAttribute="trailing" secondItem="rXx-Jq-nhY" secondAttribute="trailing" id="9WP-YB-OJh"/>
                     <constraint firstAttribute="trailing" secondItem="oKC-yE-bl3" secondAttribute="trailing" id="Dx2-8d-g64"/>
                     <constraint firstAttribute="bottom" secondItem="oKC-yE-bl3" secondAttribute="bottom" id="ORT-xs-YVx"/>
+                    <constraint firstAttribute="bottom" secondItem="rXx-Jq-nhY" secondAttribute="bottom" id="nfS-rw-vl8"/>
                     <constraint firstItem="oKC-yE-bl3" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="pWY-3o-4cK"/>
+                    <constraint firstItem="rXx-Jq-nhY" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="s3v-al-FX0"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="pageControl" destination="rXx-Jq-nhY" id="Dfr-ha-yV9"/>
                 <outlet property="pagerView" destination="oKC-yE-bl3" id="Ci3-77-eGj"/>
             </connections>
             <point key="canvasLocation" x="19" y="109.5"/>
