@@ -20,7 +20,7 @@ class VideoPlayerVC: UIViewController{
         static let medium360 = NSNumber(value: XCDYouTubeVideoQuality.medium360.rawValue)
         static let small240 = NSNumber(value: XCDYouTubeVideoQuality.small240.rawValue)
     }
-
+    
     @IBOutlet weak var moreBtn: UIButton!
     
     var videoObj:Video!
@@ -38,52 +38,35 @@ class VideoPlayerVC: UIViewController{
         
         if id != "" {
             requestApi()
-        
-            navigationController?.navigationBar.isHidden = true
-            
-            if let favorites = Global.shared.getFavoriteChannel() {
-                for x in 0..<favorites.count {
-                    
-                    if videoObj.channelId == favorites[x]["id"] {
-                        isFollow = true
-                        index = x
-                    }
-                }
-                
-            }
-            
-            Global.shared.addIdVideoWatched(id: id)
-            
-            setupPlayer()
-            getStreamingLink()
-            
+            setUpView()
         } else {
             if videoObj == nil{
                 HUD.flash(.label("no video object"), delay:1)
                 return
             }
-            if let favorites = Global.shared.getFavoriteChannel() {
-                for x in 0..<favorites.count {
-                    
-                    if videoObj.channelId == favorites[x]["id"] {
-                        isFollow = true
-                        index = x
-                    }
-                }
+            setUpView()
+        }
+    }
+    func setUpView(){
+        if let favorites = Global.shared.getFavoriteChannel() {
+            for x in 0..<favorites.count {
                 
+                if videoObj.channelId == favorites[x]["id"] {
+                    isFollow = true
+                    index = x
+                }
             }
             
-            Global.shared.addIdVideoWatched(id: id)
-            
-            setupPlayer()
-            getStreamingLink()
         }
+        Global.shared.addIdVideoWatched(id: id)
         
-        
+        setupPlayer()
+        getStreamingLink()
     }
     
+    
     func setupPlayer(){
-
+        
         controller = BMPlayerCustomControlView()
         
         player = BMPlayer(customControlView: controller)
@@ -167,7 +150,7 @@ class VideoPlayerVC: UIViewController{
     }
     
     func updatePlayer(configObj:[(res:String, link:URL)]){
-       
+        
         
         var listDefinition = [BMPlayerResourceDefinition]()
         
@@ -178,7 +161,7 @@ class VideoPlayerVC: UIViewController{
             listDefinition.append(small)
             
         }
- 
+        
         let asset = BMPlayerResource(name: "",
                                      definitions: listDefinition)
         
@@ -197,13 +180,13 @@ class VideoPlayerVC: UIViewController{
                                   "maxResults": 1,
                                   "type":"video",
                                   "key": API_KEY,]
-
+        
         Alamofire
             .request(url, method: .get, parameters: params)
             .responseObject {[weak self] (response: DataResponse<ResponseVideo>) in
                 
                 guard let strongSelf = self else { return }
-            
+                
                 
                 if let error = response.error {
                     print(error)
@@ -223,14 +206,14 @@ class VideoPlayerVC: UIViewController{
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        
         UIApplication.shared.isStatusBarHidden = true
         
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-
+        
         UIApplication.shared.isStatusBarHidden = false
     }
     
@@ -266,7 +249,7 @@ extension VideoPlayerVC: BMPlayerCustomControlViewDelegate {
         
         alertController.addAction(cancel)
         self.present(alertController, animated: true, completion: nil)
-
+        
     }
     
     
