@@ -339,6 +339,9 @@ extension SearchVC: UITableViewDelegate {
                 
                 searchBar.text = historyData[indexPath.row]
                 searchBarSearchButtonClicked(searchBar)
+            } else if isSearching {
+                searchBar.text = suggestionWords[indexPath.row]
+                searchBarSearchButtonClicked(searchBar)
             } else {
                 
                 let sb = UIStoryboard(name: Storyboard.Home.name, bundle: nil)
