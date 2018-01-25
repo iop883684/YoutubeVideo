@@ -31,7 +31,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
             UNUserNotificationCenter.current().requestAuthorization(
                 options: authOptions,
-                completionHandler: {_, _ in })
+                completionHandler: {_, _ in
+                    
+                    print("31212312")
+            })
         } else {
             let settings: UIUserNotificationSettings =
                 UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
@@ -76,6 +79,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         let date = Date()
         let time = date.timeIntervalSince1970
         Global.shared.timeOutApp = time
+    }
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any],
+                     fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        // If you are receiving a notification message while your app is in the background,
+        // this callback will not be fired till the user taps on the notification launching the application.
+        // TODO: Handle data of notification
+        
+        // With swizzling disabled you must let Messaging know about the message, for Analytics
+        // Messaging.messaging().appDidReceiveMessage(userInfo)
+        
+        // Print full message.
+
+        if let userInfo = userInfo["url"] {
+            
+            let url = URL(string: userInfo as! String)
+            
+            UIApplication.shared.openURL(url!)
+        }
+        
+        if let userInfo = userInfo["videoId"] {
+            
+            let id = "https://www.youtube.com/watch?v=\(userInfo)"
+            
+            let url = URL(string: id)
+            
+            UIApplication.shared.openURL(url!)
+        }
+        
+        Messaging.messaging().appDidReceiveMessage(userInfo)
+        
+        completionHandler(UIBackgroundFetchResult.newData)
     }
     
     
