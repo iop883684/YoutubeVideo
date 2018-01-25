@@ -29,7 +29,6 @@ class HistoryVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        notiLbl.isHidden = true
         title = "History".localized()
         notiLbl.text = "watched no video".localized()
         

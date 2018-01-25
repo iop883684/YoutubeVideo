@@ -10,6 +10,8 @@ import UIKit
 import XCDYouTubeKit
 import BMPlayer
 import PKHUD
+import Alamofire
+import AlamofireObjectMapper
 
 class VideoPlayerVC: UIViewController{
     
@@ -23,9 +25,10 @@ class VideoPlayerVC: UIViewController{
     
     var videoObj:Video!
     
+    var id = ""
+    
     private var videoTitle: String!
     private var player: BMPlayer!
-    
     private var isFollow = false
     private var controller: BMPlayerCustomControlView? = nil
     private var index: Int!
@@ -33,26 +36,50 @@ class VideoPlayerVC: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if videoObj == nil{
-            HUD.flash(.label("no video object"), delay:1)
-            return
-        }
+        if id != "" {
+            requestApi()
         
-        if let favorites = Global.shared.getFavoriteChannel() {
-            for x in 0..<favorites.count {
-                
-                if videoObj.channelId == favorites[x]["id"] {
-                    isFollow = true
-                    index = x
+            navigationController?.navigationBar.isHidden = true
+            
+            if let favorites = Global.shared.getFavoriteChannel() {
+                for x in 0..<favorites.count {
+                    
+                    if videoObj.channelId == favorites[x]["id"] {
+                        isFollow = true
+                        index = x
+                    }
                 }
+                
             }
             
+            Global.shared.addIdVideoWatched(id: id)
+            
+            setupPlayer()
+            getStreamingLink()
+            
+        } else {
+            if videoObj == nil{
+                HUD.flash(.label("no video object"), delay:1)
+                return
+            }
+            if let favorites = Global.shared.getFavoriteChannel() {
+                for x in 0..<favorites.count {
+                    
+                    if videoObj.channelId == favorites[x]["id"] {
+                        isFollow = true
+                        index = x
+                    }
+                }
+                
+            }
+            
+            Global.shared.addIdVideoWatched(id: id)
+            
+            setupPlayer()
+            getStreamingLink()
         }
         
-        Global.shared.addIdVideoWatched(id: videoObj.videoId)
         
-        setupPlayer()
-        getStreamingLink()
     }
     
     func setupPlayer(){
@@ -85,11 +112,17 @@ class VideoPlayerVC: UIViewController{
     }
     
     func getStreamingLink(){
+        var videoId = ""
+        
+        if id == "" {
+            videoId = videoObj.videoId
+        } else {
+            videoId = id
+        }
         
         HUD.show(.labeledProgress(title: "Loading...".localized(), subtitle: ""))
         
-        print("videoID:", videoObj.videoId)
-        XCDYouTubeClient.default().getVideoWithIdentifier(videoObj.videoId) {  [weak self] (video: XCDYouTubeVideo?, error: Error?) in
+        XCDYouTubeClient.default().getVideoWithIdentifier(videoId) {  [weak self] (video: XCDYouTubeVideo?, error: Error?) in
             
             guard let strongSelf = self else { return }
             
@@ -117,7 +150,7 @@ class VideoPlayerVC: UIViewController{
             }
             
             if let small = streamURLs[VideoQuality.small240]  {
-                allRes.append(("360p",small))
+                allRes.append(("240p",small))
                 isHaveUrl = true
             }
             
@@ -146,9 +179,8 @@ class VideoPlayerVC: UIViewController{
             
         }
  
-        let asset = BMPlayerResource(name: videoObj.title,
-                                     definitions: listDefinition,
-                                     cover: URL(string:videoObj.thumbnails))
+        let asset = BMPlayerResource(name: "",
+                                     definitions: listDefinition)
         
         player.setVideo(resource: asset)
         
@@ -156,10 +188,44 @@ class VideoPlayerVC: UIViewController{
         
     }
     
+    func requestApi(){
+        
+        let url = "https://www.googleapis.com/youtube/v3/videos"
+        
+        let params: Parameters = ["part": "snippet,contentDetails",
+                                  "id": id,
+                                  "maxResults": 1,
+                                  "type":"video",
+                                  "key": API_KEY,]
+
+        Alamofire
+            .request(url, method: .get, parameters: params)
+            .responseObject {[weak self] (response: DataResponse<ResponseVideo>) in
+                
+                guard let strongSelf = self else { return }
+            
+                
+                if let error = response.error {
+                    print(error)
+                }
+                
+                guard let res = response.result.value else {
+                    print("no value")
+                    return
+                }
+                
+                if let video = res.items {
+                    strongSelf.videoObj = video[0]
+                }
+        }
+        
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         UIApplication.shared.isStatusBarHidden = true
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -229,8 +295,6 @@ extension VideoPlayerVC: BMPlayerDelegate {
         
     }
 }
-
-
 
 
 
