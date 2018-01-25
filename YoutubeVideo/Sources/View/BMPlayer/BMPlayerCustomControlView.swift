@@ -57,26 +57,27 @@ class BMPlayerCustomControlView: BMPlayerControlView {
         }
     }
     
-    override func controlViewAnimation(isShow: Bool) {
-        self.isMaskShowing = isShow
-        UIView.animate(withDuration: 0.24, animations: {
-            self.topMaskView.snp.remakeConstraints {
-                $0.top.equalTo(self.mainMaskView).offset(isShow ? 0 : -70)
-                $0.left.right.equalTo(self.mainMaskView)
-                $0.height.equalTo(65)
-            }
-            
-            self.bottomMaskView.snp.remakeConstraints {
-                $0.bottom.equalTo(self.mainMaskView).offset(isShow ? 0 : 50)
-                $0.left.right.equalTo(self.mainMaskView)
-                $0.height.equalTo(50)
-            }
-            
-            self.layoutIfNeeded()
-        }) { (_) in
-            self.autoFadeOutControlViewWithAnimation()
-        }
-    }
+//    override func controlViewAnimation(isShow: Bool) {
+//        self.isMaskShowing = isShow
+//        UIView.animate(withDuration: 0.24, animations: {
+//
+//            self.topMaskView.snp.remakeConstraints {
+//                $0.top.equalTo(self.mainMaskView).offset(isShow ? 0 : -70)
+//                $0.left.right.equalTo(self.mainMaskView)
+//                $0.height.equalTo(65)
+//            }
+//
+//            self.bottomMaskView.snp.remakeConstraints {
+//                $0.bottom.equalTo(self.mainMaskView).offset(isShow ? 0 : 50)
+//                $0.left.right.equalTo(self.mainMaskView)
+//                $0.height.equalTo(50)
+//            }
+//
+//            self.layoutIfNeeded()
+//        }) { (_) in
+//            self.autoFadeOutControlViewWithAnimation()
+//        }
+//    }
     
     @objc func onPlaybackRateButtonPressed() {
         delega?.didTapMoreBtn()

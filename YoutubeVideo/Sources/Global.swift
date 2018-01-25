@@ -22,10 +22,6 @@ class Global {
     var fetchComplete: Bool = false
     
     var timeOutApp: Double!
-    var idChannel = ""
-    var titleChannel = ""
-    var thumbChannel = ""
-    var titlePlaylist = ""
     var watchHistory = 0
     
     let appName = Bundle.main.infoDictionary![kCFBundleNameKey as String] as! String

@@ -16,16 +16,16 @@ class HomeCollectionCell: UICollectionViewCell {
     
     func configure(_ item: Any){
         
-        if let item = item as? PlayList{
+        if let item = item as? Video{
             
             title.text = item.title
             
             let url = URL(string: item.thumbnails)
-            
-            thumb.kf.setImage(with: url)
+            thumb.kf.setImage(with:url,
+                                 options: [.transition(ImageTransition.fade(0.5))])
             
             //thumb.layer.cornerRadius = 12
-            self.layer.cornerRadius = 12
+            self.layer.cornerRadius = 7
         }
     }
 

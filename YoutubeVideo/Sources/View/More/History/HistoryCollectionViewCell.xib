@@ -9,11 +9,6 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="AvenirNext.ttc">
-            <string>AvenirNext-Medium</string>
-        </array>
-    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -31,21 +26,21 @@
                                 <rect key="frame" x="0.0" y="0.0" width="336" height="154"/>
                             </imageView>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="juE-ed-i5G">
-                                <rect key="frame" x="0.0" y="133" width="336" height="21"/>
+                                <rect key="frame" x="0.0" y="128" width="336" height="26"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FeV-pd-aLn">
-                                        <rect key="frame" x="23" y="0.0" width="291" height="21"/>
-                                        <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="15"/>
+                                        <rect key="frame" x="8" y="4" width="320" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="FeV-pd-aLn" secondAttribute="trailing" constant="22" id="0MP-Ov-Hsu"/>
-                                    <constraint firstAttribute="bottom" secondItem="FeV-pd-aLn" secondAttribute="bottom" id="4Sw-nf-vQD"/>
-                                    <constraint firstItem="FeV-pd-aLn" firstAttribute="leading" secondItem="juE-ed-i5G" secondAttribute="leading" constant="23" id="8IA-gw-jBu"/>
-                                    <constraint firstItem="FeV-pd-aLn" firstAttribute="top" secondItem="juE-ed-i5G" secondAttribute="top" id="hVa-hQ-sfX"/>
+                                    <constraint firstAttribute="trailing" secondItem="FeV-pd-aLn" secondAttribute="trailing" constant="8" id="0MP-Ov-Hsu"/>
+                                    <constraint firstAttribute="bottom" secondItem="FeV-pd-aLn" secondAttribute="bottom" constant="4" id="4Sw-nf-vQD"/>
+                                    <constraint firstItem="FeV-pd-aLn" firstAttribute="leading" secondItem="juE-ed-i5G" secondAttribute="leading" constant="8" id="8IA-gw-jBu"/>
+                                    <constraint firstItem="FeV-pd-aLn" firstAttribute="top" secondItem="juE-ed-i5G" secondAttribute="top" constant="4" id="hVa-hQ-sfX"/>
                                 </constraints>
                             </view>
                         </subviews>

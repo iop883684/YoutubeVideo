@@ -15,12 +15,12 @@
 "History" = "History";
 "Setting" = "Setting";
 "Language" = "Language";
-"Other" = "Other";
-"You don't follow any channel" = "You don't follow any channel";
+"Other" = "Other Application";
+"follow no channel" = "You haven't followed any channel yet";
 "Hot Keyword" = "Hot Keyword";
 "Delete all" = "Delete all";
 "Switch Language" = "Switch Language";
-"You didn't watch any video" = "You didn't watch any video";
+"watched no video" = "You haven't watched any video yet";
 "Follow This Channel" = "Follow this channel";
 "Unfollow" = "Unfollow";
 "Cancel" = "Cancel";

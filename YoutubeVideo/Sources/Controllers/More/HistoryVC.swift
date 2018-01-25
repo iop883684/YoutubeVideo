@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import ObjectMapper
+import PKHUD
 
 private let historyCellId = "historyCell"
 
@@ -20,8 +21,7 @@ class HistoryVC: UIViewController {
     @IBOutlet weak var notiLbl: UILabel!
     
     //MARK: - Variables
-    
-    private var videoId = [String]()
+
     private var data = [Video]()
     
     //MARK: - Lifecycle
@@ -29,34 +29,30 @@ class HistoryVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.setText()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        notiLbl.isHidden = true
+        title = "History".localized()
+        notiLbl.text = "watched no video".localized()
         
-        self.setText()
+        configCollection()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    func configCollection(){
+  
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        
+        collectionView.registerNib(HistoryCollectionViewCell.self, historyCellId)
         
         guard let videoWatched = Global.shared.getIdVideoWatched() else {
             return
         }
-        if videoId.count != videoWatched.count {
-            videoId = videoWatched
-            for id in videoId{
-                requestAPI(id: id)
-            }
-        }
-    }
-    
-    func setText(){
         
-        self.title = "History".localized()
-        notiLbl.text = "You didn't watch any video".localized()
+        for id in videoWatched{
+            requestAPI(id: id)
+        }
+        
     }
+
     
     func requestAPI(id: String){
         
@@ -73,40 +69,24 @@ class HistoryVC: UIViewController {
                 guard let strongSelf = self else { return }
                 
                 if let error = res.error {
-                    print(error)
-                }
-                
-                guard let res = res.result.value else {
-                    print("no value")
+                    HUD.flash(.label(error.localizedDescription), delay: 1)
                     return
                 }
                 
-                if let video = res.items {
+                if let video = res.result.value?.items {
                     
                     strongSelf.data.append(contentsOf: video)
-                    strongSelf.configCollection()
+                    strongSelf.collectionView.reloadData()
                     
                 }
                 
-                if strongSelf.data.count > 0 {
-                    strongSelf.collectionView.backgroundView?.isHidden = true
-                }else{
-                    strongSelf.collectionView.backgroundView?.isHidden = false
+                if strongSelf.data.count == 0 {
                     strongSelf.notiLbl.isHidden = false
                 }
                 
         }
     }
     
-    func configCollection(){
-        
-        collectionView.backgroundView = notiLbl
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        
-        collectionView.registerNib(HistoryCollectionViewCell.self, historyCellId)
-        collectionView.reloadData()
-    }
 }
 
 //MARK: - CollectionView Datasource
@@ -140,6 +120,16 @@ extension HistoryVC: UICollectionViewDelegateFlowLayout {
         
         return CGSize(width: 320, height: 180)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let sb = UIStoryboard(name: Storyboard.Home.name, bundle: nil)
+        let vc = sb.instantiateViewController(withIdentifier: "VideoPlayerVC") as! VideoPlayerVC
+        vc.videoObj = data[indexPath.item]
+        self.present(vc, animated: true, completion: nil)
+        
+    }
+    
 }
 
 

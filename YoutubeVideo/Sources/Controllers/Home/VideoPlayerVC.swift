@@ -7,11 +7,21 @@
 //
 
 import UIKit
+import XCDYouTubeKit
 import BMPlayer
+import PKHUD
 
 class VideoPlayerVC: UIViewController{
+    
+    struct VideoQuality {
+        static let hd720 = NSNumber(value: XCDYouTubeVideoQuality.HD720.rawValue)
+        static let medium360 = NSNumber(value: XCDYouTubeVideoQuality.medium360.rawValue)
+        static let small240 = NSNumber(value: XCDYouTubeVideoQuality.small240.rawValue)
+    }
 
     @IBOutlet weak var moreBtn: UIButton!
+    
+    var videoObj:Video!
     
     private var videoTitle: String!
     private var player: BMPlayer!
@@ -23,10 +33,15 @@ class VideoPlayerVC: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if videoObj == nil{
+            HUD.flash(.label("no video object"), delay:1)
+            return
+        }
+        
         if let favorites = Global.shared.getFavoriteChannel() {
             for x in 0..<favorites.count {
                 
-                if Global.shared.idChannel == favorites[x]["id"] {
+                if videoObj.channelId == favorites[x]["id"] {
                     isFollow = true
                     index = x
                 }
@@ -34,6 +49,14 @@ class VideoPlayerVC: UIViewController{
             
         }
         
+        Global.shared.addIdVideoWatched(id: videoObj.videoId)
+        
+        setupPlayer()
+        getStreamingLink()
+    }
+    
+    func setupPlayer(){
+
         controller = BMPlayerCustomControlView()
         
         player = BMPlayer(customControlView: controller)
@@ -55,36 +78,77 @@ class VideoPlayerVC: UIViewController{
             if isFullScreen {
                 return
             } else {
-                let _ = self.navigationController?.popViewController(animated: true)
+                self.dismiss(animated: true, completion: nil)
             }
         }
         
+    }
+    
+    func getStreamingLink(){
+        
+        HUD.show(.labeledProgress(title: "Loading...".localized(), subtitle: ""))
+        
+        print("videoID:", videoObj.videoId)
+        XCDYouTubeClient.default().getVideoWithIdentifier(videoObj.videoId) {  [weak self] (video: XCDYouTubeVideo?, error: Error?) in
+            
+            guard let strongSelf = self else { return }
+            
+            if let err = error {
+                HUD.flash(.label(err.localizedDescription), delay: 1)
+                return
+            }
+            
+            guard let streamURLs = video?.streamURLs else {
+                HUD.flash(.label("no url found"), delay: 1)
+                return
+            }
+            
+            var isHaveUrl = false
+            var allRes = [(res:String, link:URL)]()
+            
+            if let hdURL = streamURLs[VideoQuality.hd720]  {
+                allRes.append(("720p",hdURL))
+                isHaveUrl = true
+            }
+            
+            if let mediumURL = streamURLs[VideoQuality.medium360]  {
+                allRes.append(("360p",mediumURL))
+                isHaveUrl = true
+            }
+            
+            if let small = streamURLs[VideoQuality.small240]  {
+                allRes.append(("360p",small))
+                isHaveUrl = true
+            }
+            
+            if isHaveUrl {
+                
+                HUD.hide(animated: true)
+                strongSelf.updatePlayer(configObj: allRes)
+                
+            } else{
+                HUD.flash(.label("no url suitable"), delay: 1)
+            }
+        }
+        
+    }
+    
+    func updatePlayer(configObj:[(res:String, link:URL)]){
+       
+        
         var listDefinition = [BMPlayerResourceDefinition]()
         
-        if UrlVideo.small != nil{
-            let small = BMPlayerResourceDefinition(url: UrlVideo.small,
-                                                   definition: "240p")
+        for obj in configObj {
+            
+            let small = BMPlayerResourceDefinition(url: obj.link,
+                                                   definition: obj.res)
             listDefinition.append(small)
-        }
-        
-        
-        if UrlVideo.medium != nil{
-            let medium = BMPlayerResourceDefinition(url: UrlVideo.medium,
-                                                    definition: "360p")
-            listDefinition.append(medium)
-        }
-        
-        
-        if UrlVideo.hd != nil {
-            let hd = BMPlayerResourceDefinition(url: UrlVideo.hd,
-                                                definition: "720p")
-            listDefinition.append(hd)
             
         }
-        
-        let asset = BMPlayerResource(name: "",
+ 
+        let asset = BMPlayerResource(name: videoObj.title,
                                      definitions: listDefinition,
-                                     cover: UrlVideo.medium)
+                                     cover: URL(string:videoObj.thumbnails))
         
         player.setVideo(resource: asset)
         
@@ -94,37 +158,36 @@ class VideoPlayerVC: UIViewController{
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        navigationController?.navigationBar.isHidden = true
-        tabBarController?.tabBar.isHidden = true
+
         UIApplication.shared.isStatusBarHidden = true
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
-        navigationController?.navigationBar.isHidden = false
-        tabBarController?.tabBar.isHidden = false
+
         UIApplication.shared.isStatusBarHidden = false
     }
     
 }
 
 extension VideoPlayerVC: BMPlayerCustomControlViewDelegate {
+    
     func didTapMoreBtn() {
         
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
         let action = UIAlertAction(title: "Follow This Channel".localized(), style: .default) { (_) in
             
-            Global.shared.addFavoriteChannel(dict: ["title": Global.shared.titleChannel,
-                                                    "id": Global.shared.idChannel,
-                                                    "thumb": Global.shared.thumbChannel])
+            Global.shared.addFavoriteChannel(dict: ["title":  self.videoObj.channelTitle,
+                                                    "id": self.videoObj.channelId,
+                                                    "thumb": self.videoObj.thumbnails])
+            self.isFollow = true
         }
         
         let unfollow = UIAlertAction(title: "Unfollow".localized(), style: .default) {[unowned self] (_) in
             
             Global.shared.deleteFavoriteChannel(index: self.index)
+            self.isFollow = false
         }
         
         let cancel = UIAlertAction(title: "Cancel".localized(), style: .cancel, handler: nil)

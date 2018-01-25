@@ -16,7 +16,7 @@ pod 'Firebase/Core'
 pod 'Firebase/Firestore'
 
 pod "XCDYouTubeKit", "~> 2.5"
-pod "MobilePlayer"
+#pod "MobilePlayer"
 pod 'BMPlayer', '~> 1.0.0'
 
 pod 'TagListView', '~> 1.0'

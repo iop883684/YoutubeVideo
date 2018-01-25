@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class FavCollectionViewCell: UICollectionViewCell {
     
@@ -23,7 +24,8 @@ class FavCollectionViewCell: UICollectionViewCell {
         
         let url = URL(string: thumb)
         
-        self.thumb.kf.setImage(with: url)
+        self.thumb.kf.setImage(with: url,
+                               options: [.transition(ImageTransition.fade(0.5))])
         
         self.title.text = title
         

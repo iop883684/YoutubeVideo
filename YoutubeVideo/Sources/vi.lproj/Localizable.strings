@@ -16,11 +16,11 @@
 "Setting" = "Cài Đặt";
 "Language" = "Ngôn ngữ";
 "Other" = "Ứng dụng khác";
-"You don't follow any channel" = "Bạn không theo dõi kênh nào";
+"follow no channel" = "Bạn không theo dõi kênh nào";
 "Hot Keyword" = "Từ khoá hot";
 "Delete all" = "Xoá hết";
 "Switch Language" = "Đổi ngôn ngữ";
-"You didn't watch any video" = "Bạn chưa xem video nào";
+"watched no video" = "Bạn chưa xem video nào";
 "Follow This Channel" = "Theo dõi kênh";
 "Unfollow" = "Huỷ theo dõi";
 "Cancel" = "Huỷ";

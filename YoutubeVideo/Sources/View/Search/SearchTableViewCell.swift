@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class SearchTableViewCell: UITableViewCell {
 
@@ -15,18 +16,25 @@ class SearchTableViewCell: UITableViewCell {
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var roundedView: UIView!
     
-    var isSetShadow = false
+     private var isSetShadow = false
     
     override func layoutSubviews() {
         super.layoutSubviews()
         
+        if isSetShadow{
+            return
+        }
+        
+        isSetShadow = true
+        
         roundedView.layer.shadowRadius = 2.5
         roundedView.layer.shadowOpacity = 0.7
         roundedView.layer.shadowOffset = CGSize.zero
-        roundedView.layer.cornerRadius = 12
-        roundedView.layer.masksToBounds = false
-        thumb.layer.masksToBounds = true
+        roundedView.layer.cornerRadius = 7
+        roundedView.layer.masksToBounds = true
+
     }
+    
     
     func configure(_ item: Any){
         
@@ -34,7 +42,8 @@ class SearchTableViewCell: UITableViewCell {
             
             let url = URL(string: item.thumbnails)
             
-            thumb.kf.setImage(with: url)
+            thumb.kf.setImage(with: url,
+                              options: [.transition(ImageTransition.fade(0.5))])
             
             title.text = item.title
 

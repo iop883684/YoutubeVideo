@@ -11,6 +11,7 @@ import Alamofire
 import ObjectMapper
 import XCDYouTubeKit
 import FirebaseFirestore
+import Localize_Swift
 
 private let searchCellId = "searchCell"
 private let keyCellId = "keyCell"
@@ -20,11 +21,8 @@ private let suggestHeaderId = "suggestHeader"
 
 class SearchVC: UIViewController {
     
-    //MARK: - IBOutlets
-    
     @IBOutlet weak var tableView: UITableView!
-    
-    //MARK: - Variables
+
     
     lazy var searchBar = UISearchBar(frame: CGRect.zero)
     
@@ -34,7 +32,6 @@ class SearchVC: UIViewController {
     private var hotKeyWord = [String]()
     
     private var nextPageToken = ""
-    private var regionCode = "VN"
     private var searchText = ""
     
     private var searchTimer: Timer?
@@ -53,7 +50,7 @@ class SearchVC: UIViewController {
         
         searchBar.delegate = self
         searchBar.showsCancelButton = true
-        searchBar.becomeFirstResponder()
+//        searchBar.becomeFirstResponder()
         
         setUpTableView()
     }
@@ -62,9 +59,6 @@ class SearchVC: UIViewController {
         
         historyData = HistorySearch.shared.getSearchHistories()?.reversed() ?? []
         
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.separatorStyle = .none
         
         tableView.registerNib(SearchTableViewCell.self, searchCellId)
         tableView.registerNib(KeyTableViewCell.self, keyCellId)
@@ -87,7 +81,7 @@ class SearchVC: UIViewController {
         }
         
         isLoading = true
-        
+
         let url = "https://www.googleapis.com/youtube/v3/search"
         
         let params: Parameters = ["part": "snippet",
@@ -95,7 +89,7 @@ class SearchVC: UIViewController {
                                   "q": text,
                                   "key": API_KEY,
                                   "pageToken":nextPageToken,
-                                  "regionCode": regionCode,
+                                  "regionCode": Locale.current.regionCode ?? "",
                                   "type": "video"]
         
         print(params)
@@ -125,7 +119,6 @@ class SearchVC: UIViewController {
                         strongSelf.isFull = true
                     }
                     
-                    strongSelf.regionCode = res.regionCode ?? ""
                     strongSelf.nextPageToken = res.nextPageToken ?? ""
                     strongSelf.data.append(contentsOf: video)
                     strongSelf.tableView.reloadData()
@@ -186,9 +179,7 @@ class SearchVC: UIViewController {
         
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-    }
+
     
 }
 
@@ -289,7 +280,7 @@ extension SearchVC: UITableViewDelegate {
                 return 35
         
             case 1:
-                return 35
+                return 44
                 
             default:
                 return 0
@@ -297,6 +288,26 @@ extension SearchVC: UITableViewDelegate {
         } else {
             return 0
         }
+        
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        
+        if indexPath.section == 0{
+            if isShowHistory {
+                return UITableViewAutomaticDimension
+            } else {
+                return 0
+            }
+        }
+        if isSearching {
+            return 44
+        }
+        if isShowHistory {
+            return 44
+        }
+        return 230
         
     }
     
@@ -329,8 +340,11 @@ extension SearchVC: UITableViewDelegate {
                 searchBar.text = historyData[indexPath.row]
                 searchBarSearchButtonClicked(searchBar)
             } else {
-                searchBar.text = suggestionWords[indexPath.row]
-                searchBarSearchButtonClicked(searchBar)
+                
+                let sb = UIStoryboard(name: Storyboard.Home.name, bundle: nil)
+                let vc = sb.instantiateViewController(withIdentifier: "VideoPlayerVC") as! VideoPlayerVC
+                vc.videoObj = data[indexPath.row]
+                self.present(vc, animated: true, completion: nil)
                 
             }
         default:
@@ -408,6 +422,8 @@ extension SearchVC: UISearchBarDelegate {
         suggestionWords.removeAll()
         tableView.reloadData()
         searchBar.resignFirstResponder()
+        
+
     }
     
     func updateSearchHistory(text:String){
