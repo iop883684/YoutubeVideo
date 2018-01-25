@@ -31,7 +31,6 @@
 		886D88FC200F5BB1004460E7 /* SuggestionTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 886D88FA200F5BB1004460E7 /* SuggestionTVC.xib */; };
 		8883AE702018701D00C64062 /* PagerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8883AE6E2018701D00C64062 /* PagerTableViewCell.swift */; };
 		8883AE712018701D00C64062 /* PagerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8883AE6F2018701D00C64062 /* PagerTableViewCell.xib */; };
-		8886FE842019AE610054E27E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8886FE832019AE610054E27E /* GoogleService-Info.plist */; };
 		88902EF520076F6B005DE008 /* Favorite.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88902EF420076F6B005DE008 /* Favorite.storyboard */; };
 		88902EF92007709F005DE008 /* FavoriteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88902EF82007709F005DE008 /* FavoriteVC.swift */; };
 		88902F01200772E8005DE008 /* FavCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88902EFF200772E8005DE008 /* FavCollectionViewCell.swift */; };
@@ -97,7 +96,6 @@
 		886D88FA200F5BB1004460E7 /* SuggestionTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SuggestionTVC.xib; sourceTree = "<group>"; };
 		8883AE6E2018701D00C64062 /* PagerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerTableViewCell.swift; sourceTree = "<group>"; };
 		8883AE6F2018701D00C64062 /* PagerTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PagerTableViewCell.xib; sourceTree = "<group>"; };
-		8886FE832019AE610054E27E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		88902EF420076F6B005DE008 /* Favorite.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Favorite.storyboard; sourceTree = "<group>"; };
 		88902EF82007709F005DE008 /* FavoriteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteVC.swift; sourceTree = "<group>"; };
 		88902EFF200772E8005DE008 /* FavCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -260,11 +258,7 @@
 				8898A8B41FF0F6390046F034 /* Assets.xcassets */,
 				8898A8B61FF0F6390046F034 /* LaunchScreen.storyboard */,
 				8898A8B91FF0F6390046F034 /* Info.plist */,
-<<<<<<< HEAD
-				8886FE832019AE610054E27E /* GoogleService-Info.plist */,
-=======
 				DC9D92312019AE0000805BE2 /* GoogleService-Info.plist */,
->>>>>>> e66419a21f8664ab9ed1c5ddac54632627fa7372
 			);
 			path = YoutubeVideo;
 			sourceTree = "<group>";
@@ -500,11 +494,7 @@
 				883D59C22011ACA000360ED6 /* HistoryCollectionViewCell.xib in Resources */,
 				88B9B9C020105780002E7786 /* HistoryTableViewCell.xib in Resources */,
 				8898A8D11FF106220046F034 /* Home.storyboard in Resources */,
-<<<<<<< HEAD
-				8886FE842019AE610054E27E /* GoogleService-Info.plist in Resources */,
-=======
 				DC9D92322019AE0000805BE2 /* GoogleService-Info.plist in Resources */,
->>>>>>> e66419a21f8664ab9ed1c5ddac54632627fa7372
 				8898A8DB1FF10A450046F034 /* HomeTableCell.xib in Resources */,
 				882ABC74200DDE6100103BC4 /* SearchTableViewCell.xib in Resources */,
 			);
