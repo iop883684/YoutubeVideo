@@ -36,7 +36,7 @@ class HomeVC: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Home".localized()
+        self.title = "Popular".localized()
         
         configureTableView()
         

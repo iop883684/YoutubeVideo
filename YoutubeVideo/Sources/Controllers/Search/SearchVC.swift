@@ -44,6 +44,13 @@ class SearchVC: UIViewController {
     private var isLoading = false
     //MARK: - Lifecycle
     
+    override func awakeFromNib() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(setText),
+                                               name: NSNotification.Name(LCLLanguageChangeNotification),
+                                               object: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     
@@ -55,16 +62,7 @@ class SearchVC: UIViewController {
 //        searchBar.becomeFirstResponder()
         
         setUpTableView()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(setText),
-                                               name: NSNotification.Name(LCLLanguageChangeNotification),
-                                               object: nil)
-
     }
 
     deinit {

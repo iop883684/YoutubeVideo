@@ -16,13 +16,23 @@ class FavoriteVC: UIViewController {
     //MARK: - IBOutlets
     
     @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var label: UILabel?
     
     //MARK: - Variables
     
     var data: [[String: String]] = []
     
     //MARK: - Lifecycle
+
+    
+    override func awakeFromNib() {
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(setText),
+                                               name: NSNotification.Name(LCLLanguageChangeNotification),
+                                               object: nil)
+
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,17 +40,9 @@ class FavoriteVC: UIViewController {
         setUpTableView()
         self.setText()
         
+
     }
-    
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(setText),
-                                               name: NSNotification.Name(LCLLanguageChangeNotification),
-                                               object: nil)
-    }
+
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -62,7 +64,7 @@ class FavoriteVC: UIViewController {
     @objc func setText() {
         
         self.title = "Favorites".localized()
-        label.text = "follow no channel".localized()
+        label?.text = "follow no channel".localized()
     }
     
     //
