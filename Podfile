@@ -25,4 +25,5 @@ pod 'FSPagerView'
 pod 'Firebase/Core'
 pod 'Firebase/Messaging'
 pod "SwiftRater"
+pod 'BiometricAuthentication'
 end

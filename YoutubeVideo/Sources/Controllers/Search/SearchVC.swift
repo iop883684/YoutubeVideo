@@ -12,6 +12,7 @@ import ObjectMapper
 import XCDYouTubeKit
 import FirebaseFirestore
 import Localize_Swift
+import BiometricAuthentication
 
 private let searchCellId = "searchCell"
 private let keyCellId = "keyCell"
@@ -396,15 +397,7 @@ extension SearchVC: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar){
         
-        data.removeAll()
-        requestAPI(searchBar.text!)
-        searchText = searchBar.text!
-        isShowHistory = false
-        isSearching = false
-        searchBar.resignFirstResponder()
-        searchTimer?.invalidate()
-        
-        updateSearchHistory(text: searchText)
+        authenticationWithTouchID ()
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -510,6 +503,73 @@ extension SearchVC: SuggestionTVCDelegate{
     }
 }
 
+//MARK: - Touch ID Authentication
+
+
+extension SearchVC {
+    
+    func authenticationWithTouchID() {
+        
+        BioMetricAuthenticator.authenticateWithBioMetrics(reason: "To access secure data", success: { [weak self] in
+            
+            guard let strongSelf = self else { return }
+            // authentication successful
+            
+            
+            strongSelf.data.removeAll()
+            strongSelf.requestAPI(strongSelf.searchBar.text!)
+            strongSelf.searchText = strongSelf.searchBar.text!
+            strongSelf.isShowHistory = false
+            strongSelf.isSearching = false
+            strongSelf.searchTimer?.invalidate()
+            strongSelf.updateSearchHistory(text: strongSelf.searchText)
+            
+            
+            }, failure: { (error) in
+                
+                // do nothing on canceled
+                if error == .canceledByUser || error == .canceledBySystem {
+                    return
+                }
+                    
+                    // show alternatives on fallback button clicked
+                else if error == .fallback {
+                    
+                    // here we're entering username and password
+                    
+                }
+                    
+                    // No biometry enrolled in this device, ask user to register fingerprint or face
+                else if error == .biometryNotEnrolled {
+                    
+                }
+                    
+                    // Biometry is locked out now, because there were too many failed attempts.
+                    // Need to enter device passcode to unlock.
+                else if error == .biometryLockedout {
+                    // show passcode authentication
+                }
+                    
+                    // show error on authentication failed
+                else {
+                    
+                }
+                BioMetricAuthenticator.authenticateWithPasscode(reason: "AAA", success: {
+                    
+                    print("a")
+                }) { (error) in
+                    let alert = UIAlertController(title: "Error", message: error.message(), preferredStyle: .alert)
+                    let action = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                    alert.addAction(action)
+                    self.present(alert, animated: true, completion: nil)
+                }
+                
+        })
+        
+        
+    }
+    
+}
 
 
 

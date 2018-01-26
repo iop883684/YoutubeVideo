@@ -64,7 +64,8 @@ class MoreVC: UIViewController {
             ("Other",#imageLiteral(resourceName: "ic_new_releases")),
             ("Share",#imageLiteral(resourceName: "ic_share")),
             ("Review",#imageLiteral(resourceName: "ic_star_border")),
-            ("Language", #imageLiteral(resourceName: "ic_language"))
+            ("Language", #imageLiteral(resourceName: "ic_language")),
+            ("Security", #imageLiteral(resourceName: "ic_search_36pt"))
         ]
         
         tableView.reloadData()
@@ -209,6 +210,8 @@ extension MoreVC: UITableViewDelegate {
             
         case "Language":
                 changeLanguage()
+        case "Security":
+            performSegue(withIdentifier: "sgSecurity", sender: nil)
             
         default:
             break;

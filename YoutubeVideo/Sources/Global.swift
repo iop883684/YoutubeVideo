@@ -78,6 +78,42 @@ class Global {
         
     }
     
+    func addUseTouchID(bool: Bool) {
+        
+        var isUseTouchID: Bool!
+        
+        if let _isUseTouchID = pref.object(forKey: "isUseTouchID") as? Bool {
+            isUseTouchID = _isUseTouchID
+        }
+        
+        isUseTouchID = bool
+        
+        pref.set(isUseTouchID, forKey: "isUseTouchID")
+    }
+    
+    func getUseTouchID() -> Bool {
+        guard let isUseTouchID = pref.object(forKey: "isUseTouchID") as? Bool else { return false }
+        return isUseTouchID             
+    }
+    
+    func addUsePass(bool: Bool) {
+        
+        var isUsePass: Bool!
+        
+        if let _isUsePass = pref.object(forKey: "isUsePass") as? Bool {
+            isUsePass = _isUsePass
+        }
+        
+        isUsePass = bool
+        
+        pref.set(isUsePass, forKey: "isUsePass")
+    }
+    
+    func getUsePass() -> Bool {
+        guard let isUsePass = pref.object(forKey: "isUsePass") as? Bool else { return false }
+        return isUsePass
+    }
+    
     func addFavoriteChannel(dict: [String: String]) {
         var favorites = [[String: String]]()
         if let _favorites = pref.object(forKey: "favorites") as? [[String: String]] {

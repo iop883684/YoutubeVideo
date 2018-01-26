@@ -14,6 +14,8 @@
 		882ABC7B200DEBA300103BC4 /* SuggestionTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882ABC79200DEBA300103BC4 /* SuggestionTableCell.swift */; };
 		882ABC7C200DEBA300103BC4 /* SuggestionTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 882ABC7A200DEBA300103BC4 /* SuggestionTableCell.xib */; };
 		882ABC7E200DFEB000103BC4 /* SearchHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882ABC7D200DFEB000103BC4 /* SearchHistory.swift */; };
+		882CD142201AE004009D6C05 /* SecurityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882CD141201AE004009D6C05 /* SecurityVC.swift */; };
+		882CD144201AE79B009D6C05 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 882CD143201AE79B009D6C05 /* LocalAuthentication.framework */; };
 		883D59C22011ACA000360ED6 /* HistoryCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 883D59C02011AC9F00360ED6 /* HistoryCollectionViewCell.xib */; };
 		883D59C32011ACA000360ED6 /* HistoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883D59C12011AC9F00360ED6 /* HistoryCollectionViewCell.swift */; };
 		884755F22016DDC8003EA851 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 884755F42016DDC8003EA851 /* Localizable.strings */; };
@@ -77,6 +79,8 @@
 		882ABC79200DEBA300103BC4 /* SuggestionTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionTableCell.swift; sourceTree = "<group>"; };
 		882ABC7A200DEBA300103BC4 /* SuggestionTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SuggestionTableCell.xib; sourceTree = "<group>"; };
 		882ABC7D200DFEB000103BC4 /* SearchHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistory.swift; sourceTree = "<group>"; };
+		882CD141201AE004009D6C05 /* SecurityVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityVC.swift; sourceTree = "<group>"; };
+		882CD143201AE79B009D6C05 /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
 		883D59C02011AC9F00360ED6 /* HistoryCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HistoryCollectionViewCell.xib; sourceTree = "<group>"; };
 		883D59C12011AC9F00360ED6 /* HistoryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		884755EF2016DD89003EA851 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -140,6 +144,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				882CD144201AE79B009D6C05 /* LocalAuthentication.framework in Frameworks */,
 				E48980DA425372DE0EEC997E /* Pods_YoutubeVideo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -150,6 +155,7 @@
 		56D7D8D62A066482FD7D0552 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				882CD143201AE79B009D6C05 /* LocalAuthentication.framework */,
 				FA448A49D62E051178BF882E /* Pods_YoutubeVideo.framework */,
 			);
 			name = Frameworks;
@@ -376,6 +382,7 @@
 			children = (
 				88B9B9B8201054A3002E7786 /* MoreVC.swift */,
 				88B9B9C120105A85002E7786 /* HistoryVC.swift */,
+				882CD141201AE004009D6C05 /* SecurityVC.swift */,
 			);
 			path = More;
 			sourceTree = "<group>";
@@ -546,6 +553,7 @@
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireObjectMapper/AlamofireObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/BMPlayer/BMPlayer.framework",
+				"${BUILT_PRODUCTS_DIR}/BiometricAuthentication/BiometricAuthentication.framework",
 				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
 				"${BUILT_PRODUCTS_DIR}/FSPagerView/FSPagerView.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
@@ -571,6 +579,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireObjectMapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BMPlayer.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BiometricAuthentication.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FSPagerView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
@@ -631,6 +640,7 @@
 				8847DC0D20034C5A008E3F01 /* BMCustomPlayer.swift in Sources */,
 				8898A8AE1FF0F6390046F034 /* AppDelegate.swift in Sources */,
 				88902EF92007709F005DE008 /* FavoriteVC.swift in Sources */,
+				882CD142201AE004009D6C05 /* SecurityVC.swift in Sources */,
 				88B9B9D0201086BF002E7786 /* UIDevice.swift in Sources */,
 				DC7A81CA1FFAC19100350E32 /* Youtube.swift in Sources */,
 				882ABC7B200DEBA300103BC4 /* SuggestionTableCell.swift in Sources */,
