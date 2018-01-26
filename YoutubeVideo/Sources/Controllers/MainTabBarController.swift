@@ -88,7 +88,7 @@ class MainTabBarController: UITabBarController {
         
         guard let timeOutApp = Global.shared.timeOutApp else { return }
         
-        if time - timeOutApp >= 1 {
+        if time - timeOutApp >= 3600 {
             print("update")
             self.setupMainApp()
         }

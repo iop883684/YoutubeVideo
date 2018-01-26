@@ -55,7 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         SwiftRater.significantUsesUntilPrompt = 3
         SwiftRater.daysBeforeReminding = 1
         SwiftRater.showLaterButton = true
-        SwiftRater.debugMode = true
+        SwiftRater.debugMode = false
         SwiftRater.appLaunched()
         
         return true

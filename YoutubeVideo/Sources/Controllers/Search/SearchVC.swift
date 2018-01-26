@@ -23,7 +23,7 @@ private let suggestHeaderId = "suggestHeader"
 class SearchVC: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
-
+    
     
     lazy var searchBar = UISearchBar(frame: CGRect.zero)
     
@@ -42,6 +42,8 @@ class SearchVC: UIViewController {
     private var isHaveUrl = false
     private var isFull = false
     private var isLoading = false
+    
+    private var isVerifyTouchID = false
     //MARK: - Lifecycle
     
     override func awakeFromNib() {
@@ -395,8 +397,24 @@ extension SearchVC: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar){
         
-        authenticationWithTouchID ()
+        
+        data.removeAll()
+        requestAPI(searchBar.text!)
+        searchText = searchBar.text!
+        isShowHistory = false
+        isSearching = false
+        searchTimer?.invalidate()
+        updateSearchHistory(text: searchText)
     }
+
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        
+        if isVerifyTouchID == false {
+            authenticationWithTouchID ()
+            isVerifyTouchID = true
+        }
+    }
+
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
@@ -513,15 +531,7 @@ extension SearchVC {
             guard let strongSelf = self else { return }
             // authentication successful
             
-            
-            strongSelf.data.removeAll()
-            strongSelf.requestAPI(strongSelf.searchBar.text!)
-            strongSelf.searchText = strongSelf.searchBar.text!
-            strongSelf.isShowHistory = false
-            strongSelf.isSearching = false
-            strongSelf.searchTimer?.invalidate()
-            strongSelf.updateSearchHistory(text: strongSelf.searchText)
-            
+            strongSelf.searchBar.becomeFirstResponder()
             
             }, failure: { (error) in
                 
@@ -554,7 +564,7 @@ extension SearchVC {
                 }
                 BioMetricAuthenticator.authenticateWithPasscode(reason: "AAA", success: {
                     
-                    print("a")
+                    self.searchBar.becomeFirstResponder()
                 }) { (error) in
                     let alert = UIAlertController(title: "Error", message: error.message(), preferredStyle: .alert)
                     let action = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
