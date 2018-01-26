@@ -13,6 +13,7 @@ import PKHUD
 import Firebase
 import FirebaseFirestore
 import Localize_Swift
+import SwiftRater
 
 private let homeTableCellId = "homeTableCell"
 private let pagerCellId = "pagerCell"
@@ -54,6 +55,12 @@ class HomeVC: BaseVC {
                                                name: NSNotification.Name(LCLLanguageChangeNotification),
                                                object: nil)
         
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        SwiftRater.check()
     }
     
     

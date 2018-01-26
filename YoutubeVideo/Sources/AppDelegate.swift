@@ -12,6 +12,7 @@ import Localize_Swift
 import UserNotifications
 import FirebaseMessaging
 import PKHUD
+import SwiftRater
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate {
@@ -23,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         UIApplication.shared.statusBarStyle = .default
         
         FirebaseApp.configure()
+        
         Messaging.messaging().delegate = self
         if #available(iOS 10.0, *) {
             // For iOS 10 display notification (sent via APNS)
@@ -46,17 +48,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         let _ = Global.shared
         
-        Global.shared.clearHistory()
+        // Swift Rater
         
-        if Global.shared.getLanguage() == "" {
-            let lang = Locale.current.languageCode
-            
-            Localize.setCurrentLanguage(lang!)
-            
-            Global.shared.addLanguage(lang: lang!)
-        } else {
-            Localize.setCurrentLanguage(Global.shared.getLanguage())
-        }
+        SwiftRater.daysUntilPrompt = 1
+        SwiftRater.usesUntilPrompt = 5
+        SwiftRater.significantUsesUntilPrompt = 3
+        SwiftRater.daysBeforeReminding = 1
+        SwiftRater.showLaterButton = true
+        SwiftRater.debugMode = true
+        SwiftRater.appLaunched()
         
         return true
     }

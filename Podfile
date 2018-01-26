@@ -24,4 +24,5 @@ pod 'Localize-Swift', '~> 2.0'
 pod 'FSPagerView'
 pod 'Firebase/Core'
 pod 'Firebase/Messaging'
+pod "SwiftRater"
 end

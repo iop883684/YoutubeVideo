@@ -99,6 +99,7 @@ PODS:
   - PKHUD (5.0.0)
   - Protobuf (3.5.0)
   - SnapKit (4.0.0)
+  - SwiftRater (0.3.0)
   - TagListView (1.3.0)
   - XCDYouTubeKit (2.5.6)
 
@@ -113,6 +114,7 @@ DEPENDENCIES:
   - Kingfisher (~> 4.0)
   - Localize-Swift (~> 2.0)
   - PKHUD (~> 5.0)
+  - SwiftRater
   - TagListView (~> 1.0)
   - XCDYouTubeKit (~> 2.5)
 
@@ -144,9 +146,10 @@ SPEC CHECKSUMS:
   PKHUD: 3c001512c6e002091184197a8de7a20420786e3b
   Protobuf: 8a9838fba8dae3389230e1b7f8c104aa32389c03
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
+  SwiftRater: e79bc7e4d3961bade56b02b7568362a6c9ce860c
   TagListView: 669f7d4455003c877655875d34829731c4191528
   XCDYouTubeKit: dccfe0c17dd5c5187969ec27e93069573badb08f
 
-PODFILE CHECKSUM: e9075b60b93ae8809fe43183513d207c94d2b293
+PODFILE CHECKSUM: a42d7612343e073c7cf7f1630d08889565d36371
 
 COCOAPODS: 1.3.1
