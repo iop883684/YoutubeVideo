@@ -33,17 +33,16 @@ class MoreVC: UIViewController {
         
         setText()
         
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(setText),
+                                               name: NSNotification.Name(LCLLanguageChangeNotification),
+                                               object: nil)
         
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(setText),
-                                               name: NSNotification.Name(LCLLanguageChangeNotification),
-                                               object: nil)
         UIApplication.shared.isStatusBarHidden = false
     }
     
