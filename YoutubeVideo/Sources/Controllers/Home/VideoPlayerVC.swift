@@ -21,8 +21,6 @@ class VideoPlayerVC: UIViewController{
         static let small240 = NSNumber(value: XCDYouTubeVideoQuality.small240.rawValue)
     }
     
-    @IBOutlet weak var moreBtn: UIButton!
-    
     var videoObj:Video!
     
     var id = ""
@@ -113,7 +111,7 @@ class VideoPlayerVC: UIViewController{
         player = BMPlayer(customControlView: controller)
         view.addSubview(player)
         
-        controller?.chooseDefitionView.isHidden = false
+        
         
         player.snp.makeConstraints { (make) in
             make.top.equalTo(view.snp.top)
@@ -144,6 +142,8 @@ class VideoPlayerVC: UIViewController{
             videoId = id
         }
         
+        print(videoId)
+        
         HUD.show(.labeledProgress(title: "Loading...".localized(), subtitle: ""))
         
         XCDYouTubeClient.default().getVideoWithIdentifier(videoId) {  [weak self] (video: XCDYouTubeVideo?, error: Error?) in
@@ -162,14 +162,14 @@ class VideoPlayerVC: UIViewController{
             
             var isHaveUrl = false
             var allRes = [(res:String, link:URL)]()
-            
-            if let hdURL = streamURLs[VideoQuality.hd720]  {
-                allRes.append(("720p",hdURL))
+
+            if let mediumURL = streamURLs[VideoQuality.medium360]  {
+                allRes.append(("360p",mediumURL))
                 isHaveUrl = true
             }
             
-            if let mediumURL = streamURLs[VideoQuality.medium360]  {
-                allRes.append(("360p",mediumURL))
+            if let hdURL = streamURLs[VideoQuality.hd720]  {
+                allRes.append(("720p",hdURL))
                 isHaveUrl = true
             }
             
@@ -192,8 +192,6 @@ class VideoPlayerVC: UIViewController{
     
     func updatePlayer(configObj:[(res:String, link:URL)]){
         
-        HUD.show(.labeledProgress(title: "Get video detail".localized(), subtitle: ""))
-        
         var listDefinition = [BMPlayerResourceDefinition]()
         
         for obj in configObj {
@@ -204,7 +202,7 @@ class VideoPlayerVC: UIViewController{
             
         }
         
-        let asset = BMPlayerResource(name: "",
+        let asset = BMPlayerResource(name: videoObj.title,
                                      definitions: listDefinition)
         
         player.setVideo(resource: asset)

@@ -31,6 +31,16 @@ class MoreVC: UIViewController {
         
         tableView.registerNib(HistoryTableViewCell.self, historyCellId)
         
+        listItem = [
+            ("History",#imageLiteral(resourceName: "ic_query_builder")),
+            ("Feedback",#imageLiteral(resourceName: "ic_feedback")),
+            ("Other",#imageLiteral(resourceName: "ic_new_releases")),
+            ("Share",#imageLiteral(resourceName: "ic_share")),
+            ("Review",#imageLiteral(resourceName: "ic_star_border")),
+            ("Language", #imageLiteral(resourceName: "ic_language")),
+            ("Security", #imageLiteral(resourceName: "ic_search_36pt"))
+        ]
+        
         setText()
         
         NotificationCenter.default.addObserver(self,
@@ -56,18 +66,8 @@ class MoreVC: UIViewController {
     @objc func setText() {
         
         self.title = "Setting".localized()
-        
-        listItem = [
-            ("History",#imageLiteral(resourceName: "ic_query_builder")),
-            ("Feedback",#imageLiteral(resourceName: "ic_feedback")),
-            ("Other",#imageLiteral(resourceName: "ic_new_releases")),
-            ("Share",#imageLiteral(resourceName: "ic_share")),
-            ("Review",#imageLiteral(resourceName: "ic_star_border")),
-            ("Language", #imageLiteral(resourceName: "ic_language")),
-            ("Security", #imageLiteral(resourceName: "ic_search_36pt"))
-        ]
-        
         tableView.reloadData()
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

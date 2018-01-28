@@ -102,10 +102,10 @@ class HomeVC: BaseVC {
             for snap in snapshot {
                 
                 let title = snap["name"] as! String
-                let id = snap["id"] as! String
+                let id = snap["upload_id"] as! String
                 
                 strongSelf.getListVideo(id, title)
-                strongSelf.tableView.reloadData()
+//                strongSelf.tableView.reloadData()
             }
  
             
@@ -128,17 +128,19 @@ class HomeVC: BaseVC {
     
     //MARK: - Call API
     
-    func getListVideo(_ channelId: String, _ title:String){
+    func getListVideo(_ uploadId: String, _ title:String){
         
-        let url = "https://www.googleapis.com/youtube/v3/playlists"
+        let url = "https://www.googleapis.com/youtube/v3/playlistItems"
         
         let params:Parameters = [
-            "part":"snippet,contentDetails",
+            "part":"snippet",
 //            "type":"video",
             "key":API_KEY,
             "maxResults":10,
-            "channelId":channelId]
+            "playlistId":uploadId]
 
+        print(url)
+        print(params)
         
         Alamofire
             .request(url, method: .get, parameters: params)
@@ -273,7 +275,11 @@ extension HomeVC: PagerTableViewCellDelegate {
     
     func toDetail(_ video: Video) {
         
-        performSegue(withIdentifier: "sgPlayList", sender: (id: video.videoId, title: video.title))
+        if video.videoId.contains("PL"){
+            performSegue(withIdentifier: "sgPlayList", sender: (id:video.videoId, title:video.title))
+        } else{
+            performSegue(withIdentifier: "sgShowPlayerHome", sender: video)
+        }
     }
 }
 

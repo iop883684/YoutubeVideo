@@ -38,14 +38,24 @@ class Video: Mappable{
         nextPageToken <- map["nextPageToken"]
         
         channelId <- map["snippet.channelId"]
-        videoId <- map["contentDetails.videoId"]
-        if videoId.isEmpty {
-            videoId <- map["contentDetails.upload.videoId"]
-            if videoId.isEmpty{
-                videoId <- map["id.videoId"]
-            }
-        }
         regionCode <- map["regionCode"]
+        
+        videoId <- map["snippet.resourceId.videoId"]
+        guard videoId.isEmpty else {
+            return
+        }
+        
+        videoId <- map["contentDetails.videoId"]
+        guard videoId.isEmpty  else {
+            return
+        }
+        
+        videoId <- map["contentDetails.upload.videoId"]
+        guard videoId.isEmpty  else {
+            return
+        }
+        
+        videoId <- map["id.videoId"]
     }
     
 }

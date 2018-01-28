@@ -17,11 +17,9 @@ class BMPlayerCustomControlView: BMPlayerControlView {
     
     weak var delega: BMPlayerCustomControlViewDelegate?
     
-    var playbackRateButton = UIButton(type: .custom)
+    var moreBtn = UIButton(type: .custom)
     
     fileprivate var isSelectecDefitionViewOpened = false
-    
-    var moreBtn = UIButton(type: .custom)
 
     /**
      Override if need to customize UI components
@@ -33,20 +31,32 @@ class BMPlayerCustomControlView: BMPlayerControlView {
         bottomMaskView.backgroundColor = UIColor.black.withAlphaComponent(0.4)
         timeSlider.setThumbImage(#imageLiteral(resourceName: "Pod_Asset_BMPlayer_slider_thumb") , for: .normal)
         
-        topMaskView.addSubview(playbackRateButton)
+        topMaskView.addSubview(moreBtn)
         
-        playbackRateButton.setTitleColor(UIColor ( red: 1.0, green: 1.0, blue: 1.0, alpha: 0.9 ), for: .normal)
-        playbackRateButton.setImage(#imageLiteral(resourceName: "ic_more_vert_white"), for: .normal)
-        playbackRateButton.addTarget(self, action: #selector(onPlaybackRateButtonPressed), for: .touchUpInside)
-        playbackRateButton.snp.makeConstraints {
-            $0.right.equalTo(chooseDefitionView.snp.left).offset(-5)
-            $0.centerY.equalTo(topMaskView).offset(10)
+        moreBtn.setTitleColor(UIColor ( red: 1.0, green: 1.0, blue: 1.0, alpha: 0.9 ), for: .normal)
+        moreBtn.setImage(#imageLiteral(resourceName: "ic_more_vert_white"), for: .normal)
+        moreBtn.addTarget(self, action: #selector(onPlaybackRateButtonPressed), for: .touchUpInside)
+        moreBtn.snp.makeConstraints {
+            $0.right.equalTo(chooseDefitionView.snp.left)
+            $0.width.equalTo(40)
+            $0.centerY.equalTo(topMaskView)
         }
         
-        chooseDefitionView.snp.makeConstraints { (make) in
+        backButton.snp.updateConstraints { (make) in
+            make.bottom.equalTo(topMaskView).offset(-7)
+        }
+        
+        titleLabel.snp.remakeConstraints { (make) in
+            make.left.equalTo(backButton.snp.right)
+            make.centerY.equalTo(backButton)
+            make.right.equalTo(moreBtn.snp.left)
+        }
 
-            make.top.equalTo(titleLabel.snp.top).offset(-7)
+        chooseDefitionView.snp.updateConstraints { (make) in
+            make.top.equalTo(titleLabel.snp.top).offset(-3)
         }
+        
+        super.updateConstraints()
     }
     
     override func updateUI(_ isForFullScreen: Bool) {
@@ -57,7 +67,7 @@ class BMPlayerCustomControlView: BMPlayerControlView {
         }
     }
     
-//    override func controlViewAnimation(isShow: Bool) {
+    override func controlViewAnimation(isShow: Bool) {
 //        self.isMaskShowing = isShow
 //        UIView.animate(withDuration: 0.24, animations: {
 //
@@ -77,7 +87,24 @@ class BMPlayerCustomControlView: BMPlayerControlView {
 //        }) { (_) in
 //            self.autoFadeOutControlViewWithAnimation()
 //        }
-//    }
+        
+        
+        let alpha: CGFloat = isShow ? 1.0 : 0.0
+        self.isMaskShowing = isShow
+        
+        UIView.animate(withDuration: 0.3, animations: {
+            self.topMaskView.alpha    = alpha
+            self.bottomMaskView.alpha = alpha
+            self.chooseDefitionView.alpha = alpha
+            
+            self.layoutIfNeeded()
+        }) { (_) in
+            if isShow {
+                self.autoFadeOutControlViewWithAnimation()
+            }
+        }
+        
+    }
     
     @objc func onPlaybackRateButtonPressed() {
         delega?.didTapMoreBtn()
