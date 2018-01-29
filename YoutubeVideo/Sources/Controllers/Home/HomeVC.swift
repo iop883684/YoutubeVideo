@@ -82,6 +82,7 @@ class HomeVC: BaseVC {
 
     func getListChannel(){
         
+
         db.collection("playlist").document(regionCode!).getDocument {[weak self] (snapshot, error) in
             
             guard let strongSelf = self else { return }
@@ -93,7 +94,7 @@ class HomeVC: BaseVC {
             }
             
             if error != nil {
-                print("error")
+                print("error:", error?.localizedDescription ?? "")
                 return
             }
             
@@ -101,11 +102,11 @@ class HomeVC: BaseVC {
             
             for snap in snapshot {
                 
-                let title = snap["name"] as! String
-                let id = snap["upload_id"] as! String
+                if let title = snap["name"] as? String,
+                    let id = snap["upload_id"] as? String {
+                    strongSelf.getListVideo(id, title)
+                }
                 
-                strongSelf.getListVideo(id, title)
-//                strongSelf.tableView.reloadData()
             }
  
             
